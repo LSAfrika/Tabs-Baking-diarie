@@ -1,4 +1,104 @@
-.welcome-card ion-img {
-  max-height: 35vh;
-  overflow: hidden;
+ 
+  
+  .TextPosition{
+    position: absolute;
+    top: calc(40% - 25px);
+    font-weight: 300;
+    font-size: 30px;
+    text-align: center;
+    align-content: center;
+    color: #3880ff;
+    display: block;
+    left: 45%;
+   // background: rgba(0, 0, 0, 0.356);
+    width: 50%;
+    right: 50%;
+
+    .ButtonPosition{
+    
+       margin-top: 20px ;
+       margin-bottom: 10px;
+       width:100%;
+       height: 50px;
+    //  left: 50%;
+       border: 2px solid #3880ff;
+       border-radius: 55px;
+       background: rgb(255, 255, 255);
+       color: #3880ff;
+       display: block;
+       text-align: center;
+       align-content: center;
+       object-position: 50%;
+     font-size: 18px;
+     font-weight: 300;
+     line-height: 50px;
+   
+     }
+   
+    
+  }
+ 
+
+  .imageSizeMax{
+    position: relative;
+   width: 40% !important;
+   max-width: 40% !important;
+   display: block;
+   padding: 10px auto;
+   margin-left: 1% auto !important;
+
+  
+
+  }
+
+  .border{
+    // border: .25px solid #3880ff;
+     border-radius: 55px;
+ 
+    }
+
+    .padding{
+      margin-top: 100px !important; 
+      margin-bottom: 100px !important; 
+
+    }
+
+
+    .nonotes{
+      position: relative;
+        align-content: center;
+        text-align: center;
+       top:50%;
+      // left: 10% auto;
+       left: calc(50% - 128px);
+        font-size: 1.5rem;
+        font-weight: 200;
+        display: block;
+        max-width: 256px;
+    
+        color: #0cd1e8;
+      
+       
+    
+    
+    }
+
+
+
+ion-content{
+  --background:rgb(240, 240, 240);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

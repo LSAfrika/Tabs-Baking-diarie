@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>MyRecipes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="dismissModal()">
+        <ion-icon size="large" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- value:{{recipeGroup.value |json}} -->
+  <ion-card [formGroup]="recipeGroup">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item lines="none">
+           <ion-label color="secondary" style="width: 100%">
+             Recepie title
+           </ion-label>
+         
+
+          </ion-item>
+          
+                
+            
+
+        </ion-col>
+        <ion-col size="12">
+            <ion-item lines="none">
+                <ion-input placeholder="recipe title"  formControlName="Title"> </ion-input>
+            </ion-item>
+
+        </ion-col>
+        <ion-col size="12">
+            <ion-item lines="none"  >
+                
+                <ion-label color="secondary"> ingredients </ion-label>
+              </ion-item>
+            </ion-col>
+
+
+            <div formArrayName="Ingredients" style="width: 100%">
+            <ion-col size="12" ion-no-padding>
+              <ion-item lines="inset"  *ngFor="let ingredient of IngredientsArray.controls; let i =index" [formGroupName]="i">
+              
+                  <ion-input placeholder=""  formControlName="ingredient"> {{i+1. }} </ion-input>
+                  <ion-icon button (click)="deleteIngredientsSchema()" slot="end" name="trash" color="secondary"></ion-icon>
+
+              
+                </ion-item>
+              </ion-col>
+            </div>
+
+              <ion-button  color="secondary" shape="round" (click)="AddIngredientsSchema()">
+                <ion-icon slot="start" name="add" >
+
+                </ion-icon>
+                <ion-label>add</ion-label>
+              </ion-button>
+
+       
+
+        <ion-col size="12">
+            <ion-item lines="none"  >
+                
+                <ion-label color="secondary"> procedure </ion-label>
+              </ion-item>
+            </ion-col>
+            <div formArrayName="Procedures" style="width: 100%">
+            <ion-col size="12" ion-no-padding >
+              
+              <ion-item lines="none" *ngFor="let procedure of ProcedureArray.controls; let i =index" [formGroupName]="i" >
+                    <ion-input  placeholder="step. {{i+1}}"  formControlName="procedure">  </ion-input>
+                     <ion-icon button (click)="deleteProcedureSchema()" slot="end" name="trash" color="secondary"></ion-icon>
+                  
+                  </ion-item>
+                </ion-col>
+                </div>
+
+
+
+
+              <ion-button color="secondary" shape="round" (click)="AddProcedureSchema()">
+                  <ion-icon slot="start" name="add" >
+  
+                  </ion-icon>
+                  <ion-label>add</ion-label>
+                </ion-button>
+
+       
+      </ion-row>
+
+    </ion-grid>
+     
+
+  </ion-card>
+  
+
+</ion-content>

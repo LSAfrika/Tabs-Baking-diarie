@@ -1,5 +1,7 @@
 {
   "name": "Baking trends kenya",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

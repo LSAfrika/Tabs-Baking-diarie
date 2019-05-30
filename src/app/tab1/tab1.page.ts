@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MyRecipesPage } from './../my-recipes/my-recipes.page';
 import { ModalController } from '@ionic/angular';
 
@@ -7,26 +7,40 @@ import { ModalController } from '@ionic/angular';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit {
 
-  constructor(private FormModal:ModalController){}
+  constructor(private FormModal: ModalController ) {}
 
   IsActive=true;
   Tab1=false;
   Tab2=true;
   vanilla='vanilla cake'
 
-  StateToggler(state:boolean)
+  ngOnInit() {
+   
+
+  }
+
+  ionViewWillEnter(){
+    this. Tab1=false;
+    this. Tab2=true;
+   this. IsActive=true;
+   
+  }
+
+  StateToggler(state: boolean )
   {
     if(state){
      this. Tab1=false;
      this. Tab2=true;
+     this. IsActive=true;
 
     }
     
     else{
       this. Tab1=true;
       this. Tab2=false;
+      this. IsActive=false;
 
     }
    

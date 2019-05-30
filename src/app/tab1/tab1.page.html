@@ -1,20 +1,30 @@
- <ion-header>
-  <ion-toolbar color="secondary" >
- <!-- <ion-searchbar *ngIf="IsActive"  placeholder="search recepie" ></ion-searchbar> -->
+ <!-- <ion-header >
+  <ion-toolbar color="secondary" >  -->
+<!-- <ion-grid >
+  <ion-row>
+    <ion-col> -->
 
- <ion-segment  >
-  <ion-segment-button [checked]="IsActive"  (click)="StateToggler(true)">
-    <ion-icon name="book"> </ion-icon>
-    <ion-label>recipes</ion-label>
-  </ion-segment-button>
-  <ion-segment-button  [checked]="!IsActive" (click)="StateToggler(false)">
-    <ion-icon name="bookmark"></ion-icon>
-    <ion-label>my recipes</ion-label>
-  </ion-segment-button>
-</ion-segment>  
+        <ion-segment  color="secondary">
+            <ion-segment-button [checked]="IsActive"  (click)="StateToggler(true)">
+              <ion-icon name="book"> </ion-icon>
+              <ion-label>recipes</ion-label>
+            </ion-segment-button>
+            <ion-segment-button  [checked]="!IsActive" (click)="StateToggler(false)">
+              <ion-icon name="bookmark"></ion-icon>
+              <ion-label>my recipes</ion-label>
+            </ion-segment-button>
+
+          </ion-segment> 
+ <!-- <ion-searchbar [hidden]="Tab1"  placeholder="search recepie" ></ion-searchbar> -->
+
+
+    <!-- </ion-col>
+  </ion-row>
+</ion-grid>
+  -->
  
-  </ion-toolbar>
-</ion-header> 
+ <!-- </ion-toolbar> 
+</ion-header>  -->
 
 
 

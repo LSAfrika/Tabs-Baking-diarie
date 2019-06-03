@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [appScrollVanishDirective] ="scrollArea">
   <ion-toolbar >
     <ion-title color="secondary">
       Tab Two
@@ -6,8 +6,27 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content  #scrollArea [scrollEvents]="true">
+
+    <ion-card   *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"  >
+      <ion-card-title>hello world</ion-card-title>
+      <ion-card-content>
+        <p>
+            (anonymous) @ main.js:1
+            common.js:290 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator
+            cordovaWarn @ common.js:290
+            checkAvailability @ common.js:146
+            callCordovaPlugin @ common.js:232
+            (anonymous) @ common.js:315
+            cordova @ cordova.js:3
+            push../node_modules/@ionic-native/splash-screen/ngx/index.js.SplashScreen.hide @ index.js:28
+            (anonymous) @ app.component.ts:23
+            push../node_modules/zone.js/dist/zone.js.ZoneDelegate.invoke @ zone.js:391
+            onInvoke @ core.js:17299
+
+            </p>
+      </ion-card-content>
+    </ion-card>
 
 
-
-</ion-content>
+</ion-content >

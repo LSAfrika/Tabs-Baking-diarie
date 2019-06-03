@@ -1,10 +1,7 @@
- <!-- <ion-header >
-  <ion-toolbar color="secondary" >  -->
-<!-- <ion-grid >
-  <ion-row>
-    <ion-col> -->
-
-        <ion-segment  color="secondary">
+      
+      
+      <ion-segment  color="secondary" [appScrollVanishDirective] ="scrollArea"  >
+        <!-- -->
             <ion-segment-button [checked]="IsActive"  (click)="StateToggler(true)">
               <ion-icon name="book"> </ion-icon>
               <ion-label>recipes</ion-label>
@@ -14,25 +11,15 @@
               <ion-label>my recipes</ion-label>
             </ion-segment-button>
 
-          </ion-segment> 
- <!-- <ion-searchbar [hidden]="Tab1"  placeholder="search recepie" ></ion-searchbar> -->
-
-
-    <!-- </ion-col>
-  </ion-row>
-</ion-grid>
-  -->
- 
- <!-- </ion-toolbar> 
-</ion-header>  -->
+          </ion-segment>
 
 
 
 
 
 
-
-<ion-content >
+<ion-content  #scrollArea [scrollEvents]="true" >
+  <!--  -->
 
   <div [hidden]="Tab1">
 

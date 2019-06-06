@@ -10,16 +10,16 @@ import { Title } from '@angular/platform-browser';
 export class GlobalServiceService {
 
   AppRecipies: RecepieInterface[] = [];
-  ViewRecipie:RecepieInterface;
+  ViewRecipie: RecepieInterface;
 
   constructor() {
 
- 
+
 
 
    }
 
-   loadAppRecipies(){
+   loadAppRecipies() {
     this.AppRecipies.push(
       {
         title: 'Chocolate Cake',
@@ -198,7 +198,7 @@ export class GlobalServiceService {
 
       }
 
-    )
+    );
 
    // console.log(this.AppRecipies);
 
@@ -206,11 +206,12 @@ export class GlobalServiceService {
    }
 
 
-   loadSpecificRecipe(Title:string){
-    this.ViewRecipie=this.AppRecipies.find(
-      filteredRecipe=>   filteredRecipe.title === Title
+// tslint:disable-next-line: no-shadowed-variable
+   loadSpecificRecipe(Title: string) {
+    this.ViewRecipie = this.AppRecipies.find(
+      filteredRecipe =>   filteredRecipe.title === Title
       );
-    console.log(this.ViewRecipie);
+
 
    }
 

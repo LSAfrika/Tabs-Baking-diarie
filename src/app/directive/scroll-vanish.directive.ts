@@ -1,10 +1,10 @@
-import { Directive, Input, ElementRef, Renderer2, OnInit } from '@angular/core';
+import { Directive, Input, ElementRef, Renderer2, OnInit, AfterViewInit } from '@angular/core';
 import { DomController } from '@ionic/angular';
 
 @Directive({
   selector: '[appScrollVanish]'
 })
-export class ScrollVanishDirective {
+export class ScrollVanishDirective implements OnInit, AfterViewInit {
   @Input('appScrollVanish') scrollArea;
 
   private hidden: boolean = false;
@@ -16,9 +16,11 @@ export class ScrollVanishDirective {
     private domCtrl: DomController
   ) {}
 
+
+
   ngOnInit() {
     this.initStyles();
-
+    console.log(`before`+ this.element.nativeElement.clientHeight);
     this.scrollArea.ionScroll.subscribe(scrollEvent => {
       let delta = scrollEvent.detail.deltaY;
 
@@ -30,6 +32,11 @@ export class ScrollVanishDirective {
         this.show();
       }
     });
+  }
+
+  ngAfterViewInit(){
+    console.log(`after`+ this.element.nativeElement.clientHeight);
+
   }
 
   initStyles() {

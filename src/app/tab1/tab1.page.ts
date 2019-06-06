@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MyRecipesPage } from './../my-recipes/my-recipes.page';
+import {RecepieviewPage} from './../recepieview/recepieview.page';
 import { ModalController } from '@ionic/angular';
+import { GlobalServiceService } from '../services/global-service.service';
 
 @Component({
   selector: 'app-tab1',
@@ -9,7 +11,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class Tab1Page implements OnInit {
 
-  constructor(private FormModal: ModalController ) {}
+  constructor(private FormModal: ModalController,public GService:GlobalServiceService ) {}
 
   IsActive=true;
   Tab1=false;
@@ -17,7 +19,7 @@ export class Tab1Page implements OnInit {
   vanilla='vanilla cake'
 
   ngOnInit() {
-   
+ this.GService.loadAppRecipies();
 
   }
 
@@ -55,6 +57,25 @@ export class Tab1Page implements OnInit {
 
     });
     await newrecepie.present();
+  }
+
+
+  ViewRecepie(title:string )
+  {
+    this.GService.loadSpecificRecipe(title);
+    this.PresentRecepieModal();
+  }
+
+
+  async PresentRecepieModal()
+  {
+
+    const View = await this.FormModal.create({
+      component:RecepieviewPage,
+      backdropDismiss:false,
+
+    });
+    await View.present();
   }
   
 }

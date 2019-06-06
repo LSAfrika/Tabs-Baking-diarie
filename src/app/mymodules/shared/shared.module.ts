@@ -1,19 +1,21 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ScrollVanishDirectiveDirective } from 'src/app/directives/scroll-vanish-directive.directive';
+import { ScrollVanishDirective } from 'src/app/directive/scroll-vanish.directive';
+
 
 
 
 @NgModule({
-  declarations:[
-    ScrollVanishDirectiveDirective
+  declarations: [
+    ScrollVanishDirective
 
   ],
   imports: [
     CommonModule
   ],
-  exports:[ScrollVanishDirectiveDirective]
+  exports: [ScrollVanishDirective
+  ]
 
 })
 export class SharedModule { }

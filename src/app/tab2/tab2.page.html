@@ -1,4 +1,5 @@
-<ion-header [appScrollVanishDirective] ="scrollArea">
+<ion-header  [appScrollVanish]="scrollArea">
+  <!-- [appScrollVanishDirective] ="scrollArea" -->
   <ion-toolbar >
     <ion-title color="secondary">
       Tab Two
@@ -6,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content  #scrollArea [scrollEvents]="true">
+<ion-content  #scrollArea scrollEvents="true" >
 
     <ion-card   *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"  >
       <ion-card-title>hello world</ion-card-title>

@@ -1,6 +1,7 @@
       
       
-      <ion-segment  color="secondary" [appScrollVanishDirective] ="scrollArea"  >
+      <ion-segment  color="secondary"  [appScrollVanish]="scrollArea"  >
+        <!--  > -->
         <!-- -->
             <ion-segment-button [checked]="IsActive"  (click)="StateToggler(true)">
               <ion-icon name="book"> </ion-icon>
@@ -18,8 +19,8 @@
 
 
 
-<ion-content  #scrollArea [scrollEvents]="true" >
-  <!--  -->
+<ion-content #scrollArea scrollEvents="true"  >
+  <!--   -->
 
   <div [hidden]="Tab1">
 

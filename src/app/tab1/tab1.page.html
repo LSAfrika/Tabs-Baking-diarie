@@ -1,8 +1,8 @@
       
+      <ion-header hidenav-header>
+        <ion-toolbar  class="ion-no-padding">
+       <ion-segment  color="secondary"  class="ion-no-padding" >
       
-      <ion-segment  color="secondary"  [appScrollVanish]="scrollArea"  >
-        <!--  > -->
-        <!-- -->
             <ion-segment-button [checked]="IsActive"  (click)="StateToggler(true)">
               <ion-icon name="book"> </ion-icon>
               <ion-label>recipes</ion-label>
@@ -12,23 +12,25 @@
               <ion-label>my recipes</ion-label>
             </ion-segment-button>
 
-          </ion-segment>
+          </ion-segment> 
+          <!-- <div class="maxsize">
+          <img class="radius" src="/assets/cakes/chocolate.jpg">
+            
+          </div> -->
+        </ion-toolbar>
+        </ion-header>
 
 
 
 
 
-
-<ion-content #scrollArea scrollEvents="true"  >
-  <!--   -->
+<ion-content  hidenav-content>
+  <!--  #scrollArea scrollEvents="true"   -->
 
   <div [hidden]="Tab1">
 
     <ion-card   *ngFor="let recipes of GService.AppRecipies"   >
-   
-    
-      
-    
+
   <ion-item lines="none" >
       <div class="imageSizeMax">
           <img class="border" [src]="recipes.imageUrl">
@@ -53,16 +55,18 @@
 
   </div>
 
-  <div [hidden]="Tab2"class="nonotes">
-    add your Recepies
+  <div [hidden]="Tab2" class="Expand">
+    <div class="nonotes">
+        add your Recepies
+    </div>
+    
 
   
   </div> 
 
     <br class="padding"/>
     <br class="padding"/>
-    <br class="padding"/>
-    <br class="padding"/>
+    
     
     
     

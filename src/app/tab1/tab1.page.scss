@@ -69,7 +69,7 @@
 
 
 ion-content{
-  --background:rgb(201, 201, 201);
+  --background:rgb(201, 201, 201,0.5);
 }
 
 
@@ -80,7 +80,7 @@ ion-content{
   height: 100%;
   display: block;
   position: relative;
-  .nonotes{
+  .notes{
     text-align: center;
     display: block;
     position: relative;
@@ -88,7 +88,7 @@ ion-content{
     
     top: 50%;
     font-size: 24px;
-    font-weight: 400;
+    font-weight: 300;
     
         color: #0cd1e8;
   

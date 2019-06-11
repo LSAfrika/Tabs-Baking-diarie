@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RecepieInterface } from '../interfaces/recepie-interface';
-import { Console } from '@angular/core/src/console';
-import { Title } from '@angular/platform-browser';
+import {Storage} from '@ionic/storage';
 
 
 @Injectable({
@@ -12,13 +11,18 @@ export class GlobalServiceService {
   AppRecipies: RecepieInterface[] = [];
   ViewRecipie: RecepieInterface;
 
-  constructor() {
+  personalRecipies: RecepieInterface[] = [];
+  KEY = 'personal recipes';
+  personalState: boolean =false;
+
+  constructor(public PersonalStorage: Storage) {
 
 
 
 
    }
 
+   //#region  DefaultRecepies
    loadAppRecipies() {
     this.AppRecipies.push(
       {
@@ -32,7 +36,7 @@ export class GlobalServiceService {
                      ' 1 3/4 teaspoons baking powder ',
                      ' 1/2 cup milk'
                     ],
-      Methodology: [' Preheat oven to 350 degrees F (175 degrees C)',
+      procedure: [' Preheat oven to 350 degrees F (175 degrees C)',
        'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners In a medium bowl',
        ' cream together the sugar and butter Beat in the eggs one at a time then stir in the vanilla',
         'Combine flour and baking powder, add to the creamed mixture and mix well.',
@@ -54,7 +58,7 @@ export class GlobalServiceService {
                      ' 1 3/4 teaspoons baking powder ',
                      ' 1/2 cup milk'
                     ],
-      Methodology: [' Preheat oven to 350 degrees F (175 degrees C)',
+      procedure: [' Preheat oven to 350 degrees F (175 degrees C)',
        'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners In a medium bowl',
        ' cream together the sugar and butter Beat in the eggs one at a time then stir in the vanilla',
         'Combine flour and baking powder, add to the creamed mixture and mix well.',
@@ -76,7 +80,7 @@ export class GlobalServiceService {
                      ' 1 3/4 teaspoons baking powder ',
                      ' 1/2 cup milk'
                     ],
-      Methodology: [' Preheat oven to 350 degrees F (175 degrees C)',
+      procedure: [' Preheat oven to 350 degrees F (175 degrees C)',
        'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners In a medium bowl',
        ' cream together the sugar and butter Beat in the eggs one at a time then stir in the vanilla',
         'Combine flour and baking powder, add to the creamed mixture and mix well.',
@@ -98,7 +102,7 @@ export class GlobalServiceService {
                      ' 1 3/4 teaspoons baking powder ',
                      ' 1/2 cup milk'
                     ],
-      Methodology: [' Preheat oven to 350 degrees F (175 degrees C)',
+      procedure: [' Preheat oven to 350 degrees F (175 degrees C)',
        'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners In a medium bowl',
        ' cream together the sugar and butter Beat in the eggs one at a time then stir in the vanilla',
         'Combine flour and baking powder, add to the creamed mixture and mix well.',
@@ -120,7 +124,7 @@ export class GlobalServiceService {
                      ' 1 3/4 teaspoons baking powder ',
                      ' 1/2 cup milk'
                     ],
-      Methodology: [' Preheat oven to 350 degrees F (175 degrees C)',
+      procedure: [' Preheat oven to 350 degrees F (175 degrees C)',
        'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners In a medium bowl',
        ' cream together the sugar and butter Beat in the eggs one at a time then stir in the vanilla',
         'Combine flour and baking powder, add to the creamed mixture and mix well.',
@@ -142,7 +146,7 @@ export class GlobalServiceService {
                      ' 1 3/4 teaspoons baking powder ',
                      ' 1/2 cup milk'
                     ],
-      Methodology: [' Preheat oven to 350 degrees F (175 degrees C)',
+      procedure: [' Preheat oven to 350 degrees F (175 degrees C)',
        'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners In a medium bowl',
        ' cream together the sugar and butter Beat in the eggs one at a time then stir in the vanilla',
         'Combine flour and baking powder, add to the creamed mixture and mix well.',
@@ -164,7 +168,7 @@ export class GlobalServiceService {
                      ' 1 3/4 teaspoons baking powder ',
                      ' 1/2 cup milk'
                     ],
-      Methodology: [' Preheat oven to 350 degrees F (175 degrees C)',
+      procedure: [' Preheat oven to 350 degrees F (175 degrees C)',
        'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners In a medium bowl',
        ' cream together the sugar and butter Beat in the eggs one at a time then stir in the vanilla',
         'Combine flour and baking powder, add to the creamed mixture and mix well.',
@@ -186,7 +190,7 @@ export class GlobalServiceService {
                      ' 1 3/4 teaspoons baking powder ',
                      ' 1/2 cup milk'
                     ],
-      Methodology: [' Preheat oven to 350 degrees F (175 degrees C)',
+      procedure: [' Preheat oven to 350 degrees F (175 degrees C)',
        'Grease and flour a 9x9 inch pan or line a muffin pan with paper liners In a medium bowl',
        ' cream together the sugar and butter Beat in the eggs one at a time then stir in the vanilla',
         'Combine flour and baking powder, add to the creamed mixture and mix well.',
@@ -204,6 +208,7 @@ export class GlobalServiceService {
 
 
    }
+   //#endregion
 
 
 // tslint:disable-next-line: no-shadowed-variable
@@ -214,5 +219,63 @@ export class GlobalServiceService {
 
 
    }
+
+   loadSpecificPersonalRecipe(Title: string) {
+    this.ViewRecipie = this.personalRecipies.find(
+      filteredRecipe =>   filteredRecipe.title === Title
+      );
+    console.log(this.ViewRecipie);
+
+   }
+
+   loadPersonalRecepies() {
+    this.PersonalStorage.get(this.KEY).then((savedrecepies) => {
+
+       if (savedrecepies === null) {
+         console.log('array is empty');
+         return  this.personalRecipies = [];
+       } else {
+        console.log(this.personalRecipies);
+        console.log(this.AppRecipies);
+        return this.personalRecipies = savedrecepies;
+
+       }
+
+     }).catch(err => {
+      console.log(err);
+
+     }
+
+
+     );
+
+
+   }
+
+   savePersonalRecepies(NewRecepie): RecepieInterface[] {
+     this.personalRecipies.push(NewRecepie);
+     this.PersonalStorage.set(this.KEY, this.personalRecipies).then((savedrecepies) => {
+      this.personalRecipies = savedrecepies;
+
+    }).catch(err => {
+     console.log(err);
+     return null;
+    });
+
+     return this.personalRecipies;
+
+   }
+
+ Ispersonalrecepie(personal:boolean):boolean{
+   if(personal=== true)
+   {
+    this.personalState=true;
+   }else {
+     this.personalState=false;
+
+   }
+
+   return this.personalState;
+ }
 
 }

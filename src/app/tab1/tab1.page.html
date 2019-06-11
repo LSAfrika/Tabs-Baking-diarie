@@ -1,22 +1,19 @@
       
       <ion-header hidenav-header >
-        <ion-toolbar  >
-       <ion-segment    >
+        <ion-toolbar color="primary"  >
+       <ion-segment   >
       
             <ion-segment-button [checked]="IsActive"  (click)="StateToggler(true)">
-              <ion-icon name="book"> </ion-icon>
+              <ion-icon name="filing"> </ion-icon>
               <ion-label style=" text-transform: lowercase;">recipes</ion-label>
             </ion-segment-button>
             <ion-segment-button  [checked]="!IsActive" (click)="StateToggler(false)">
-              <ion-icon name="bookmark"></ion-icon>
+              <ion-icon name="bookmarks"></ion-icon>
               <ion-label style=" text-transform: lowercase;">my recipes</ion-label>
             </ion-segment-button>
 
           </ion-segment> 
-          <!-- <div class="maxsize">
-          <img class="radius" src="/assets/cakes/chocolate.jpg">
-            
-          </div> -->
+         
         </ion-toolbar>
         </ion-header>
 
@@ -39,10 +36,10 @@
         
       <ion-row>
         <ion-col size="12">
-            <ion-label text-center  style="color:#0cd2e8;font-weight: 300">{{recipes.title}}</ion-label>
+            <ion-label text-center  style="color:#5576fb;font-weight: 400">{{recipes.title}}</ion-label>
         </ion-col>
         <ion-col size="12">
-            <ion-button color="secondary" shape="round" expand="block" (click)="ViewRecepie(recipes.title)" style=" text-transform: lowercase;font-weight: 300;" >view recipe </ion-button>
+            <ion-button color="primary" shape="round" expand="block" (click)="ViewRecepie(recipes.title,false)" style=" text-transform: lowercase;font-weight: 300;" >view recipe </ion-button>
           </ion-col>
       </ion-row>
         
@@ -56,10 +53,40 @@
   </div>
 
   <div [hidden]="Tab2" class="Expand">
-    <div class="notes">
+    <div *ngIf="GService.personalRecipies && GService.personalRecipies.length===0"  class="notes">
         add your Recepies
     </div>
-    
+    <div >
+      <ion-card   *ngFor="let recipes of GService.personalRecipies"   >
+
+        <ion-item lines="none" >
+            <div class="imageSizeMax">
+                <img class="border" src="/assets/cakes/chocolate.jpg">
+              </div>
+      
+              
+            <ion-row>
+              <ion-col size="12">
+                  <ion-label text-center  style="color:#5576fb;font-weight: 400">{{recipes.title}}</ion-label>
+              </ion-col>
+              <ion-col size="12">
+                  <ion-button color="primary" 
+                  shape="round" expand="block" 
+                   style=" text-transform: lowercase;font-weight: 300;"
+                   (click)="ViewPersonalRecepie(recipes.title,true)"
+                    >
+                    view recipe </ion-button>
+                </ion-col>
+            </ion-row>
+              
+            </ion-item>
+      
+      
+       
+           
+          </ion-card>
+
+    </div>
 
   
   </div> 
@@ -71,7 +98,7 @@
     
     
     <ion-fab [hidden]="Tab2" vertical="bottom" horizontal="end" slot="fixed" size="large">
-        <ion-fab-button color="secondary" (click)="createForm()">
+        <ion-fab-button color="primary" (click)="createForm()">
           
           <ion-icon color="light" name="add" size="128"></ion-icon>
         </ion-fab-button>

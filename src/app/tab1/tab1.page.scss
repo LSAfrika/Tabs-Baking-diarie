@@ -30,7 +30,7 @@
        align-content: center;
        object-position: 50%;
      font-size: 18px;
-     font-weight: 300;
+     font-weight: 400;
      line-height: 50px;
    
      }
@@ -52,9 +52,10 @@
   }
 
   .border{
+
     // border: .25px solid #3880ff;
-     border-radius: 55px;
- 
+     border-radius: 95px;
+     
     }
 
     .padding{
@@ -69,7 +70,7 @@
 
 
 ion-content{
-  --background:rgb(201, 201, 201,0.5);
+  --background:rgb(201, 201, 201);
 }
 
 
@@ -88,9 +89,9 @@ ion-content{
     
     top: 50%;
     font-size: 24px;
-    font-weight: 300;
+    font-weight: 400;
     
-        color: #0cd1e8;
+        color: #5576fb;
   
     }
 }

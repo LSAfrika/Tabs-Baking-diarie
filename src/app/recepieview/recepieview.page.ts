@@ -10,15 +10,17 @@ import { GlobalServiceService } from '../services/global-service.service';
 })
 export class RecepieviewPage implements OnInit {
 
-  IsActive = true;
-  Tab1 = false;
-  Tab2 = true;
-  RecipeView:RecepieInterface;
+  
+  RecipeView: RecepieInterface;
+  IsPersonalRecipe= false;
 
   constructor(private modal: ModalController,public GService:GlobalServiceService) { }
 
   ngOnInit() {
     this.RecipeView=this.GService.ViewRecipie;
+    this.IsPersonalRecipe = this.GService.personalState;
+
+    console.log(this.IsPersonalRecipe);
 
   }
 
@@ -26,19 +28,6 @@ export class RecepieviewPage implements OnInit {
     this.modal.dismiss();
   }
 
-  StateToggler(state: boolean ) {
-    if (state) {
-     this. Tab1 = false;
-     this. Tab2 = true;
-     this. IsActive = true;
-
-    } else {
-      this. Tab1 = true;
-      this. Tab2 = false;
-      this. IsActive = false;
-
-    }
-
-  }
+ 
 
 }

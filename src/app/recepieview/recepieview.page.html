@@ -1,5 +1,5 @@
-<ion-header hidenav-header >
-    <ion-toolbar style="text-align: center; --background:#0cd2e8;color:white">
+<ion-header  >
+    <ion-toolbar style="text-align: center; --background:#5576fb;color:white">
     
             <div class="maxsize">
                 <img class="radius" [src]="RecipeView.imageUrl">
@@ -17,39 +17,74 @@
 
         
        
-<ion-content hidenav-content  >
-    
+<ion-content >
+    <div [hidden]="IsPersonalRecipe">
 <ion-card>
   
     <!-- <img class="imageSizeMax" [src]="RecipeView.imageUrl"> -->
   
    <!-- <div [hidden]="IsActive"> -->
-    <ion-card-title text-center style="color:#0cd2e8; text-decoration: underline;">
+    <ion-card-title text-center style="color:#5576fb; text-decoration: underline;">
       <strong>
         ingredients
     </strong>  
   </ion-card-title>
   
     <ion-list>
-    <ion-item *ngFor="let ingredients of RecipeView.ingredients; let i=index" style="font-weight: 300;" >
+    <ion-item *ngFor="let ingredients of RecipeView.ingredients; let i=index" style="font-weight: 350;" >
      {{i+1}}. {{ingredients}}
     </ion-item>
   </ion-list>
  <!-- </div> -->
  <!-- <div [hidden]="!IsActive"> -->
-  <ion-card-title text-center style="color:#0cd2e8; text-decoration: underline;">
+  <ion-card-title text-center style="color:#5576fb; text-decoration: underline;">
     <strong>
       procedure
   </strong>  
 </ion-card-title>
   
   <ion-list>
-  <ion-item *ngFor="let procedure of RecipeView.Methodology; let i=index" style="font-weight: 300;">
+  <ion-item *ngFor="let procedure of RecipeView.procedure; let i=index" style="font-weight: 350;">
    {{i+1}} - {{procedure}}
   </ion-item>
 </ion-list>
 <!-- </div> -->
 </ion-card>
+</div>
+
+<div [hidden]="!IsPersonalRecipe">
+<ion-card>
+  
+  <!-- <img class="imageSizeMax" [src]="RecipeView.imageUrl"> -->
+
+ <!-- <div [hidden]="IsActive"> -->
+  <ion-card-title text-center style="color:#5576fb; text-decoration: underline;">
+    <strong>
+      ingredients
+  </strong>  
+</ion-card-title>
+
+  <ion-list>
+  <ion-item *ngFor="let ingredients of RecipeView.ingredients; let i=index" style="font-weight: 350;" >
+   {{i+1}}. {{ingredients|json}}
+  </ion-item>
+</ion-list>
+<!-- </div> -->
+<!-- <div [hidden]="!IsActive"> -->
+<ion-card-title text-center style="color:#5576fb; text-decoration: underline;">
+  <strong>
+    procedure
+</strong>  
+</ion-card-title>
+
+<ion-list>
+<ion-item *ngFor="let procedure of RecipeView.procedure; let i=index" style="font-weight: 350;">
+ {{i+1}} - {{procedure|json}}
+</ion-item>
+</ion-list>
+<!-- </div> -->
+</ion-card>
+</div>
 <br class="break">
 <br class="break">
 <br class="break">

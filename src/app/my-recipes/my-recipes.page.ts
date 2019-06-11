@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { FormGroup,FormBuilder,FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { GlobalServiceService } from '../services/global-service.service';
 
 @Component({
   selector: 'app-my-recipes',
@@ -14,8 +15,8 @@ export class MyRecipesPage implements OnInit {
 
 
 
-  constructor(private modal: ModalController, private fb: FormBuilder) {
-   
+  constructor(private modal: ModalController, private fb: FormBuilder, public GService: GlobalServiceService) {
+
 
 
   }
@@ -23,64 +24,67 @@ export class MyRecipesPage implements OnInit {
 
   ngOnInit() {
     this.recipeGroup = this.fb.group({
-      Title:'',
-      Ingredients:this.fb.array([]),
-      Procedures:this.fb.array([]),
+      title: '',
+      ingredients: this.fb.array([]),
+      procedure: this.fb.array([]),
 
 
     });
 
-    this.recipeGroup.valueChanges.subscribe(console.log);
+   // this.recipeGroup.valueChanges.subscribe(console.log);
   }
 
-  get IngredientsArray(){
-    return this.recipeGroup.get('Ingredients') as FormArray;
+  get IngredientsArray() {
+    return this.recipeGroup.get('ingredients') as FormArray;
   }
 
-  get ProcedureArray(){
-    return this.recipeGroup.get('Procedures') as FormArray;
+  get ProcedureArray() {
+    return this.recipeGroup.get('procedure') as FormArray;
   }
 
-  AddIngredientsSchema(){
-    const ingredients= this.fb.group({
-      ingredient:''
+  AddIngredientsSchema() {
+    const ingredients = this.fb.group({
+     ingredient: ''
 
-    })
+    });
 
     this.IngredientsArray.push(ingredients);
 
   }
-deleteIngredientsSchema(i)
-{
+deleteIngredientsSchema(i) {
   this.IngredientsArray.removeAt(i);
 
 }
 
 
 
-  AddProcedureSchema(){
+  AddProcedureSchema() {
 
-    const procedures= this.fb.group({
-      procedure:''
+    const procedures = this.fb.group({
+      procedure: ''
 
-    })
+    });
 
     this.ProcedureArray.push(procedures);
 
   }
-  deleteProcedureSchema(i){
+  deleteProcedureSchema(i) {
     this.ProcedureArray.removeAt(i);
 
   }
 
- 
+
+
+  SavePersonalRecipe(personalRecipe) {
+    this.GService.savePersonalRecepies(personalRecipe);
+  }
 
 
 
 
-  dismissModal()
-  {
+  dismissModal() {
     this.modal.dismiss();
+    this.GService.loadPersonalRecepies();
   }
 
 }

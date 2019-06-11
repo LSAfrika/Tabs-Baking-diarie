@@ -66,7 +66,7 @@
 
   <ion-list>
   <ion-item *ngFor="let ingredients of RecipeView.ingredients; let i=index" style="font-weight: 350;" >
-   {{i+1}}. {{ingredients|json}}
+   {{i+1}}. {{ingredients.ingredient}}
   </ion-item>
 </ion-list>
 <!-- </div> -->
@@ -79,7 +79,7 @@
 
 <ion-list>
 <ion-item *ngFor="let procedure of RecipeView.procedure; let i=index" style="font-weight: 350;">
- {{i+1}} - {{procedure|json}}
+ {{i+1}} - {{procedure.procedure}}
 </ion-item>
 </ion-list>
 <!-- </div> -->

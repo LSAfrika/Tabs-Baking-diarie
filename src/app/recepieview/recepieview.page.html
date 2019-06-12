@@ -32,7 +32,7 @@
   
     <ion-list>
     <ion-item *ngFor="let ingredients of RecipeView.ingredients; let i=index" style="font-weight: 350;" >
-     {{i+1}}. {{ingredients}}
+     {{i+1}}. {{ingredients.ingredient}}
     </ion-item>
   </ion-list>
  <!-- </div> -->
@@ -45,7 +45,7 @@
   
   <ion-list>
   <ion-item *ngFor="let procedure of RecipeView.procedure; let i=index" style="font-weight: 350;">
-   {{i+1}} - {{procedure}}
+   {{i+1}} - {{procedure.procedure}}
   </ion-item>
 </ion-list>
 <!-- </div> -->
@@ -93,7 +93,7 @@
 
 
 </ion-content>
-<div class="setpos">
+<div class="setpos" *ngIf="!IsPersonalRecipe">
     <ion-row>
         <ion-col size="8" offset="2">
             <ion-button 
@@ -109,6 +109,40 @@
     </ion-button>
         </ion-col>
       </ion-row>
+
+</div>
+
+
+
+
+<div class="setpos" *ngIf="IsPersonalRecipe" >
+  <ion-row>
+      <ion-col size="5" offset="1" >
+          <ion-button 
+    shape="round" 
+    
+    
+    color="primary"
+    expand="block" 
+    (click)="dismissModal()">
+    <ion-label style="color:white;text-transform: lowercase;">
+      Edit recipe
+    </ion-label>
+  </ion-button>
+      </ion-col>
+
+      <ion-col size="5">
+        <ion-button 
+  shape="round" 
+  color="primary"
+  expand="block" 
+  (click)="dismissModal()">
+  <ion-label style="color:white;text-transform: lowercase;">
+    close recipe
+  </ion-label>
+</ion-button>
+    </ion-col>
+    </ion-row>
 
 </div>
 

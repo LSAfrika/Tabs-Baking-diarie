@@ -34,6 +34,10 @@
             <ion-item lines="none">
                 <ion-input placeholder="recipe title"  formControlName="title"> </ion-input>
             </ion-item>
+            <ion-item *ngIf="RecipeTitle.invalid && RecipeTitle.touched" lines="none">
+              
+              <div class="error"  >please give a title to your recipe </div>
+            </ion-item>
 
         </ion-col>
         <ion-col size="12">
@@ -50,17 +54,29 @@
               
                   <ion-input placeholder=""  formControlName="ingredient"> {{i+1 }}. </ion-input>
                   <ion-icon button (click)="deleteIngredientsSchema(i)" slot="end" name="trash" color="primary"></ion-icon>
-
+                  <br/>
+                  
               
                 </ion-item>
+                <ion-col size="12" ion-no-padding>
+                  <div class="error" *ngIf="IngredientsArray.invalid && IngredientsArray.touched" >please fill in the field </div>
+  
+                </ion-col>
+                
               </ion-col>
+             
             </div>
 
-              <ion-button  color="primary" shape="round" (click)="AddIngredientsSchema()">
+              <ion-button  [disabled]="IngredientsArray.invalid"
+              color="primary"
+               shape="round"
+                (click)="AddIngredientsSchema()">
                 <ion-icon slot="start" name="add" >
 
                 </ion-icon>
-                <ion-label style=" text-transform: lowercase;font-weight: 500;">add</ion-label>
+                <ion-label style=" text-transform: lowercase;
+                font-weight: 500;
+                ">add</ion-label>
               </ion-button>
 
        
@@ -79,13 +95,17 @@
                      <ion-icon button (click)="deleteProcedureSchema(i)" slot="end" name="trash" color="primary"></ion-icon>
                   
                   </ion-item>
+                  <ion-col size="12" ion-no-padding>
+                    <div class="error" *ngIf="ProcedureArray.invalid && ProcedureArray.touched" >please fill in the field </div>
+    
+                  </ion-col>
                 </ion-col>
                 </div>
 
 
 
                 <ion-col size="12">
-              <ion-button color="primary" shape="round" (click)="AddProcedureSchema()">
+              <ion-button  [disabled]="ProcedureArray.invalid" color="primary" shape="round" (click)="AddProcedureSchema()">
                   <ion-icon slot="start" name="add" >
   
                   </ion-icon>
@@ -99,17 +119,33 @@
     <br class="padding"/>
     <br class="padding"/>
     <br class="padding"/>
-   
+   <!-- enabled button -->
+    <!-- <div *ngIf="ProcedureArray.length >0 && IngredientsArray.length >0  " style="width: 100%" > -->
               <ion-col size="10" offset="1">
                 <ion-button expand="block"
                  shape="round"
                   color="primary"
                    style=" text-transform: lowercase;font-weight: 500;"
-                   (click)="SavePersonalRecipe(recipeGroup.value)">
+                   (click)="SavePersonalRecipe(recipeGroup.value)"
+                   [disabled]="recipeGroup.invalid">
                    save
                   </ion-button>
               </ion-col>
-       
+            <!-- </div> -->
+
+            <!-- disable button -->
+            <!-- <div class="notify" *ngIf="ProcedureArray.length ===0 || IngredientsArray.length ===0 " style="width: 100%" >
+              <ion-col size="10" offset="1">
+                <ion-button expand="block"
+                 shape="round"
+                  color="primary"
+                   style=" text-transform: lowercase;font-weight: 500;"
+                   (click)="SavePersonalRecipe(recipeGroup.value)"
+                   [disabled]="true">
+                   save
+                  </ion-button>
+              </ion-col>
+            </div> -->
       </ion-row>
 
     </ion-grid>

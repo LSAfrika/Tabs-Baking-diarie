@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray,Validators } from '@angular/forms';
 import { GlobalServiceService } from '../services/global-service.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class MyRecipesPage implements OnInit {
 
   ngOnInit() {
     this.recipeGroup = this.fb.group({
-      title: '',
+      title: ['', [Validators.required, Validators.minLength(5)]],
       ingredients: this.fb.array([]),
       procedure: this.fb.array([]),
 
@@ -37,14 +37,18 @@ export class MyRecipesPage implements OnInit {
   get IngredientsArray() {
     return this.recipeGroup.get('ingredients') as FormArray;
   }
+  get RecipeTitle(){
+    return this.recipeGroup.get('title');
+  }
 
   get ProcedureArray() {
     return this.recipeGroup.get('procedure') as FormArray;
   }
 
+  //#region Ingredients schema
   AddIngredientsSchema() {
     const ingredients = this.fb.group({
-     ingredient: ''
+     ingredient: ['', [Validators.required, Validators.minLength(3)]]
 
     });
 
@@ -55,13 +59,13 @@ deleteIngredientsSchema(i) {
   this.IngredientsArray.removeAt(i);
 
 }
+//#endregion
 
-
-
+//#region procedure schema
   AddProcedureSchema() {
 
     const procedures = this.fb.group({
-      procedure: ''
+      procedure: ['', [Validators.required, Validators.minLength(3)]]
 
     });
 
@@ -72,6 +76,7 @@ deleteIngredientsSchema(i) {
     this.ProcedureArray.removeAt(i);
 
   }
+  //#endregion
 
 
 

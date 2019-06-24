@@ -31,4 +31,25 @@ ion-content{
   font-weight: 450; 
  
  }
+
+ .CakeSize{
+   position: relative;
+   display: block;
+   align-content: center;
+   width: 100%;
+   text-align: center;
+   font-weight: 500;
+   .actualimage{
+     position: relative;
+    display: block;
+    align-self: auto;
+    max-width: 128px;
+    max-height: auto;
+    left: calc(50% - 64px);
+    border: 2px solid #5576fb83;
+    border-radius: 95px;
+
+   }
+  
+ }
   

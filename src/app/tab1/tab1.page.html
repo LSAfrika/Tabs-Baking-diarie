@@ -1,5 +1,6 @@
       
-      <ion-header hidenav-header >
+      <!-- <ion-header > -->
+        <!-- hidenav-header  -->
         <ion-toolbar color="primary"  >
        <ion-segment   >
       
@@ -15,16 +16,16 @@
           </ion-segment> 
          
         </ion-toolbar>
-        </ion-header>
+        <!-- </ion-header> -->
 
 
 
 
 
-<ion-content  hidenav-content>
-  <!--  #scrollArea scrollEvents="true"   -->
+<ion-content  >
+  <!--  #scrollArea scrollEvents="true"  hidenav-content -->
 
-  <div [hidden]="Tab1">
+  <div [hidden]="Tab1"  class="Expand">
 
     <ion-card   *ngFor="let recipes of GService.AppRecipies"   >
 
@@ -61,7 +62,9 @@
 
         <ion-item lines="none" >
             <div class="imageSizeMax">
-                <img class="border" src="/assets/cakes/chocolate.jpg">
+              <img *ngIf="recipes.imageUrl !==null"  class="border" src="{{recipes.imageUrl}}" >
+              
+              <img *ngIf="recipes.imageUrl === null" class="border" src="/assets/cakes/cake.jpg">
               </div>
       
               

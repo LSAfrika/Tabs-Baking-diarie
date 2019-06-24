@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content>
-  <!-- value:{{recipeGroup.value |json}} -->
+  value:{{recipeGroup.value |json}}
   <ion-card [formGroup]="recipeGroup">
     <ion-grid>
       <ion-row>
@@ -31,7 +31,7 @@
         
         
         <ion-col size="12">
-            <ion-item lines="none">
+            <ion-item lines="inset">
                 <ion-input placeholder="recipe title"  formControlName="title"> </ion-input>
             </ion-item>
             <ion-item *ngIf="RecipeTitle.invalid && RecipeTitle.touched" lines="none">
@@ -116,22 +116,55 @@
     <br class="padding"/>
     <br class="padding"/>
     <br class="padding"/>
+
+    <!-- IMAGE VIEW -->
+<div class="CakeSize"  >
+ <div *ngIf="ImageUrl.value === null">
+    <img 
+   class="actualimage"
+    src= '/assets/image select/Select Image.png' > 
+ please select an image
+
+ </div>
+ <div *ngIf="ImageUrl.value !== null">
+   <img class="actualimage" src="{{ImageUrl.value}}" >
+   i am not empty
+ 
+
+ </div>
+ 
+</div> 
+<ion-col size="10" offset="1">
+    <ion-button expand="block"
+     shape="round"
+      color="primary"
+       (click)="testValueSet('/assets/cakes/apple.jpg')"
+       >
+      <!-- (click)="presentActionSheet()" -->
+
+       <ion-icon slot="start"  name="images"></ion-icon>
+       <ion-label  style=" text-transform: lowercase;
+       font-weight: 500;">
+       Select image
+      </ion-label>
+      
+      </ion-button>
+  </ion-col>
+
     <br class="padding"/>
     <br class="padding"/>
     <br class="padding"/>
    <!-- enabled button -->
-    <!-- <div *ngIf="ProcedureArray.length >0 && IngredientsArray.length >0  " style="width: 100%" > -->
               <ion-col size="10" offset="1">
                 <ion-button expand="block"
                  shape="round"
                   color="primary"
                    style=" text-transform: lowercase;font-weight: 500;"
                    (click)="SavePersonalRecipe(recipeGroup.value)"
-                   [disabled]="recipeGroup.invalid">
+                   [disabled]="recipeGroup.invalid || IngredientsArray.length===0 || ProcedureArray.length===0">
                    save
                   </ion-button>
               </ion-col>
-            <!-- </div> -->
 
             <!-- disable button -->
             <!-- <div class="notify" *ngIf="ProcedureArray.length ===0 || IngredientsArray.length ===0 " style="width: 100%" >

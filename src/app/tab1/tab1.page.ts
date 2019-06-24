@@ -60,7 +60,7 @@ export class Tab1Page implements OnInit {
     const newrecepie = await this.FormModal.create({
       component: MyRecipesPage,
       backdropDismiss: false,
-      animated: false
+      
     });
     await newrecepie.present();
   }

@@ -1,61 +1,33 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ModalController, AlertController, ActionSheetController, Platform, ToastController } from '@ionic/angular';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { GlobalServiceService } from '../services/global-service.service';
+import {  OnInit, ChangeDetectorRef,Injectable } from '@angular/core';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
+import { ActionSheetController, ToastController, Platform, LoadingController } from '@ionic/angular';
 import { File, FileEntry } from '@ionic-native/file/ngx';
-import { FilePath } from '@ionic-native/file-path/ngx';
-import { Storage } from '@ionic/storage';
+import { HttpClient } from '@angular/common/http';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { Storage } from '@ionic/storage';
+import { FilePath } from '@ionic-native/file-path/ngx';
 
-// DB KEY
+import { finalize } from 'rxjs/operators';
+
 const STORAGE_KEY = 'my_images';
 
-@Component({
-  selector: 'app-my-recipes',
-  templateUrl: './my-recipes.page.html',
-  styleUrls: ['./my-recipes.page.scss'],
+@Injectable({
+  providedIn: 'root'
 })
-export class MyRecipesPage implements OnInit {
+export class ImageGetSetService implements OnInit {
 
-  recipeGroup: FormGroup;
-  cakeImage: any;
   images = [];
+ resPath = '';
 
+  constructor(private camera: Camera, private file: File, private http: HttpClient, private webview: WebView,
+              private actionSheetController: ActionSheetController, private toastController: ToastController,
+              private storage: Storage, private plt: Platform, private loadingController: LoadingController,
+              private ref: ChangeDetectorRef, private filePath: FilePath) { }
 
-  constructor(
-     private ref: ChangeDetectorRef,
-     private toastController: ToastController,
-     private webview: WebView,
-     private file: File,
-     private storage: Storage,
-     private modal: ModalController,
-     private fb: FormBuilder,
-     public GService: GlobalServiceService,
-     private actionSheetController: ActionSheetController,
-     private camera: Camera,
-     private plt: Platform,
-     private filePath: FilePath,
-
-   //  public ImageGSService: ImageGetSetService,
-     private alertController: AlertController
-     ) { }
-
-
-  ngOnInit() {
-    this.recipeGroup = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(5)]],
-      imageUrl: null,
-      ingredients: this.fb.array([]),
-      procedure: this.fb.array([]),
-
-
-    });
-
-    this.recipeGroup.valueChanges.subscribe(console.log);
-    this.plt.ready().then(() => {
-        this.loadStoredImages();
-       });
+    ngOnInit() {
+    // this.plt.ready().then(() => {
+    //   this.loadStoredImages();
+    // });
   }
 
   loadStoredImages() {
@@ -85,96 +57,17 @@ export class MyRecipesPage implements OnInit {
     });
   }
 
-  //#region ALL FORM VALUES
-  get RecipeTitle() {
-    return this.recipeGroup.get('title');
-  }
 
-  get ImageUrl() {
-    return this.recipeGroup.get('imageUrl');
-  }
-
-  get IngredientsArray() {
-    return this.recipeGroup.get('ingredients') as FormArray;
+  pathForImage(img: string) {
+    if (img === null) {
+      return '';
+    } else {
+      const converted = this.webview.convertFileSrc(img);
+      return converted;
+    }
   }
 
 
-  get ProcedureArray() {
-    return this.recipeGroup.get('procedure') as FormArray;
-  }
-
-//#endregion
-
-  //#region Ingredients schema
-  AddIngredientsSchema() {
-    const ingredients = this.fb.group({
-     ingredient: ['', [Validators.required, Validators.minLength(3)]]
-
-    });
-
-    this.IngredientsArray.push(ingredients);
-
-  }
-deleteIngredientsSchema(i) {
-  this.IngredientsArray.removeAt(i);
-
-}
-
-
-//#endregion
-
-//#region procedure schema
-  AddProcedureSchema() {
-
-    const procedures = this.fb.group({
-      procedure: ['', [Validators.required, Validators.minLength(3)]]
-
-    });
-
-    this.ProcedureArray.push(procedures);
-
-  }
-  deleteProcedureSchema(i) {
-    this.ProcedureArray.removeAt(i);
-
-  }
-  //#endregion
-
-  ImageLink(value) {
-    this.recipeGroup.patchValue({
-      imageUrl: value
-
-    } );
-  }
-
-
-  SavePersonalRecipe(personalRecipe) {
-    this.GService.savePersonalRecepies(personalRecipe);
-   // this.ImageLink(this.ImageGSService.resPath);
-    this.alertNotifier();
-    this.recipeGroup.reset();
-
-
-  }
-
-
-  async alertNotifier() {
-    const alert = await this.alertController.create({
-      header: 'succesfully saved',
-      message:  `<strong> ${this.recipeGroup.get('title').value}</strong> has been saved!!!`,
-      backdropDismiss: false,
-      buttons: [
-        {
-          text: 'Okay',
-          handler: () => {
-           this.dismissModal();
-          }
-        }
-      ]
-    });
-  
-    await alert.present();
-  }
   async presentToast(text) {
     const toast = await this.toastController.create({
         message: text,
@@ -183,27 +76,22 @@ deleteIngredientsSchema(i) {
     });
     toast.present();
   }
-  dismissModal() {
-    this.modal.dismiss();
-    this.GService.loadPersonalRecepies();
-  }
-  //#region  PICTURE SECTION
 
-  async launchActionSheet() {
+  async selectImage() {
     const actionSheet = await this.actionSheetController.create({
         header: 'Select Image source',
         buttons: [{
                 text: 'Load from Library',
                 icon: 'images',
                 handler: () => {
-                    this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+                  //  this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
                 }
             },
             {
                 text: 'Use Camera',
                 icon: 'camera',
                 handler: () => {
-                    this.takePicture(this.camera.PictureSourceType.CAMERA);
+                  //  this.takePicture(this.camera.PictureSourceType.CAMERA);
                 }
             },
             {
@@ -216,8 +104,7 @@ deleteIngredientsSchema(i) {
     await actionSheet.present();
 }
 
- // IMAGE SELECTOR
- takePicture(sourceType: PictureSourceType) {
+takePicture(sourceType: PictureSourceType) {
   const options: CameraOptions = {
       quality: 100,
       sourceType: sourceType,
@@ -240,15 +127,6 @@ deleteIngredientsSchema(i) {
       }
   });
 
-}
-
-pathForImage(img: string) {
-  if (img === null) {
-    return '';
-  } else {
-    const converted = this.webview.convertFileSrc(img);
-    return converted;
-  }
 }
 
 createFileName() {
@@ -278,12 +156,11 @@ updateStoredImages(name) {
       }
 
       const filePath = this.file.dataDirectory + name;
-      const resPath = this.pathForImage(filePath);
-      this.ImageLink(resPath);
+      this.resPath = this.pathForImage(filePath);
 
       const newEntry = {
           name: name,
-          path: resPath,
+          path: this.resPath,
           filePath: filePath
       };
 
@@ -307,20 +184,6 @@ deleteImage(imgEntry, position) {
       });
   });
 }
-
-
-
-
-//#endregion
-
-
- 
-
-  // Action sheet
-  
-
-
-
 
 
 

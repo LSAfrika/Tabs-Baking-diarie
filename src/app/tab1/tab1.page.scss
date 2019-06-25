@@ -41,8 +41,8 @@
 
   .imageSizeMax{
     position: relative;
-   width: 40% !important;
-   max-width: 40% !important;
+   min-width: 96px !important;
+   max-width: 96px!important;
    display: block;
    padding: 10px auto;
    margin-left: 1% auto !important;
@@ -57,6 +57,12 @@
      border-radius: 95px;
      
     }
+    .borderCircle{
+
+       border: 1px solid #3880ff;
+       border-radius: 95px;
+       
+      }
 
     .padding{
       margin-top: 100px !important; 

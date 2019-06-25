@@ -13,6 +13,10 @@ import { AppComponent } from './app.component';
 import { RecepieviewPageModule } from './recepieview/recepieview.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { File, FileEntry } from '@ionic-native/file/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+
 
 
 
@@ -32,6 +36,10 @@ import { Camera } from '@ionic-native/camera/ngx';
     StatusBar,
     SplashScreen,
     Camera,
+    WebView,
+    File,
+    FilePath,
+   
    
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 
+
 import { IonicModule } from '@ionic/angular';
 
 import { MyRecipesPage } from './my-recipes.page';
@@ -22,6 +23,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
+  
   declarations: [MyRecipesPage]
 })
 export class MyRecipesPageModule {}

@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { GlobalServiceService } from '../services/global-service.service';
 import { ActionSheetController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
+
 
 @Component({
   selector: 'app-my-recipes',
@@ -24,7 +24,7 @@ export class MyRecipesPage implements OnInit {
      public GService: GlobalServiceService,
      public actionSheetController: ActionSheetController,
      private camera: Camera,
-     private imagePicker: ImagePicker,
+     
      private alertController: AlertController
      ) { }
 
@@ -117,7 +117,7 @@ deleteIngredientsSchema(i) {
    async alertNotifier() {
     const alert = await this.alertController.create({
       header: 'succesfully saved',
-      message:  `<strong> ${this.recipeGroup.get('title').value} has been saved</strong>!!!`,
+      message:  `<strong> ${this.recipeGroup.get('title').value}</strong> has been saved!!!`,
       backdropDismiss: false,
       buttons: [
         {
@@ -175,7 +175,7 @@ takePictureFromCamera() {
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
-    allowEdit: true,
+   
     correctOrientation: true
   };
 
@@ -190,26 +190,7 @@ takePictureFromCamera() {
   });
 }
 
-// GALLERY FUNCTION
-takePictureFromGallery() {
-  const options = {
-    maximumImagesCount: 1,
-    width: 512,
-    height: 512,
-    quality: 90,
-    outputType: 1
-};
 
-  this.imagePicker.getPictures(options).then((results) => {
-    this.cakeImage = results;
-    this.ImageUrl.setValue = this.cakeImage;
-
-},
-(err) => {
-  console.log(err);
-});
-
-  }
 
 
  

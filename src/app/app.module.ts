@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { RecepieviewPageModule } from './recepieview/recepieview.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera/ngx';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
+
 
 
 
@@ -32,7 +32,7 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
     StatusBar,
     SplashScreen,
     Camera,
-    ImagePicker,
+   
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

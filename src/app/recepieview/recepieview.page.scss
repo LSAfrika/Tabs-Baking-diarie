@@ -60,6 +60,11 @@ ion-content{
      .radius{
        border-radius: 95px;
        border: 3px solid #ffffff;
+     max-width: 128px !important ;
+     max-height: 128px!important;
+     min-width: 128px !important;
+     min-height: 128px !important;
+     object-fit: cover !important;
      
    
      }

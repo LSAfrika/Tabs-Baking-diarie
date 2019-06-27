@@ -17,7 +17,8 @@
       <ion-row>
         <ion-col size="12">
           <ion-item lines="none">
-           <ion-label color="primary" style="width: 100%">
+           <ion-label color="primary" style="width: 100%; text-transform: lowercase;
+           font-weight: 600;">
              Recepie title
            </ion-label>
          
@@ -31,7 +32,7 @@
         
         
         <ion-col size="12">
-            <ion-item lines="inset">
+            <ion-item >
                 <ion-input placeholder="recipe title"  formControlName="title"> </ion-input>
             </ion-item>
             <ion-item *ngIf="RecipeTitle.invalid && RecipeTitle.touched" lines="none">
@@ -43,7 +44,8 @@
         <ion-col size="12">
             <ion-item lines="none"  >
                 
-                <ion-label color="primary"> ingredients </ion-label>
+                <ion-label color="primary" style="width: 100%; text-transform: lowercase;
+                font-weight: 600;"> ingredients </ion-label>
               </ion-item>
             </ion-col>
 
@@ -84,7 +86,8 @@
         <ion-col size="12">
             <ion-item lines="none"  >
                 
-                <ion-label color="primary"> procedure </ion-label>
+                <ion-label color="primary" style="width: 100%; text-transform: lowercase;
+                font-weight: 600;"> procedure </ion-label>
               </ion-item>
             </ion-col>
             <div formArrayName="procedure" style="width: 100%">

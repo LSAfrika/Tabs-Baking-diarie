@@ -43,6 +43,8 @@
     position: relative;
    min-width: 96px !important;
    max-width: 96px!important;
+   min-height: 96px !important;
+   max-height: 96px!important;
    display: block;
    padding: 10px auto;
    margin-left: 1% auto !important;
@@ -54,19 +56,32 @@
   .border{
 
     // border: .25px solid #3880ff;
-     border-radius: 95px;
+    display: block;
+    border-radius: 95px;
+    min-width: 96px !important;
+    max-width: 96px !important;
+    min-height: 96px !important;
+    max-height: 96px !important;
+    object-fit: cover !important;
      
     }
     .borderCircle{
-
+      display: block;
        border: 1px solid #3880ff;
        border-radius: 95px;
+       min-width: 96px !important;
+       max-width: 96px !important;
+       min-height: 96px !important;
+       max-height: 96px !important;
+       object-fit:cover !important;
+     // object-fit: fill
        
       }
 
     .padding{
       margin-top: 100px !important; 
-      margin-bottom: 100px !important; 
+      margin-bottom: 100px !important;
+      object-fit: cover !important 
 
     }
 

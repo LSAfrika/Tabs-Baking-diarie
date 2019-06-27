@@ -221,6 +221,8 @@ deleteIngredientsSchema(i) {
   const options: CameraOptions = {
       quality: 100,
       sourceType: sourceType,
+      targetHeight:512,
+      targetWidth:512,
       saveToPhotoAlbum: false,
       correctOrientation: true
   };

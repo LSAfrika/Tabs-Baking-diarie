@@ -13,21 +13,42 @@
       <ion-card-title>hello world</ion-card-title>
       <ion-card-content>
         <p>
-            (anonymous) @ main.js:1
-            common.js:290 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator
-            cordovaWarn @ common.js:290
-            checkAvailability @ common.js:146
-            callCordovaPlugin @ common.js:232
-            (anonymous) @ common.js:315
-            cordova @ cordova.js:3
-            push../node_modules/@ionic-native/splash-screen/ngx/index.js.SplashScreen.hide @ index.js:28
-            (anonymous) @ app.component.ts:23
-            push../node_modules/zone.js/dist/zone.js.ZoneDelegate.invoke @ zone.js:391
-            onInvoke @ core.js:17299
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            an unknown printer took a galley of type and scrambled it to make a type 
+            specimen book. It has survived not only five centuries, but also the leap 
+            into electronic typesetting, remaining essentially unchanged. It was 
+            popularised in the 1960s with the release of Letraset sheets containing Lorem
+            Ipsum passages, and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum.
 
             </p>
       </ion-card-content>
     </ion-card>
+    <br class="break"/>
+    <br class="break"/>
+    <br class="break"/>
+    <br class="break"/>
 
 
 </ion-content >
+
+<div class="setpos" *ngIf="!IsPersonalRecipe">
+    <ion-row>
+        <ion-col size="8" offset="2">
+            <ion-button 
+      shape="round" 
+      
+      
+      color="primary"
+      expand="block" 
+      >
+      <ion-icon slot="start" name="images"></ion-icon>
+      <ion-label style="color:white;text-transform: lowercase;">
+        create ad
+      </ion-label>
+    </ion-button>
+        </ion-col>
+      </ion-row>
+
+</div>

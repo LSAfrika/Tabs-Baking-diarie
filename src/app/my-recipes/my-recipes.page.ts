@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ModalController, AlertController, ActionSheetController, Platform, ToastController } from '@ionic/angular';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { GlobalServiceService } from '../services/global-service.service';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
 import { File, FileEntry } from '@ionic-native/file/ngx';
@@ -37,12 +37,14 @@ export class MyRecipesPage implements OnInit {
      private plt: Platform,
      private filePath: FilePath,
 
-   //  public ImageGSService: ImageGetSetService,
+   //  
      private alertController: AlertController
      ) { }
 
 
   ngOnInit() {
+
+    if(this.GService.isRecipeEditable === false){
     this.recipeGroup = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
       imageUrl: null,
@@ -51,8 +53,22 @@ export class MyRecipesPage implements OnInit {
 
 
     });
+  } else {
+    this.recipeGroup = this.fb.group({
+      title: [this.GService.ViewRecipie.title, [Validators.required, Validators.minLength(5)]],
+      imageUrl: this.GService.ViewRecipie.imageUrl,
+      ingredients: this.fb.array([]),
+      procedure: this.fb.array([]),
 
-    this.recipeGroup.valueChanges.subscribe(console.log);
+
+    });
+
+    }
+
+  //  const recipe = this.GService.ViewRecipie;
+  //  console.log( this.GService.ViewRecipie );
+
+   // this.recipeGroup.valueChanges.subscribe(console.log);
     this.plt.ready().then(() => {
         this.loadStoredImages();
        });
@@ -183,7 +199,7 @@ deleteIngredientsSchema(i) {
     });
     toast.present();
   }
-  dismissModal() {
+  dismissModal() { 
     this.modal.dismiss();
     this.GService.loadPersonalRecepies();
   }

@@ -79,14 +79,27 @@
                 
               </ion-col>
             </div>
-              <ion-col >
+            <ion-col size="4" >
+              <ion-button color="primary" 
+              shape="round" expand="block" 
+               style=" text-transform: lowercase;font-weight: 300;width: 100%"
+               (click)="EditPersonalRecepie(recipes.title,true)"
+                >
+                edit  </ion-button>
+            </ion-col>
+              <ion-col size="8">
                   <ion-button color="primary" 
                   shape="round" expand="block" 
                    style=" text-transform: lowercase;font-weight: 300;width: 100%"
                    (click)="ViewPersonalRecepie(recipes.title,true)"
                     >
-                    view recipe </ion-button>
+                
+
+                    view
+                     
+                   </ion-button>
                 </ion-col>
+             
             </ion-row>
               
             </ion-item>
@@ -108,7 +121,7 @@
     
     
     <ion-fab [hidden]="Tab2" vertical="bottom" horizontal="end" slot="fixed" size="large">
-        <ion-fab-button color="primary" (click)="createForm()">
+        <ion-fab-button color="primary" (click)="NewRecipeForm(false)">
           
           <ion-icon color="light" name="add" size="128"></ion-icon>
         </ion-fab-button>

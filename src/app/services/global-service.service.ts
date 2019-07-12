@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { RecepieInterface } from '../interfaces/recepie-interface';
 import {Storage} from '@ionic/storage';
@@ -14,6 +15,7 @@ export class GlobalServiceService {
   personalRecipies: RecepieInterface[] = [];
   KEY = 'personal recipes';
   personalState = false;
+  isRecipeEditable = false;
 
   constructor(public PersonalStorage: Storage) {
 
@@ -239,5 +241,10 @@ export class GlobalServiceService {
 
    return this.personalState;
  }
+
+
+
+
+
 
 }

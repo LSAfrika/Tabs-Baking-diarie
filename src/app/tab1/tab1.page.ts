@@ -1,7 +1,8 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { MyRecipesPage } from './../my-recipes/my-recipes.page';
-import { RecepieviewPage } from './../recepieview/recepieview.page';
-import { ModalController } from '@ionic/angular';
+import { ModalControllerService } from './../services/modal-controller.service';
+import { Component, OnInit,  } from '@angular/core';
+
+
+
 import { GlobalServiceService } from '../services/global-service.service';
 import { IonContent, IonHeader } from '@ionic/angular';
 
@@ -12,9 +13,11 @@ import { IonContent, IonHeader } from '@ionic/angular';
 })
 export class Tab1Page implements OnInit {
 
-  constructor(private FormModal: ModalController, public GService: GlobalServiceService) { }
+  constructor(  public GService: GlobalServiceService, public modalctrl: ModalControllerService) {
+   // this.plt.backButton().sub ;
+  }
 
- 
+
 
 
 
@@ -22,7 +25,7 @@ export class Tab1Page implements OnInit {
   Tab1 = false;
   Tab2 = true;
 
- 
+
 
 
 
@@ -56,36 +59,31 @@ export class Tab1Page implements OnInit {
   }
 
 
-  async createForm() {
-    const newrecepie = await this.FormModal.create({
-      component: MyRecipesPage,
-      backdropDismiss: false,
-      
-    });
-    await newrecepie.present();
-  }
+ 
+
+NewRecipeForm(isEditable: boolean) {
+  this.GService.isRecipeEditable = isEditable;
+  this.modalctrl.createForm();
+}
 
 
-  ViewRecepie(title: string,state:boolean) {
+
+  ViewRecepie(title: string, state: boolean) {
     this.GService.loadSpecificRecipe(title);
     this.GService.Ispersonalrecepie(state);
-    this.PresentRecepieModal();
+    this.modalctrl.PresentRecepieModal();
   }
-  ViewPersonalRecepie(title: string,state:boolean) {
+  ViewPersonalRecepie(title: string, state: boolean) {
     this.GService.loadSpecificPersonalRecipe(title);
     this.GService.Ispersonalrecepie(state);
-    this.PresentRecepieModal();
+    this.modalctrl.PresentRecepieModal();
   }
 
-  async PresentRecepieModal() {
-
-    const View = await this.FormModal.create({
-      component: RecepieviewPage,
-      backdropDismiss: false,
-      animated: false
-
-    });
-    await View.present();
+  EditPersonalRecepie(title: string, isEditable: boolean) {
+    this.GService.isRecipeEditable=isEditable;
+    this.GService.loadSpecificPersonalRecipe(title);
+    this.modalctrl.createForm();
   }
+ 
 
 }

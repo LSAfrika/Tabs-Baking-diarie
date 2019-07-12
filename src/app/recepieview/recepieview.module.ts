@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { RecepieviewPage } from './recepieview.page';
 import { SharedModule } from '../mymodules/shared/shared.module';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -21,6 +22,7 @@ const routes: Routes = [
     FormsModule,
     SharedModule,
     IonicModule,
+    
     RouterModule.forChild(routes)
   ],
   declarations: [RecepieviewPage]

@@ -10,11 +10,11 @@
     
     <ion-toolbar style="text-align: center; --background:#5576fb;color:white">
     
-            <div class="maxsize">
+            <!-- <div class="maxsize"> -->
 
-                <img *ngIf="RecipeView && RecipeView.imageUrl!==null"  class="radius" [src]="RecipeView.imageUrl">
-                <img *ngIf="RecipeView && RecipeView.imageUrl===null"  class="radius" src='/assets/icon/defaultCake.png'>
-                     </div> 
+                <img    style="color: white" src="{{RecipeView.imageUrl}}">
+                <!-- <img *ngIf="RecipeView && RecipeView.imageUrl===null"  class="radius" src='/assets/icon/defaultCake.png'> -->
+                     <!-- </div> class="radius" -->
         
        
       <ion-label style="font-weight: 300;font-size: 24px">{{RecipeView.title}}</ion-label>

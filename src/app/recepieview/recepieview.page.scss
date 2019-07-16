@@ -55,7 +55,8 @@ ion-content{
      max-width: 128px  ;
      max-height: 128px ;
      left: calc( 50% - 64px);
-     --background:rgb(201, 201, 201); 
+     
+     color: white !important;
      
      .radius{
        border-radius: 95px;
@@ -65,6 +66,7 @@ ion-content{
      min-width: 128px !important;
      min-height: 128px !important;
      object-fit: cover !important;
+     color: white !important;
      
    
      }

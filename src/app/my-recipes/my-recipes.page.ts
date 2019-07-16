@@ -67,8 +67,9 @@ export class MyRecipesPage implements OnInit {
 
   //  const recipe = this.GService.ViewRecipie;
   //  console.log( this.GService.ViewRecipie );
+    this.ImageLink('/assets/icon/defaultCake.png');
 
-   // this.recipeGroup.valueChanges.subscribe(console.log);
+    this.recipeGroup.valueChanges.subscribe(console.log);
     this.plt.ready().then(() => {
         this.loadStoredImages();
        });
@@ -201,6 +202,7 @@ deleteIngredientsSchema(i) {
   }
   dismissModal() { 
     this.modal.dismiss();
+    this.recipeGroup.reset();
     this.GService.loadPersonalRecepies();
   }
   //#region  PICTURE SECTION

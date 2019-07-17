@@ -1,5 +1,6 @@
 import { Component, OnInit,  } from '@angular/core';
 import { GlobalServiceService } from '../services/global-service.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -66,18 +67,18 @@ NewRecipeForm(isEditable: boolean) {
 
   ViewRecepie(title: string, state: boolean) {
     this.GService.loadSpecificRecipe(title);
-    this.GService.Ispersonalrecepie(state);
+    this.GService.personalState=state;
 
   }
   ViewPersonalRecepie(title: string, state: boolean) {
     this.GService.loadSpecificPersonalRecipe(title);
-    this.GService.Ispersonalrecepie(state);
- 
+    this.GService.personalState=state;
+    this.EditPersonalRecepie(state);
   }
 
-  EditPersonalRecepie(title: string, isEditable: boolean) {
+  EditPersonalRecepie( isEditable: boolean) {
     this.GService.isRecipeEditable = isEditable;
-    this.GService.loadSpecificPersonalRecipe(title);
+  //  this.GService.loadSpecificPersonalRecipe(title);
    
   }
  

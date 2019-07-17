@@ -1,10 +1,6 @@
-import { ModalControllerService } from './../services/modal-controller.service';
 import { Component, OnInit,  } from '@angular/core';
-
-
-
 import { GlobalServiceService } from '../services/global-service.service';
-import { IonContent, IonHeader } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-tab1',
@@ -13,7 +9,7 @@ import { IonContent, IonHeader } from '@ionic/angular';
 })
 export class Tab1Page implements OnInit {
 
-  constructor(  public GService: GlobalServiceService, public modalctrl: ModalControllerService) {
+  constructor(  public GService: GlobalServiceService) {
    // this.plt.backButton().sub ;
   }
 
@@ -63,7 +59,7 @@ export class Tab1Page implements OnInit {
 
 NewRecipeForm(isEditable: boolean) {
   this.GService.isRecipeEditable = isEditable;
-  this.modalctrl.createForm();
+
 }
 
 
@@ -71,18 +67,18 @@ NewRecipeForm(isEditable: boolean) {
   ViewRecepie(title: string, state: boolean) {
     this.GService.loadSpecificRecipe(title);
     this.GService.Ispersonalrecepie(state);
-    this.modalctrl.PresentRecepieModal();
+
   }
   ViewPersonalRecepie(title: string, state: boolean) {
     this.GService.loadSpecificPersonalRecipe(title);
     this.GService.Ispersonalrecepie(state);
-    this.modalctrl.PresentRecepieModal();
+ 
   }
 
   EditPersonalRecepie(title: string, isEditable: boolean) {
-    this.GService.isRecipeEditable=isEditable;
+    this.GService.isRecipeEditable = isEditable;
     this.GService.loadSpecificPersonalRecipe(title);
-    this.modalctrl.createForm();
+   
   }
  
 

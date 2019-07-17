@@ -2,18 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { IonicHeaderParallaxModule } from 'ionic-header-parallax';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RecepieviewPage } from './recepieview.page';
-import { SharedModule } from '../mymodules/shared/shared.module';
-import { IonicHeaderParallaxModule } from 'ionic-header-parallax';
-
+import { ViewRecepieModalPage } from './view-recepie-modal.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: RecepieviewPage
+    component: ViewRecepieModalPage
   }
 ];
 
@@ -21,11 +19,10 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-   SharedModule,
-    IonicModule,
     IonicHeaderParallaxModule,
+    IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [RecepieviewPage]
+  declarations: [ViewRecepieModalPage]
 })
-export class RecepieviewPageModule {}
+export class ViewRecepieModalPageModule {}

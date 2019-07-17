@@ -3,7 +3,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollVanishDirective } from 'src/app/directive/scroll-vanish.directive';
-
+//import { IonicHeaderParallaxModule } from 'ionic-header-parallax';
 
 
 
@@ -12,6 +12,7 @@ import { ScrollVanishDirective } from 'src/app/directive/scroll-vanish.directive
 @NgModule({
   declarations: [
     ScrollVanishDirective
+   // IonicHeaderParallaxModule
 
   ],
   imports: [
@@ -19,6 +20,7 @@ import { ScrollVanishDirective } from 'src/app/directive/scroll-vanish.directive
   ],
   exports: [
     ScrollVanishDirective
+   // IonicHeaderParallaxModule
 
   ]
 

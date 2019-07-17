@@ -41,8 +41,16 @@
             <ion-label text-center  style="color:#5576fb;font-weight: 400">{{recipes.title}}</ion-label>
         </ion-col>
       </div>
+      <!--  " -->
         <ion-col size="12">
-            <ion-button color="primary" shape="round" expand="block" (click)="ViewRecepie(recipes.title,false)" style=" text-transform: lowercase;font-weight: 300;" >view recipe </ion-button>
+            <ion-button color="primary" 
+                        shape="round" 
+                        expand="block" 
+                       
+                         style=" text-transform: lowercase;font-weight: 300;" 
+                         (click)="ViewRecepie(recipes.title,false)"
+                         [routerLink]="['/view-recepie-modal']" 
+                         >view recipe </ion-button>
           </ion-col>
       </ion-row>
         
@@ -79,19 +87,29 @@
                 
               </ion-col>
             </div>
-            <ion-col size="4" >
-              <ion-button color="primary" 
-              shape="round" expand="block" 
+            <ion-col offset="1" size="2" >
+               <ion-icon size="large"
+                color="primary"
+                 name="create"
+                 (click)="EditPersonalRecepie(recipes.title,true)"
+                 [routerLink]="['/recipe-creator']" 
+                 ></ion-icon>
+              <!-- <ion-button color="primary" 
+              shape="round" expand="outline" 
                style=" text-transform: lowercase;font-weight: 300;width: 100%"
-               (click)="EditPersonalRecepie(recipes.title,true)"
+               
                 >
-                edit  </ion-button>
+               
+                 </ion-button> -->
+                
             </ion-col>
-              <ion-col size="8">
+            <!--   " -->
+              <ion-col size="9">
                   <ion-button color="primary" 
                   shape="round" expand="block" 
                    style=" text-transform: lowercase;font-weight: 300;width: 100%"
-                   (click)="ViewPersonalRecepie(recipes.title,true)"
+                  (click)="ViewPersonalRecepie(recipes.title,false)"
+                  [routerLink]="['/view-recepie-modal']" 
                     >
                 
 
@@ -121,7 +139,7 @@
     
     
     <ion-fab [hidden]="Tab2" vertical="bottom" horizontal="end" slot="fixed" size="large">
-        <ion-fab-button color="primary" (click)="NewRecipeForm(false)">
+        <ion-fab-button color="primary" (click)="NewRecipeForm(false)" [routerLink]="['/recipe-creator']" >
           
           <ion-icon color="light" name="add" size="128"></ion-icon>
         </ion-fab-button>

@@ -7,16 +7,19 @@ import { File, FileEntry } from '@ionic-native/file/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { Storage } from '@ionic/storage';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { RecepieInterface } from '../interfaces/recepie-interface';
+import { Router } from '@angular/router';
 
 // DB KEY
 const STORAGE_KEY = 'my_images';
 
 @Component({
-  selector: 'app-my-recipes',
-  templateUrl: './my-recipes.page.html',
-  styleUrls: ['./my-recipes.page.scss'],
+  selector: 'app-recipe-creator',
+  templateUrl: './recipe-creator.page.html',
+  styleUrls: ['./recipe-creator.page.scss'],
 })
-export class MyRecipesPage implements OnInit {
+
+export class RecipeCreatorPage implements OnInit {
 
   recipeGroup: FormGroup;
   cakeImage: any;
@@ -24,6 +27,7 @@ export class MyRecipesPage implements OnInit {
 
 
   constructor(
+     private router: Router,
      private ref: ChangeDetectorRef,
      private toastController: ToastController,
      private webview: WebView,
@@ -37,14 +41,15 @@ export class MyRecipesPage implements OnInit {
      private plt: Platform,
      private filePath: FilePath,
 
-   //  
+   //
      private alertController: AlertController
      ) { }
 
 
   ngOnInit() {
 
-    if(this.GService.isRecipeEditable === false){
+    console.log(this.GService.isRecipeEditable);
+    if (this.GService.isRecipeEditable === false) {
     this.recipeGroup = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
       imageUrl: null,
@@ -57,11 +62,16 @@ export class MyRecipesPage implements OnInit {
     this.recipeGroup = this.fb.group({
       title: [this.GService.ViewRecipie.title, [Validators.required, Validators.minLength(5)]],
       imageUrl: this.GService.ViewRecipie.imageUrl,
-      ingredients: this.fb.array([]),
+      ingredients: this.fb.array([
+      
+    ]),
       procedure: this.fb.array([]),
 
 
     });
+
+    this.polpulateIngredientsArray(this.GService.ViewRecipie);
+    this.polpulateProcedureArray(this.GService.ViewRecipie);
 
     }
 
@@ -69,14 +79,41 @@ export class MyRecipesPage implements OnInit {
   //  console.log( this.GService.ViewRecipie );
     this.ImageLink('/assets/icon/defaultCake.png');
 
-    this.recipeGroup.valueChanges.subscribe(console.log);
+    this.recipeGroup.valueChanges.subscribe();
     this.plt.ready().then(() => {
         this.loadStoredImages();
        });
   }
 
-  loadStoredImages() {
+  // pulpulate ingredients form array
+ polpulateIngredientsArray(recipe: RecepieInterface) {
+
+  const x = recipe.ingredients;
+  for ( let i = 0 ; i <x.length;i++){
+    console.log(`ingredients: `+i);
+    console.log(x[i].ingredient);
+    this.AddIngredientsSchema(x[i].ingredient, i );
+
+  }
  
+ }
+
+ // polpulate procedure form array
+ polpulateProcedureArray(recipe: RecepieInterface) {
+
+  const x = recipe.procedure;
+  for ( let i = 0 ; i <x.length;i++){
+    console.log(`procedure: `+i);
+    console.log(x[i].procedure);
+    this.AddProcedureSchema(x[i].procedure, i );
+
+  }
+ 
+ }
+
+  // images loading
+  loadStoredImages() {
+
     this.storage.get(STORAGE_KEY).then(images => {
 
       if (images) {
@@ -90,10 +127,10 @@ export class MyRecipesPage implements OnInit {
            const Correctpath = resPath.substr(9);
            const finalpath = 'http://localhost' + Correctpath;
 
-           this.images.push({ name: img, path: finalpath, filePath:filePath });
+           this.images.push({ name: img, path: finalpath, filePath });
           } else {
 
-            this.images.push({ name: img, path: resPath, filePath: filePath });
+            this.images.push({ name: img, path: resPath, filePath });
 
           }
 
@@ -123,15 +160,41 @@ export class MyRecipesPage implements OnInit {
 //#endregion
 
   //#region Ingredients schema
-  AddIngredientsSchema() {
+  AddIngredientsSchema(load?: string, position?: number ) {
+    if (this.GService.isRecipeEditable === false) {
     const ingredients = this.fb.group({
      ingredient: ['', [Validators.required, Validators.minLength(3)]]
 
     });
 
+    this.IngredientsArray.push(ingredients); } else {
+
+
+      const ingredients = this.fb.group({
+
+        ingredient: [ load , [Validators.required, Validators.minLength(3)]]
+
+       });
+      this.IngredientsArray.push(ingredients);
+    
+
+    }
+
+  }
+
+
+  UpdateIngredientsSchema(){
+    const ingredients = this.fb.group({
+      ingredient: ['', [Validators.required, Validators.minLength(3)]]
+ 
+     });
+ 
     this.IngredientsArray.push(ingredients);
 
   }
+
+
+
 deleteIngredientsSchema(i) {
   this.IngredientsArray.removeAt(i);
 
@@ -141,8 +204,9 @@ deleteIngredientsSchema(i) {
 //#endregion
 
 //#region procedure schema
-  AddProcedureSchema() {
+  AddProcedureSchema( load?: string, position?: number ) {
 
+    if (this.GService.isRecipeEditable === false) {
     const procedures = this.fb.group({
       procedure: ['', [Validators.required, Validators.minLength(3)]]
 
@@ -150,7 +214,27 @@ deleteIngredientsSchema(i) {
 
     this.ProcedureArray.push(procedures);
 
+  }else {
+    const procedures = this.fb.group({
+      procedure: [load, [Validators.required, Validators.minLength(3)]]
+
+    });
+
+    this.ProcedureArray.push(procedures);
+
   }
+}
+
+UpdateProcedureSchema(){
+  const procedures = this.fb.group({
+    procedure: ['', [Validators.required, Validators.minLength(3)]]
+
+   });
+
+  this.ProcedureArray.push(procedures);
+
+}
+
   deleteProcedureSchema(i) {
     this.ProcedureArray.removeAt(i);
 
@@ -184,14 +268,16 @@ deleteIngredientsSchema(i) {
         {
           text: 'Okay',
           handler: () => {
-           this.dismissModal();
+           this.router.navigate(['/tabs/tab1']);
           }
         }
       ]
     });
-  
+
     await alert.present();
   }
+
+
   async presentToast(text) {
     const toast = await this.toastController.create({
         message: text,
@@ -200,7 +286,7 @@ deleteIngredientsSchema(i) {
     });
     toast.present();
   }
-  dismissModal() { 
+  dismissModal() {
     this.modal.dismiss();
     this.recipeGroup.reset();
     this.GService.loadPersonalRecepies();
@@ -238,9 +324,9 @@ deleteIngredientsSchema(i) {
  takePicture(sourceType: PictureSourceType) {
   const options: CameraOptions = {
       quality: 100,
-      sourceType: sourceType,
-      targetHeight:512,
-      targetWidth:512,
+      sourceType,
+      targetHeight: 512,
+      targetWidth: 512,
       saveToPhotoAlbum: false,
       correctOrientation: true
   };
@@ -302,9 +388,9 @@ updateStoredImages(name) {
       this.ImageLink(resPath);
 
       const newEntry = {
-          name: name,
+          name,
           path: resPath,
-          filePath: filePath
+          filePath
       };
 
       this.images = [newEntry, ...this.images];
@@ -334,10 +420,10 @@ deleteImage(imgEntry, position) {
 //#endregion
 
 
- 
+
 
   // Action sheet
-  
+
 
 
 

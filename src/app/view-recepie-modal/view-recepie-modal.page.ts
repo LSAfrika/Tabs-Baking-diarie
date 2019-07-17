@@ -18,7 +18,7 @@ export class ViewRecepieModalPage implements OnInit {
 
   ngOnInit() {
     this.RecipeView = this.GService.ViewRecipie;
-    this.IsPersonalRecipe = this.GService.personalState;
+    this.IsPersonalRecipe = this.GService.isRecipeEditable;
 
 
     console.log(this.IsPersonalRecipe);
@@ -26,8 +26,14 @@ export class ViewRecepieModalPage implements OnInit {
   }
 
   dismissView() {
-    this.router.navigate (['/tabs']);
+    this.router.navigate (['/tabs/tab1']);
 
+  }
+
+  EditPersonalRecepie( isEditable: boolean) {
+    this.GService.isRecipeEditable = isEditable;
+  //  this.GService.loadSpecificPersonalRecipe(title);
+   
   }
 
 }

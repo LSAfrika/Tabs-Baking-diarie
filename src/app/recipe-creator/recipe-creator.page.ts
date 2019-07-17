@@ -242,11 +242,20 @@ UpdateProcedureSchema(){
   //#endregion
 
   ImageLink(value) {
+
+    if (this.GService.isRecipeEditable === false) {
     this.recipeGroup.patchValue({
       imageUrl: value
 
     } );
+  } else {
+    this.recipeGroup.patchValue({
+      imageUrl: this.GService.ViewRecipie.imageUrl
+
+    } );
+
   }
+}
 
 
   SavePersonalRecipe(personalRecipe) {
@@ -286,11 +295,7 @@ UpdateProcedureSchema(){
     });
     toast.present();
   }
-  dismissModal() {
-    this.modal.dismiss();
-    this.recipeGroup.reset();
-    this.GService.loadPersonalRecepies();
-  }
+ 
   //#region  PICTURE SECTION
 
   async launchActionSheet() {

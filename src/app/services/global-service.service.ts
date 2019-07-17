@@ -143,7 +143,7 @@ export class GlobalServiceService {
 
       },
       {
-        title: 'Chocolate Cake',
+        title: 'mango Cake',
       imageUrl: '/assets/cakes/vanilla.jpg',
       ingredients: [{ingredient: '1 cup white sugar'},
                      {ingredient: '1/2 cup butter'},

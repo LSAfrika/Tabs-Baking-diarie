@@ -2,6 +2,8 @@
 import { Injectable } from '@angular/core';
 import { RecepieInterface } from '../interfaces/recepie-interface';
 import {Storage} from '@ionic/storage';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -17,7 +19,10 @@ export class GlobalServiceService {
   personalState = false;
   isRecipeEditable = false;
 
-  constructor(public PersonalStorage: Storage) {
+  constructor(public PersonalStorage: Storage,
+              private alertctrl: AlertController,
+              private router: Router
+    ) {
 
 
 
@@ -218,6 +223,7 @@ export class GlobalServiceService {
    }
 
    savePersonalRecepies(NewRecepie): RecepieInterface[] {
+     if (this.isRecipeEditable === false) {
      this.personalRecipies.push(NewRecepie);
      this.PersonalStorage.set(this.KEY, this.personalRecipies).then((savedrecepies) => {
       this.personalRecipies = savedrecepies;
@@ -226,10 +232,65 @@ export class GlobalServiceService {
      console.log(err);
      return null;
     });
+  } else {
+    const index = this.personalRecipies.indexOf(this.ViewRecipie);
+    this.personalRecipies.splice(index, 1, NewRecepie);
+
+    this.PersonalStorage.set(this.KEY, this.personalRecipies).then((savedrecepies) => {
+      this.personalRecipies = savedrecepies;
+
+    }).catch(err => {
+     console.log(err);
+     return null;
+    });
+
+    }
+
 
      return this.personalRecipies;
+    }
 
+
+// *alert controller after delete has happened
+
+async DeleteNotifier() {
+  const alert = await this.alertctrl.create({
+    header: `SUCCESS`,
+    message:  ` <strong> RECIPE HAS BEEN DELETED</strong>`,
+    backdropDismiss: false,
+    buttons: [
+      {
+        text: 'Okay',
+        handler: () => {
+         this.router.navigate(['/tabs/tab1']);
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+
+
+
+    DeletePersonalRecepies(): RecepieInterface[] {
+
+      const index = this.personalRecipies.indexOf(this.ViewRecipie);
+      this.personalRecipies.splice(index, 1);
+      this.PersonalStorage.set(this.KEY, this.personalRecipies).then((savedrecepies) => {
+      this.personalRecipies = savedrecepies;
+
+     }).catch(err => {
+      console.log(err);
+      return null;
+     });
+      this.DeleteNotifier();
+      return this.personalRecipies;
    }
+
+
+
 
  Ispersonalrecepie(personal: boolean): boolean {
    if (personal === true) {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { MyRecipesPageModule } from './my-recipes/my-recipes.module';
+
 
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -10,7 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RecepieviewPageModule } from './recepieview/recepieview.module';
+
 import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
@@ -29,8 +29,6 @@ import { FilePath } from '@ionic-native/file-path/ngx';
   imports: [BrowserModule,
      IonicModule.forRoot(),
       AppRoutingModule,
-      MyRecipesPageModule,
-      RecepieviewPageModule,
       IonicStorageModule.forRoot()],
   providers: [
     StatusBar,

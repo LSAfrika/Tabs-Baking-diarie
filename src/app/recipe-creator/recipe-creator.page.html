@@ -202,23 +202,24 @@
                      style=" text-transform: lowercase;font-weight: 500;"
                      (click)="SavePersonalRecipe(recipeGroup.value)"
                      [disabled]="recipeGroup.invalid || IngredientsArray.length===0 || ProcedureArray.length===0">
-                     save
+                     <ion-icon slot="start" name="download"></ion-icon>
+                     <ion-label *ngIf="!GService.isRecipeEditable" >save</ion-label>
+                     <ion-label *ngIf="GService.isRecipeEditable" >update</ion-label>
+                    </ion-button>
+                </ion-col>
+
+                <ion-col *ngIf="GService.isRecipeEditable" size="10" offset="1">
+                  <ion-button expand="block"
+                   shape="round"
+                    color="warning"
+                     style=" text-transform: lowercase;font-weight: 500;"
+                    (click)="DeleteRecipe()"
+                     [disabled]="recipeGroup.invalid || IngredientsArray.length===0 || ProcedureArray.length===0">
+                     <ion-icon slot="start" name="trash"></ion-icon>
+                     <ion-label>delete</ion-label>
                     </ion-button>
                 </ion-col>
   
-              <!-- disable button -->
-              <!-- <div class="notify" *ngIf="ProcedureArray.length ===0 || IngredientsArray.length ===0 " style="width: 100%" >
-                <ion-col size="10" offset="1">
-                  <ion-button expand="block"
-                   shape="round"
-                    color="primary"
-                     style=" text-transform: lowercase;font-weight: 500;"
-                     (click)="SavePersonalRecipe(recipeGroup.value)"
-                     [disabled]="true">
-                     save
-                    </ion-button>
-                </ion-col>
-              </div> -->
         </ion-row>
   
       </ion-grid>

@@ -33,7 +33,6 @@ export class RecipeCreatorPage implements OnInit {
      private webview: WebView,
      private file: File,
      private storage: Storage,
-     private modal: ModalController,
      private fb: FormBuilder,
      public GService: GlobalServiceService,
      private actionSheetController: ActionSheetController,
@@ -63,7 +62,7 @@ export class RecipeCreatorPage implements OnInit {
       title: [this.GService.ViewRecipie.title, [Validators.required, Validators.minLength(5)]],
       imageUrl: this.GService.ViewRecipie.imageUrl,
       ingredients: this.fb.array([
-      
+
     ]),
       procedure: this.fb.array([]),
 
@@ -85,30 +84,30 @@ export class RecipeCreatorPage implements OnInit {
        });
   }
 
-  // pulpulate ingredients form array
+  // *pulpulate ingredients form array
  polpulateIngredientsArray(recipe: RecepieInterface) {
 
   const x = recipe.ingredients;
-  for ( let i = 0 ; i <x.length;i++){
-    console.log(`ingredients: `+i);
-    console.log(x[i].ingredient);
+  for ( let i = 0 ; i < x.length; i++) {
+  //  console.log(`ingredients: ` + i);
+  //  console.log(x[i].ingredient);
     this.AddIngredientsSchema(x[i].ingredient, i );
 
   }
  
  }
 
- // polpulate procedure form array
+ // *polpulate procedure form array
  polpulateProcedureArray(recipe: RecepieInterface) {
 
   const x = recipe.procedure;
-  for ( let i = 0 ; i <x.length;i++){
-    console.log(`procedure: `+i);
-    console.log(x[i].procedure);
+  for ( let i = 0 ; i < x.length; i++) {
+  //  console.log(`procedure: ` + i);
+  //  console.log(x[i].procedure);
     this.AddProcedureSchema(x[i].procedure, i );
 
   }
- 
+
  }
 
   // images loading
@@ -160,6 +159,10 @@ export class RecipeCreatorPage implements OnInit {
 //#endregion
 
   //#region Ingredients schema
+
+  /**
+   * ? find out why the position parameter is there
+   */
   AddIngredientsSchema(load?: string, position?: number ) {
     if (this.GService.isRecipeEditable === false) {
     const ingredients = this.fb.group({
@@ -167,7 +170,8 @@ export class RecipeCreatorPage implements OnInit {
 
     });
 
-    this.IngredientsArray.push(ingredients); } else {
+    this.IngredientsArray.push(ingredients);
+  } else {
 
 
       const ingredients = this.fb.group({
@@ -176,14 +180,15 @@ export class RecipeCreatorPage implements OnInit {
 
        });
       this.IngredientsArray.push(ingredients);
-    
+
 
     }
 
   }
-
-
-  UpdateIngredientsSchema(){
+// * =================================================== \\
+            // ?used in edit section of a recipe
+// * =================================================== \\
+  UpdateIngredientsSchema() {
     const ingredients = this.fb.group({
       ingredient: ['', [Validators.required, Validators.minLength(3)]]
  
@@ -214,7 +219,7 @@ deleteIngredientsSchema(i) {
 
     this.ProcedureArray.push(procedures);
 
-  }else {
+  } else {
     const procedures = this.fb.group({
       procedure: [load, [Validators.required, Validators.minLength(3)]]
 
@@ -225,7 +230,7 @@ deleteIngredientsSchema(i) {
   }
 }
 
-UpdateProcedureSchema(){
+UpdateProcedureSchema() {
   const procedures = this.fb.group({
     procedure: ['', [Validators.required, Validators.minLength(3)]]
 
@@ -261,17 +266,17 @@ UpdateProcedureSchema(){
   SavePersonalRecipe(personalRecipe) {
     this.GService.savePersonalRecepies(personalRecipe);
    // this.ImageLink(this.ImageGSService.resPath);
-    this.alertNotifier();
+    this.alertNotifier('saved');
     this.recipeGroup.reset();
 
 
   }
 
 
-  async alertNotifier() {
+  async alertNotifier(notification: string) {
     const alert = await this.alertController.create({
-      header: 'succesfully saved',
-      message:  `<strong> ${this.recipeGroup.get('title').value}</strong> has been saved!!!`,
+      header: `succesfully ${notification}`,
+      message:  `<strong> ${this.recipeGroup.get('title').value}</strong> has been ${notification}!!!`,
       backdropDismiss: false,
       buttons: [
         {
@@ -295,9 +300,39 @@ UpdateProcedureSchema(){
     });
     toast.present();
   }
- 
-  //#region  PICTURE SECTION
 
+  DeleteRecipe(){
+
+    this.DeleteNotifier();
+  }
+
+  async DeleteNotifier() {
+    const alert = await this.alertController.create({
+      header: `DELETE RECIPE`,
+      message:  `are you sure you want to delete <strong> ${this.recipeGroup.get('title').value}</strong>`,
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'Okay',
+          handler: () => {
+           this.GService.DeletePersonalRecepies();
+          }
+        },
+        {
+          text: 'cancel',
+          role: 'cancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+
+
+ // * =================================================== \\
+  // #region  PICTURE SECTION
+// * =================================================== \\
   async launchActionSheet() {
     const actionSheet = await this.actionSheetController.create({
         header: 'Select Image source',
@@ -325,7 +360,9 @@ UpdateProcedureSchema(){
     await actionSheet.present();
 }
 
- // IMAGE SELECTOR
+// * =================================================== \\
+                    // ?IMAGE SELECTOR
+ // * =================================================== \\
  takePicture(sourceType: PictureSourceType) {
   const options: CameraOptions = {
       quality: 100,
@@ -427,7 +464,7 @@ deleteImage(imgEntry, position) {
 
 
 
-  // Action sheet
+  
 
 
 

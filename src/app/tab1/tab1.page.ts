@@ -1,6 +1,6 @@
 import { Component, OnInit,  } from '@angular/core';
 import { GlobalServiceService } from '../services/global-service.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 
 
 @Component({
@@ -56,7 +56,7 @@ export class Tab1Page implements OnInit {
   }
 
 
- 
+
 
 NewRecipeForm(isEditable: boolean) {
   this.GService.isRecipeEditable = isEditable;
@@ -67,20 +67,20 @@ NewRecipeForm(isEditable: boolean) {
 
   ViewRecepie(title: string, state: boolean) {
     this.GService.loadSpecificRecipe(title);
-    this.GService.personalState=state;
+    this.GService.personalState = state;
 
   }
   ViewPersonalRecepie(title: string, state: boolean) {
     this.GService.loadSpecificPersonalRecipe(title);
-    this.GService.personalState=state;
+    this.GService.personalState = state;
     this.EditPersonalRecepie(state);
   }
 
   EditPersonalRecepie( isEditable: boolean) {
     this.GService.isRecipeEditable = isEditable;
   //  this.GService.loadSpecificPersonalRecipe(title);
-   
+
   }
- 
+
 
 }

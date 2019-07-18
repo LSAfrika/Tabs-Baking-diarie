@@ -1,4 +1,4 @@
-import { ModalControllerService } from './../services/modal-controller.service';
+
 import { GlobalServiceService } from './../services/global-service.service';
 import { Component } from '@angular/core';
 
@@ -8,13 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-constructor(public modalctrl:ModalControllerService){
+constructor() {
 
 }
 
-LaunchModal(){
-  this.modalctrl.createForm();
-}
+
 
 
 }

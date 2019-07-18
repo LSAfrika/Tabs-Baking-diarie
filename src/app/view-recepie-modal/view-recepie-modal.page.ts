@@ -18,7 +18,7 @@ export class ViewRecepieModalPage implements OnInit {
 
   ngOnInit() {
     this.RecipeView = this.GService.ViewRecipie;
-    this.IsPersonalRecipe = this.GService.isRecipeEditable;
+    this.IsPersonalRecipe = this.GService.personalState;
 
 
     console.log(this.IsPersonalRecipe);

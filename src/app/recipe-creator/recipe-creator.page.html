@@ -8,10 +8,13 @@
       </ion-buttons>
       
     </ion-toolbar>
+   
+
   </ion-header>
   
   <ion-content>
-    value:{{recipeGroup.value |json}} 
+    <!-- <ion-label>{{recipeImagevalue}}</ion-label> -->
+    <!-- value:{{recipeGroup.value |json}}  -->
     <ion-card [formGroup]="recipeGroup">
       <ion-grid>
         <ion-row>
@@ -214,7 +217,7 @@
                     color="warning"
                      style=" text-transform: lowercase;font-weight: 500;"
                     (click)="DeleteRecipe()"
-                     [disabled]="recipeGroup.invalid || IngredientsArray.length===0 || ProcedureArray.length===0">
+                     >
                      <ion-icon slot="start" name="trash"></ion-icon>
                      <ion-label>delete</ion-label>
                     </ion-button>

@@ -24,91 +24,93 @@ export class RecipeCreatorPage implements OnInit {
   recipeGroup: FormGroup;
   cakeImage: any;
   images = [];
-
+ recipeImagevalue = 'default value';
 
   constructor(
-     private router: Router,
-     private ref: ChangeDetectorRef,
-     private toastController: ToastController,
-     private webview: WebView,
-     private file: File,
-     private storage: Storage,
-     private fb: FormBuilder,
-     public GService: GlobalServiceService,
-     private actionSheetController: ActionSheetController,
-     private camera: Camera,
-     private plt: Platform,
-     private filePath: FilePath,
+    private router: Router,
+    private ref: ChangeDetectorRef,
+    private toastController: ToastController,
+    private webview: WebView,
+    private file: File,
+    private storage: Storage,
+    private fb: FormBuilder,
+    public GService: GlobalServiceService,
+    private actionSheetController: ActionSheetController,
+    private camera: Camera,
+    private plt: Platform,
+    private filePath: FilePath,
 
-   //
-     private alertController: AlertController
-     ) { }
+    //
+    private alertController: AlertController
+  ) { }
 
 
   ngOnInit() {
 
     console.log(this.GService.isRecipeEditable);
     if (this.GService.isRecipeEditable === false) {
-    this.recipeGroup = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(5)]],
-      imageUrl: null,
-      ingredients: this.fb.array([]),
-      procedure: this.fb.array([]),
+      this.recipeGroup = this.fb.group({
+        title: ['', [Validators.required, Validators.minLength(5)]],
+        imageUrl: null,
+        ingredients: this.fb.array([]),
+        procedure: this.fb.array([]),
 
 
-    });
-  } else {
-    this.recipeGroup = this.fb.group({
-      title: [this.GService.ViewRecipie.title, [Validators.required, Validators.minLength(5)]],
-      imageUrl: this.GService.ViewRecipie.imageUrl,
-      ingredients: this.fb.array([
+      });
+    } else {
+      this.recipeGroup = this.fb.group({
+        title: [this.GService.ViewRecipie.title, [Validators.required, Validators.minLength(5)]],
+        imageUrl: this.GService.ViewRecipie.imageUrl,
+        ingredients: this.fb.array([
 
-    ]),
-      procedure: this.fb.array([]),
+        ]),
+        procedure: this.fb.array([]),
 
 
-    });
+      });
 
-    this.polpulateIngredientsArray(this.GService.ViewRecipie);
-    this.polpulateProcedureArray(this.GService.ViewRecipie);
+      this.polpulateIngredientsArray(this.GService.ViewRecipie);
+      this.polpulateProcedureArray(this.GService.ViewRecipie);
 
     }
 
-  //  const recipe = this.GService.ViewRecipie;
-  //  console.log( this.GService.ViewRecipie );
+    //  const recipe = this.GService.ViewRecipie;
+    //  console.log( this.GService.ViewRecipie );
     this.ImageLink('/assets/icon/defaultCake.png');
 
     this.recipeGroup.valueChanges.subscribe();
     this.plt.ready().then(() => {
-        this.loadStoredImages();
-       });
+      this.loadStoredImages();
+    });
   }
 
   // *pulpulate ingredients form array
- polpulateIngredientsArray(recipe: RecepieInterface) {
+  polpulateIngredientsArray(recipe: RecepieInterface) {
 
-  const x = recipe.ingredients;
-  for ( let i = 0 ; i < x.length; i++) {
-  //  console.log(`ingredients: ` + i);
-  //  console.log(x[i].ingredient);
-    this.AddIngredientsSchema(x[i].ingredient, i );
+    const x = recipe.ingredients;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < x.length; i++) {
+      //  console.log(`ingredients: ` + i);
+      //  console.log(x[i].ingredient);
+      this.AddIngredientsSchema(x[i].ingredient);
 
-  }
- 
- }
-
- // *polpulate procedure form array
- polpulateProcedureArray(recipe: RecepieInterface) {
-
-  const x = recipe.procedure;
-  for ( let i = 0 ; i < x.length; i++) {
-  //  console.log(`procedure: ` + i);
-  //  console.log(x[i].procedure);
-    this.AddProcedureSchema(x[i].procedure, i );
+    }
 
   }
 
- }
+  // *polpulate procedure form array
+  polpulateProcedureArray(recipe: RecepieInterface) {
+
+    const x = recipe.procedure;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < x.length; i++) {
+      //  console.log(`procedure: ` + i);
+      //  console.log(x[i].procedure);
+      this.AddProcedureSchema(x[i].procedure);
+
+    }
+
+  }
 
   // images loading
   loadStoredImages() {
@@ -122,11 +124,11 @@ export class RecipeCreatorPage implements OnInit {
           const filePath = this.file.dataDirectory + img;
           const resPath = this.pathForImage(filePath);
           if (resPath.includes('undefined')) {
-           // resPath = 'the path includes undefined';
-           const Correctpath = resPath.substr(9);
-           const finalpath = 'http://localhost' + Correctpath;
+            // resPath = 'the path includes undefined';
+            const Correctpath = resPath.substr(9);
+            const finalpath = 'http://localhost' + Correctpath;
 
-           this.images.push({ name: img, path: finalpath, filePath });
+            this.images.push({ name: img, path: finalpath, filePath });
           } else {
 
             this.images.push({ name: img, path: resPath, filePath });
@@ -156,62 +158,81 @@ export class RecipeCreatorPage implements OnInit {
     return this.recipeGroup.get('procedure') as FormArray;
   }
 
-//#endregion
+  //#endregion
 
   //#region Ingredients schema
 
   /**
    * ? find out why the position parameter is there
    */
-  AddIngredientsSchema(load?: string, position?: number ) {
+  AddIngredientsSchema(load?: string) {
     if (this.GService.isRecipeEditable === false) {
-    const ingredients = this.fb.group({
-     ingredient: ['', [Validators.required, Validators.minLength(3)]]
+      const ingredients = this.fb.group({
+        ingredient: ['', [Validators.required, Validators.minLength(3)]]
 
-    });
+      });
 
-    this.IngredientsArray.push(ingredients);
-  } else {
+      this.IngredientsArray.push(ingredients);
+    } else {
 
 
       const ingredients = this.fb.group({
 
-        ingredient: [ load , [Validators.required, Validators.minLength(3)]]
+        ingredient: [load, [Validators.required, Validators.minLength(3)]]
 
-       });
+      });
       this.IngredientsArray.push(ingredients);
 
 
     }
 
   }
-// * =================================================== \\
-            // ?used in edit section of a recipe
-// * =================================================== \\
+  // * =================================================== \\
+  // ?used in edit section of a recipe
+  // * =================================================== \\
   UpdateIngredientsSchema() {
     const ingredients = this.fb.group({
       ingredient: ['', [Validators.required, Validators.minLength(3)]]
- 
-     });
- 
+
+    });
+
     this.IngredientsArray.push(ingredients);
 
   }
 
 
 
-deleteIngredientsSchema(i) {
-  this.IngredientsArray.removeAt(i);
+  deleteIngredientsSchema(i) {
+    this.IngredientsArray.removeAt(i);
 
-}
+  }
 
 
-//#endregion
+  //#endregion
 
-//#region procedure schema
-  AddProcedureSchema( load?: string, position?: number ) {
+  //#region procedure schema
+  AddProcedureSchema(load?: string) {
 
     if (this.GService.isRecipeEditable === false) {
+      const procedures = this.fb.group({
+        procedure: ['', [Validators.required, Validators.minLength(3)]]
+
+      });
+
+      this.ProcedureArray.push(procedures);
+
+    } else {
+      const procedures = this.fb.group({
+        procedure: [load, [Validators.required, Validators.minLength(3)]]
+
+      });
+
+      this.ProcedureArray.push(procedures);
+
+    }
+  }
+
+  UpdateProcedureSchema() {
     const procedures = this.fb.group({
       procedure: ['', [Validators.required, Validators.minLength(3)]]
 
@@ -219,26 +240,7 @@ deleteIngredientsSchema(i) {
 
     this.ProcedureArray.push(procedures);
 
-  } else {
-    const procedures = this.fb.group({
-      procedure: [load, [Validators.required, Validators.minLength(3)]]
-
-    });
-
-    this.ProcedureArray.push(procedures);
-
   }
-}
-
-UpdateProcedureSchema() {
-  const procedures = this.fb.group({
-    procedure: ['', [Validators.required, Validators.minLength(3)]]
-
-   });
-
-  this.ProcedureArray.push(procedures);
-
-}
 
   deleteProcedureSchema(i) {
     this.ProcedureArray.removeAt(i);
@@ -249,23 +251,36 @@ UpdateProcedureSchema() {
   ImageLink(value) {
 
     if (this.GService.isRecipeEditable === false) {
-    this.recipeGroup.patchValue({
-      imageUrl: value
+      this.recipeGroup.patchValue({
+        imageUrl: value
 
-    } );
-  } else {
-    this.recipeGroup.patchValue({
-      imageUrl: this.GService.ViewRecipie.imageUrl
+      });
+    }
+    // else {
+    //   this.recipeGroup.patchValue({
+    //     imageUrl: this.GService.ViewRecipie.imageUrl
 
-    } );
+    //   });
 
+    // }
   }
-}
+  UpdateImageLink(value) {
+
+    if (this.GService.isRecipeEditable === true) {
+
+      this.recipeImagevalue = value;
+
+      this.recipeGroup.patchValue({
+        imageUrl: value
+
+      });
+    }}
+
 
 
   SavePersonalRecipe(personalRecipe) {
     this.GService.savePersonalRecepies(personalRecipe);
-   // this.ImageLink(this.ImageGSService.resPath);
+    // this.ImageLink(this.ImageGSService.resPath);
     this.alertNotifier('saved');
     this.recipeGroup.reset();
 
@@ -276,13 +291,13 @@ UpdateProcedureSchema() {
   async alertNotifier(notification: string) {
     const alert = await this.alertController.create({
       header: `succesfully ${notification}`,
-      message:  `<strong> ${this.recipeGroup.get('title').value}</strong> has been ${notification}!!!`,
+      message: `<strong> ${this.recipeGroup.get('title').value}</strong> has been ${notification}!!!`,
       backdropDismiss: false,
       buttons: [
         {
           text: 'Okay',
           handler: () => {
-           this.router.navigate(['/tabs/tab1']);
+            this.router.navigate(['/tabs/tab1']);
           }
         }
       ]
@@ -294,14 +309,14 @@ UpdateProcedureSchema() {
 
   async presentToast(text) {
     const toast = await this.toastController.create({
-        message: text,
-        position: 'bottom',
-        duration: 3000
+      message: text,
+      position: 'bottom',
+      duration: 3000
     });
     toast.present();
   }
 
-  DeleteRecipe(){
+  DeleteRecipe() {
 
     this.DeleteNotifier();
   }
@@ -309,18 +324,19 @@ UpdateProcedureSchema() {
   async DeleteNotifier() {
     const alert = await this.alertController.create({
       header: `DELETE RECIPE`,
-      message:  `are you sure you want to delete <strong> ${this.recipeGroup.get('title').value}</strong>`,
+      message: `are you sure you want to delete <strong> ${this.recipeGroup.get('title').value}</strong>`,
       backdropDismiss: false,
       buttons: [
-        {
-          text: 'Okay',
-          handler: () => {
-           this.GService.DeletePersonalRecepies();
-          }
-        },
+
         {
           text: 'cancel',
           role: 'cancel'
+        },
+        {
+          text: 'Okay',
+          handler: () => {
+            this.GService.DeletePersonalRecepies();
+          }
         }
       ]
     });
@@ -330,120 +346,122 @@ UpdateProcedureSchema() {
 
 
 
- // * =================================================== \\
+  // * =================================================== \\
   // #region  PICTURE SECTION
-// * =================================================== \\
+  // * =================================================== \\
   async launchActionSheet() {
     const actionSheet = await this.actionSheetController.create({
-        header: 'Select Image source',
-        buttons: [{
-                text: 'Load from Library',
-                icon: 'images',
-                handler: () => {
-                    this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-                }
-            },
-            {
-                text: 'Use Camera',
-                icon: 'camera',
-                handler: () => {
-                    this.takePicture(this.camera.PictureSourceType.CAMERA);
-                }
-            },
-            {
-                icon: 'close-circle',
-                text: 'Cancel',
-                role: 'cancel'
-            }
-        ]
+      header: 'Select Image source',
+      buttons: [{
+        text: 'Load from Library',
+        icon: 'images',
+        handler: () => {
+          this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+        }
+      },
+      {
+        text: 'Use Camera',
+        icon: 'camera',
+        handler: () => {
+          this.takePicture(this.camera.PictureSourceType.CAMERA);
+        }
+      },
+      {
+        icon: 'close-circle',
+        text: 'Cancel',
+        role: 'cancel'
+      }
+      ]
     });
     await actionSheet.present();
-}
+  }
 
-// * =================================================== \\
-                    // ?IMAGE SELECTOR
- // * =================================================== \\
- takePicture(sourceType: PictureSourceType) {
-  const options: CameraOptions = {
+  // * =================================================== \\
+  // ?IMAGE SELECTOR
+  // * =================================================== \\
+  takePicture(sourceType: PictureSourceType) {
+    const options: CameraOptions = {
       quality: 100,
       sourceType,
       targetHeight: 512,
       targetWidth: 512,
       saveToPhotoAlbum: false,
       correctOrientation: true
-  };
+    };
 
-  this.camera.getPicture(options).then(imagePath => {
+    this.camera.getPicture(options).then(imagePath => {
       if (this.plt.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
-          this.filePath.resolveNativePath(imagePath)
-              .then(filePath => {
-                  const correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-                  const currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-                  this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-              });
+        this.filePath.resolveNativePath(imagePath)
+          .then(filePath => {
+            const correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
+            const currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
+            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+          });
       } else {
-          const currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-          const correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-          this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+        const currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+        const correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
       }
-  });
+    });
 
-}
-
-pathForImage(img: string) {
-  if (img === null) {
-    return '';
-  } else {
-    const converted = this.webview.convertFileSrc(img);
-    return converted;
   }
-}
 
-createFileName() {
-  const d = new Date(),
+  pathForImage(img: string) {
+    if (img === null) {
+      return '';
+    } else {
+      const converted = this.webview.convertFileSrc(img);
+      return converted;
+    }
+  }
+
+  createFileName() {
+    const d = new Date(),
       n = d.getTime(),
       newFileName = n + '.jpg';
-  return newFileName;
-}
+    return newFileName;
+  }
 
-copyFileToLocalDir(namePath, currentName, newFileName) {
-  this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
-      this.updateStoredImages(newFileName);
-  }, error => {
-      this.presentToast('Error while storing file.');
-  });
-}
+  copyFileToLocalDir(namePath, currentName, newFileName) {
+    this.file.copyFile(
+      namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
+        this.updateStoredImages(newFileName);
+      }, error => {
+        this.presentToast('Error while storing file.');
+      });
+  }
 
-updateStoredImages(name) {
-  this.storage.get(STORAGE_KEY).then(images => {
+  updateStoredImages(name) {
+    this.storage.get(STORAGE_KEY).then(images => {
       const arr = JSON.parse(images);
       if (!arr) {
-          const newImages = [name];
-          this.storage.set(STORAGE_KEY, JSON.stringify(newImages));
+        const newImages = [name];
+        this.storage.set(STORAGE_KEY, JSON.stringify(newImages));
       } else {
-          arr.push(name);
-          this.storage.set(STORAGE_KEY, JSON.stringify(arr));
+        arr.push(name);
+        this.storage.set(STORAGE_KEY, JSON.stringify(arr));
       }
 
       const filePath = this.file.dataDirectory + name;
       const resPath = this.pathForImage(filePath);
       this.ImageLink(resPath);
+      this.UpdateImageLink(resPath);
 
       const newEntry = {
-          name,
-          path: resPath,
-          filePath
+        name,
+        path: resPath,
+        filePath
       };
 
       this.images = [newEntry, ...this.images];
       this.ref.detectChanges(); // trigger change detection cycle
-  });
-}
+    });
+  }
 
-deleteImage(imgEntry, position) {
-  this.images.splice(position, 1);
+  deleteImage(imgEntry, position) {
+    this.images.splice(position, 1);
 
-  this.storage.get(STORAGE_KEY).then(images => {
+    this.storage.get(STORAGE_KEY).then(images => {
       const arr = JSON.parse(images);
       const filtered = arr.filter(name => name !== imgEntry.name);
       this.storage.set(STORAGE_KEY, JSON.stringify(filtered));
@@ -451,20 +469,20 @@ deleteImage(imgEntry, position) {
       const correctPath = imgEntry.filePath.substr(0, imgEntry.filePath.lastIndexOf('/') + 1);
 
       this.file.removeFile(correctPath, imgEntry.name).then(res => {
-          this.presentToast('File removed.');
+        this.presentToast('File removed.');
       });
-  });
-}
+    });
+  }
 
 
 
 
-//#endregion
+  //#endregion
 
 
 
 
-  
+
 
 
 

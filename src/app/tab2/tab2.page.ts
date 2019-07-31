@@ -8,11 +8,31 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-constructor() {
 
+  SearchBarActive = false;
+  filter = '';
+
+constructor() {
+  console.log(this.SearchBarActive);
+  this.filterSubject(1);
 }
 
+switchState() {
+  this.SearchBarActive = !this.SearchBarActive;
+}
 
+filterSubject(filter: number) {
+
+  if (filter === 1) {
+    this.filter = 'search for bakers';
+  } else if (filter === 2) {
+    this.filter = 'search for shops';
+
+  } else if (filter === 3) {
+    this.filter = 'search for baking jobs';
+
+  }
+}
 
 
 }

@@ -16,3 +16,15 @@ ion-content{
 .break{
   margin: 10px 0px;
 }
+
+.closebutton{
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+.background{
+  position: relative;
+  display: block;
+ 
+}

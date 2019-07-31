@@ -1,13 +1,82 @@
-<ion-header  parallax imageUrl="/assets/cakes/cinnamon.jpg" maximumHeight="200" expandedColor="#AAA" titleColor="white">
-  <!-- [appScrollVanishDirective] ="scrollArea" -->
-  <ion-toolbar color="primary">
-    <ion-title >
-      Tab Two
-    </ion-title>
+<ion-header  >
+  
+  <ion-toolbar color="primary" >
+    <!-- search event (ionChange)="onSearchChange($event)" -->
+    <ion-row [hidden]="!SearchBarActive">
+      <ion-col size="10 ">
+          <ion-searchbar animated="true" [placeholder]="filter"  [debounce]="250"  >
+            </ion-searchbar>
+  
+      </ion-col>
+      <ion-col size="2" (click)="switchState()">
+          <ion-icon name="close-circle" size="large" class="closebutton"></ion-icon>
+      </ion-col>
+      <ion-col size="12" >
+          <ion-segment  >
+       
+
+              <ion-segment-button (click)="filterSubject(1)" checked>
+                 
+              
+                <ion-label style=" text-transform: lowercase;">Bakers</ion-label>
+              </ion-segment-button>
+              <ion-segment-button  (click)="filterSubject(2)">
+               
+                <ion-label style=" text-transform: lowercase;">Shops</ion-label>
+              </ion-segment-button>
+              <ion-segment-button (click)="filterSubject(3)">
+                
+                 <ion-label style=" text-transform: lowercase;"> jobs</ion-label>
+               </ion-segment-button>
+              
+              
+  
+            </ion-segment> 
+         
+      </ion-col>
+     
+    </ion-row>
+ 
+
+      
+        <ion-segment [hidden]="SearchBarActive"  >
+       
+
+            <ion-segment-button >
+              <ion-icon name="paper"> </ion-icon>
+              <ion-label style=" text-transform: lowercase;">Bakers</ion-label>
+            </ion-segment-button>
+            <ion-segment-button >
+              <ion-icon name="cart"></ion-icon>
+              <ion-label style=" text-transform: lowercase;">Shops</ion-label>
+            </ion-segment-button>
+            <ion-segment-button >
+               <ion-icon name="briefcase"></ion-icon>
+               <ion-label style=" text-transform: lowercase;"> jobs</ion-label>
+             </ion-segment-button>
+             <ion-segment-button (click)="switchState()" >
+                <ion-icon  name="search" ></ion-icon>
+                <ion-label style=" text-transform: lowercase;">search</ion-label>
+              </ion-segment-button>
+            
+
+          </ion-segment> 
+          
+     
+
+    
+
+   
+<!-- <ion-searchbar placeholder="Filter Pizza"  [debounce]="250" ></ion-searchbar> -->
+        
+          
+        
+  
   </ion-toolbar>
 </ion-header>
-
+<!-- event manager search bar (ionChange)="onSearchChange($event)" -->
 <ion-content    >
+ 
 
     <ion-card   *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"  >
       <ion-card-title>hello world</ion-card-title>
@@ -32,6 +101,9 @@
 
 
 </ion-content >
+
+
+
 
 <div class="setpos" *ngIf="!IsPersonalRecipe">
     <ion-row>

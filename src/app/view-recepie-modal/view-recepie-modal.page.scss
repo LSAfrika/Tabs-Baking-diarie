@@ -87,3 +87,41 @@ ion-content{
        margin-top: 25px;
        margin-bottom: 25px;
      }
+
+.imgcontainer{
+  position: relative;
+  background: rgb(231, 231, 231);
+ // width: 100%;
+
+     
+ 
+
+}
+
+
+.imageSize{
+  position: relative;
+ display: block;
+  border: 1px solid #ffffff;
+  border-radius: 75% !important;
+    width:50%;
+    left: 30%;
+   // top: 50%;
+    transform: translate(-30%,0%);
+    object-fit: cover !important;
+  }
+
+  .titleposition{
+    position: relative;
+    display: block;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    color:#5576fb;
+    font-weight: 400;
+    font-size: 1.2rem;
+
+   }
+
+ 
+   

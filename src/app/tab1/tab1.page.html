@@ -3,12 +3,15 @@
         <!-- hidenav-header  -->
         <ion-toolbar color="primary"  >
        <ion-segment   >
-      
-            <ion-segment-button [checked]="IsActive" layout="icon-start" (click)="StateToggler(true)">
+       
+       <!-- icon slots position layout="icon-start" 
+           layout="icon-start"  -->
+
+            <ion-segment-button [checked]="IsActive" (click)="StateToggler(true)">
               <ion-icon name="filing"> </ion-icon>
               <ion-label style=" text-transform: lowercase;">recipes</ion-label>
             </ion-segment-button>
-            <ion-segment-button  [checked]="!IsActive" layout="icon-start" (click)="StateToggler(false)">
+            <ion-segment-button  [checked]="!IsActive" (click)="StateToggler(false)">
               <ion-icon name="bookmarks"></ion-icon>
               <ion-label style=" text-transform: lowercase;">my recipes</ion-label>
             </ion-segment-button>

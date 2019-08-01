@@ -1,11 +1,8 @@
-<ion-header parallax imageUrl="{{RecipeView.imageUrl}}" maximumHeight="200" expandedColor="#AAA" titleColor="white"  >
+<ion-header >
+
+ 
   <!-- <ion-toolbar color="primary">
-      <ion-buttons  slot="end">
-          <ion-button >
-            <ion-icon size="large"  name= "close-circle"></ion-icon>
-           
-          </ion-button>
-        </ion-buttons>
+      parallax imageUrl="{{RecipeView.imageUrl}}" maximumHeight="200" expandedColor="#AAA" titleColor="white"  
   </ion-toolbar> -->
     
     <!-- <ion-toolbar style="text-align: center; --background:#5576fb;color:white">
@@ -22,7 +19,13 @@
     </ion-toolbar> -->
     
     <ion-toolbar color="primary">
-      <ion-title>
+        <ion-buttons slot="end"   >
+            <ion-button (click)="dismissView()">
+              <ion-icon  size="large"  name= "close-circle"></ion-icon>
+             
+            </ion-button>
+          </ion-buttons>
+      <ion-title >
         {{RecipeView.title}}
       </ion-title>
     </ion-toolbar>
@@ -34,6 +37,24 @@
        
 <ion-content  >
     <div [hidden]="IsPersonalRecipe">
+      <ion-card>
+        <!-- <div class="imgcontainer">
+            <img class="imageSize"  [src]="RecipeView.imageUrl">
+            <ion-col size="12">
+                <ion-label text-center  style="color:#5576fb;font-weight: 400">{{RecipeView.title}}</ion-label>
+            </ion-col>
+        </div> -->
+        <ion-row>
+          <ion-col size="6">
+              <img class="imageSize"   [src]="RecipeView.imageUrl">
+          </ion-col>
+          <ion-col size="6">
+              <ion-label class="titleposition"  >{{RecipeView.title}}</ion-label>
+          </ion-col>
+        </ion-row>
+        
+       
+      </ion-card>
 <ion-card>
   
     <!-- <img class="imageSizeMax" [src]="RecipeView.imageUrl"> -->
@@ -68,6 +89,19 @@
 </div>
 
 <div [hidden]="!IsPersonalRecipe">
+
+    <ion-card>
+        <ion-row>
+            <ion-col size="6">
+                <img class="imageSize"   [src]="RecipeView.imageUrl">
+            </ion-col>
+            <ion-col size="6">
+                <ion-label class="titleposition"  >{{RecipeView.title}}</ion-label>
+            </ion-col>
+          </ion-row>
+      </ion-card>
+
+
 <ion-card>
   
   <!-- <img class="imageSizeMax" [src]="RecipeView.imageUrl"> -->
@@ -108,31 +142,40 @@
 
 
 </ion-content>
-<div class="setpos" *ngIf="!IsPersonalRecipe">
-    <ion-row>
-        <ion-col size="6" offset="3">
-            <ion-button 
-      shape="round" 
-      
-      
-      color="primary"
-      expand="block" 
-      (click)="dismissView()">
-      <ion-icon slot="start" name="close-circle"></ion-icon>
-      <ion-label style="color:white;text-transform: lowercase;">
-        close 
-      </ion-label>
-    </ion-button>
-        </ion-col>
-      </ion-row>
 
-</div>
 
 
 
 
 <div class="setpos" *ngIf="IsPersonalRecipe" >
-  <ion-row>
+  
+    <ion-fab vertical="bottom" horizontal="end">
+        <ion-fab-button >
+          <ion-icon name="menu">
+
+          </ion-icon>
+        </ion-fab-button>
+      
+        <ion-fab-list side="start">
+          <ion-fab-button (click)="DeleteRecipe()" color="danger">
+            <ion-icon  name="trash">
+              
+            </ion-icon>
+            
+          </ion-fab-button>
+          <ion-fab-button color="primary">
+            <ion-icon (click)="EditPersonalRecepie(true)"  [routerLink]="['/recipe-creator']"  name="create"></ion-icon>
+          </ion-fab-button>
+         
+        
+        </ion-fab-list>
+      
+       
+      
+      </ion-fab>
+
+
+  <!-- <ion-row>
        <ion-col size="4" offset="2" >
           <ion-button 
     shape="round" 
@@ -161,7 +204,7 @@
   </ion-label>
 </ion-button>
     </ion-col>
-    </ion-row>
+    </ion-row> -->
 
 </div>
 

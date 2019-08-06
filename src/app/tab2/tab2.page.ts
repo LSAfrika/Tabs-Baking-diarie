@@ -17,19 +17,17 @@ constructor() {
   this.filterSubject(1);
 }
 
-switchState() {
-  this.SearchBarActive = !this.SearchBarActive;
-}
+
 
 filterSubject(filter: number) {
 
   if (filter === 1) {
-    this.filter = 'search for bakers';
+    this.filter = 'bakers near you';
   } else if (filter === 2) {
-    this.filter = 'search for shops';
+    this.filter = 'accessories shops near you ';
 
   } else if (filter === 3) {
-    this.filter = 'search for baking jobs';
+    this.filter = 'baking jobs near you';
 
   }
 }

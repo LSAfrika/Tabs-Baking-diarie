@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalServiceService } from '../services/global-service.service';
-import { RecepieInterface } from './../interfaces/recepie-interface';
+import { GlobalServiceService } from '../../services/global-service.service';
+import { RecepieInterface } from './../../interfaces/recepie-interface';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 

@@ -1,10 +1,33 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>my orders</ion-title>
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+    <ion-card  *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1]" >
+        <ion-card-header>
+           
+          <ion-card-title style="color: teal">blue berry cake</ion-card-title>
+
+        
+                <ion-card-subtitle>Delivery date:12/12/2019</ion-card-subtitle>
+           
+        
+        </ion-card-header>
+        <ion-card-content>
+          Awesome content
+        </ion-card-content>
+      </ion-card>
+
 </ion-content>
+
+<ion-fab  vertical="bottom" horizontal="end" slot="fixed" size="large">
+    <ion-fab-button color="primary"  [routerLink]="['/orders-creation-modal']" >
+      
+      <ion-icon color="light" name="add" size="128"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> 
 

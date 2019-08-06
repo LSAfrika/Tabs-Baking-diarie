@@ -1,13 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ModalController, AlertController, ActionSheetController, Platform, ToastController } from '@ionic/angular';
+import { AlertController, ActionSheetController, Platform, ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { GlobalServiceService } from '../services/global-service.service';
+import { GlobalServiceService } from '../../services/global-service.service';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
 import { File, FileEntry } from '@ionic-native/file/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { Storage } from '@ionic/storage';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
-import { RecepieInterface } from '../interfaces/recepie-interface';
+import { RecepieInterface } from '../../interfaces/recepie-interface';
 import { Router } from '@angular/router';
 
 // DB KEY

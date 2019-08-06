@@ -1,31 +1,30 @@
 <ion-header  >
   
   <ion-toolbar color="primary" >
-    <!-- search event (ionChange)="onSearchChange($event)" -->
-    <ion-row [hidden]="!SearchBarActive">
-      <ion-col size="10 ">
-          <ion-searchbar animated="true" [placeholder]="filter"  [debounce]="250"  >
+    <!-- search event (ionChange)="onSearchChange($event)"  class="searchbar-input sc-ion-searchbar-md" -->
+    <ion-row >
+      <ion-col size="12 ">
+        
+          <ion-searchbar   animated="true" [placeholder]="filter"  [debounce]="250"  >
             </ion-searchbar>
-  
+          
       </ion-col>
-      <ion-col size="2" (click)="switchState()">
-          <ion-icon name="close-circle" size="large" class="closebutton"></ion-icon>
-      </ion-col>
+     
       <ion-col size="12" >
           <ion-segment  >
        
 
-              <ion-segment-button (click)="filterSubject(1)" checked>
-                 
+              <ion-segment-button layout="icon-start" (click)="filterSubject(1)" checked>
+                  <ion-icon name="locate"></ion-icon>
               
                 <ion-label style=" text-transform: lowercase;">Bakers</ion-label>
               </ion-segment-button>
-              <ion-segment-button  (click)="filterSubject(2)">
-               
+              <ion-segment-button layout="icon-start" (click)="filterSubject(2)">
+                  <ion-icon name="locate"></ion-icon>
                 <ion-label style=" text-transform: lowercase;">Shops</ion-label>
               </ion-segment-button>
-              <ion-segment-button (click)="filterSubject(3)">
-                
+              <ion-segment-button layout="icon-start" (click)="filterSubject(3)">
+                  <ion-icon name="locate"></ion-icon>
                  <ion-label style=" text-transform: lowercase;"> jobs</ion-label>
                </ion-segment-button>
               
@@ -39,28 +38,7 @@
  
 
       
-        <ion-segment [hidden]="SearchBarActive"  >
-       
-
-            <ion-segment-button >
-              <ion-icon name="paper"> </ion-icon>
-              <ion-label style=" text-transform: lowercase;">Bakers</ion-label>
-            </ion-segment-button>
-            <ion-segment-button >
-              <ion-icon name="cart"></ion-icon>
-              <ion-label style=" text-transform: lowercase;">Shops</ion-label>
-            </ion-segment-button>
-            <ion-segment-button >
-               <ion-icon name="briefcase"></ion-icon>
-               <ion-label style=" text-transform: lowercase;"> jobs</ion-label>
-             </ion-segment-button>
-             <ion-segment-button (click)="switchState()" >
-                <ion-icon  name="search" ></ion-icon>
-                <ion-label style=" text-transform: lowercase;">search</ion-label>
-              </ion-segment-button>
-            
-
-          </ion-segment> 
+     
           
      
 
@@ -75,6 +53,8 @@
   </ion-toolbar>
 </ion-header>
 <!-- event manager search bar (ionChange)="onSearchChange($event)" -->
+
+
 <ion-content    >
  
 

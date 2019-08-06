@@ -35,23 +35,23 @@ const routes: Routes = [
         ]
       },
       {
-        path:'tab4',
-        children:[
+        path: 'tab4',
+        children: [
             {
-               path: '', 
+               path: '',
             loadChildren: '../tab4/tab4.module#Tab4PageModule'
            }
-         
+
         ]
       },
       {
-        path:'tab5',
-        children:[
+        path: 'tab5',
+        children: [
             {
-               path: '', 
+               path: '',
             loadChildren: '../tab5/tab5.module#Tab5PageModule'
            }
-         
+
         ]
       }
       ,

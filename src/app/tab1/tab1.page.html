@@ -1,7 +1,7 @@
       
       <!-- <ion-header > -->
         <!-- hidenav-header  -->
-        <ion-toolbar color="primary"  >
+        <ion-toolbar  >
        <ion-segment   >
        
        <!-- icon slots position layout="icon-start" 
@@ -42,19 +42,22 @@
       <ion-row>
           <div style="width: 128px;margin-left:calc(50% - 64px)">
         <ion-col size="12">
-            <ion-label text-center  style="color:#5576fb;font-weight: 400">{{recipes.title}}</ion-label>
+            <ion-label text-center  style="color:#4b68dd;font-weight: 500">{{recipes.title}}</ion-label>
         </ion-col>
       </div>
       <!--  " -->
-        <ion-col size="12">
+        <ion-col size="10" offset="1">
             <ion-button color="primary" 
                         shape="round" 
-                        expand="block" 
+                        expand="full"
+                        fill="outline" 
                        
                          style=" text-transform: lowercase;font-weight: 300;" 
                          (click)="ViewRecepie(recipes.title,false)"
                          [routerLink]="['/view-recepie-modal']" 
-                         >view recipe </ion-button>
+                         >
+                         
+                         view recipe </ion-button>
           </ion-col>
       </ion-row>
         
@@ -102,16 +105,18 @@
                 
             </ion-col> -->
             <!--   " -->
-              <ion-col size="12" >  
+              <ion-col size="10" offset="1" >  
                   <ion-button color="primary" 
-                  shape="round" expand="block" 
+                  shape="round" 
+                  expand="full"
+                  fill="outline" 
                    style=" text-transform: lowercase;font-weight: 300;width: 100%"
                   (click)="ViewPersonalRecepie(recipes.title,true)"
                   [routerLink]="['/view-recepie-modal']" 
                     >
                 
 
-                    view
+                    view recipe
                      
                    </ion-button>
                 </ion-col>
@@ -140,9 +145,9 @@
     
     
     <ion-fab [hidden]="Tab2" vertical="bottom" horizontal="end" slot="fixed" size="large">
-        <ion-fab-button color="primary" (click)="NewRecipeForm(false)" [routerLink]="['/recipe-creator']" >
+        <ion-fab-button color="light" (click)="NewRecipeForm(false)" [routerLink]="['/recipe-creator']" >
           
-          <ion-icon color="light" name="add" size="128"></ion-icon>
+          <ion-icon color="primary" name="add" size="large"></ion-icon>
         </ion-fab-button>
       </ion-fab> 
          

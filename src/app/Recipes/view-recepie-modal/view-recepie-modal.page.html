@@ -1,31 +1,16 @@
 <ion-header >
 
  
-  <!-- <ion-toolbar color="primary">
-      parallax imageUrl="{{RecipeView.imageUrl}}" maximumHeight="200" expandedColor="#AAA" titleColor="white"  
-  </ion-toolbar> -->
+ 
     
-    <!-- <ion-toolbar style="text-align: center; --background:#5576fb;color:white">
-    
-           <div class="maxsize"> 
-
-                <img  class="radius"  style="color: white" src="{{RecipeView.imageUrl}}">
-                 <img *ngIf="RecipeView && RecipeView.imageUrl===null"  class="radius" src='/assets/icon/defaultCake.png'> 
-                    </div>  
-        
-       
-      <ion-label style="font-weight: 300;font-size: 24px">{{RecipeView.title}}</ion-label>
-          
-    </ion-toolbar> -->
-    
-    <ion-toolbar color="primary">
-        <ion-buttons slot="end"   >
+    <ion-toolbar >
+        <ion-buttons  slot="end"   >
             <ion-button (click)="dismissView()">
-              <ion-icon  size="large"  name= "close-circle"></ion-icon>
+              <ion-icon  color="primary" size="large"  name= "close-circle"></ion-icon>
              
             </ion-button>
           </ion-buttons>
-      <ion-title >
+      <ion-title  color="primary" >
         {{RecipeView.title}}
       </ion-title>
     </ion-toolbar>
@@ -150,21 +135,21 @@
 <div class="setpos" *ngIf="IsPersonalRecipe" >
   
     <ion-fab vertical="bottom" horizontal="end">
-        <ion-fab-button >
-          <ion-icon name="menu">
+        <ion-fab-button  color="light" >
+          <ion-icon color="primary" name="menu" size="large">
 
           </ion-icon>
         </ion-fab-button>
       
         <ion-fab-list side="start">
-          <ion-fab-button (click)="DeleteRecipe()" color="danger">
-            <ion-icon  name="trash">
+          <ion-fab-button   color="light"  (click)="DeleteRecipe()" >
+            <ion-icon color="danger"  name="trash">
               
             </ion-icon>
             
           </ion-fab-button>
-          <ion-fab-button color="primary">
-            <ion-icon (click)="EditPersonalRecepie(true)"  [routerLink]="['/recipe-creator']"  name="create"></ion-icon>
+          <ion-fab-button  color="light"  (click)="EditPersonalRecepie(true)"  >
+            <ion-icon color="primary"[routerLink]="['/recipe-creator']"  name="create"></ion-icon>
           </ion-fab-button>
          
         

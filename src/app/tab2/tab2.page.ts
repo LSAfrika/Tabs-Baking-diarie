@@ -1,16 +1,20 @@
 
 import { GlobalServiceService } from './../services/global-service.service';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, IonContent } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
+  
 })
 export class Tab2Page {
 
   SearchBarActive = false;
   filter = '';
+  @ViewChild(IonContent) content: IonContent;
 
 constructor() {
   console.log(this.SearchBarActive);

@@ -5,13 +5,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
-import { IonicHeaderParallaxModule } from 'ionic-header-parallax';
+
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
-    IonicHeaderParallaxModule,
+
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab2Page }])
   ],

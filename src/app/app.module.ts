@@ -27,6 +27,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule,
+   
      IonicModule.forRoot(),
       AppRoutingModule,
       IonicStorageModule.forRoot()],

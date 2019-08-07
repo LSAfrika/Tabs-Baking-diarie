@@ -1,27 +1,44 @@
 export interface OrdersInterface {
-    title: string;
-    bakerycontacts: [
+
+    ClientContacts: [
         {name: string},
         {contacts: number},
-        {email: string}
+        {email?: string}
                 ];
 
-    orderOwnerContacts: [
-        {name: string},
-        {contacts: number}
-                ];
+    BakersBussinessName: string;
 
     imageUrl?: string;
+
+    orderdate: Date;
 
     deliveryDate: Date;
 
     cakeType: string;
 
-    cakeweight: number;
+    cakeColor: string;
 
-    numberOfCakes: number;
+    Cakeshape: string;
 
-    description: string;
+    Cakedescription: string;
 
-    
+    CakeInscription: string;
+
+    Cakeweight: number;
+
+    CakeQuantity: number;
+
+    totalcost: number;
+
+    downpayment: number;
+
+    balance: number;
+
+    bakerycontacts: [
+        {name: string},
+        {contacts: number},
+        {email?: string}
+                ];
+
+
     }

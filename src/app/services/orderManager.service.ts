@@ -9,32 +9,101 @@ import {Storage} from '@ionic/storage';
 export class OrderManagerService {
 
  FilteredOrder: OrdersInterface;
- SavedOrders: OrdersInterface[] = [];
- KeyStore = 'savedorders';
+ ActiveOrdersArray: OrdersInterface[] = [];
+ ArchivedOrdersArray: OrdersInterface[] = [];
+ ActiveStoreKey = 'savedorders';
+ ArchivedStoreKey = 'archivedOrder';
 
-  constructor(private OrdersStored: Storage) {
+  constructor(private storage: Storage) {
+    this.LoadActiveSavedOrders();
+    this.LoadArchivedSavedOrders();
+
+  }
+
+  LoadActiveSavedOrders() {
+    this.storage.get(this.ActiveStoreKey).then((loadedOrders) => {
+
+      this.ActiveOrdersArray = loadedOrders;
+
+    }).catch(err =>
+      console.log('logged an error:', err)
+      );
+
+  }
+  LoadArchivedSavedOrders() {
+    this.storage.get(this.ArchivedStoreKey).then((loadedOrders) => {
+
+      this.ArchivedOrdersArray = loadedOrders;
+
+    }).catch(err =>
+      console.log('logged an error:', err)
+      );
 
   }
 
 
-
-  SaveOrder(order: OrdersInterface) {
-    this.SavedOrders.push(order);
-    this.OrdersStored.set(this.KeyStore, this.SavedOrders).then((savedresult) => {
-
-      this.SavedOrders = savedresult;
-    });
+// * LOGIC TO SAVE AN ORDER \\
+  ActiveSaveOrder(order: OrdersInterface) {
+    this.ActiveOrdersArray.push(order);
+    this.ActiveOrdersStorage(this.ActiveOrdersArray);
 
   }
 
 
-  ViewOrder(date: Date) {
-    this.FilteredOrder = this.SavedOrders.find(
+  // * VIEW ACTIVE ORDER ARRAY \\
+ ActiveOrdersStorage(orders: OrdersInterface[]) {
+  this.storage.set(this.ActiveStoreKey, orders).then((savedresult) => {
+
+    this.ActiveOrdersArray = savedresult;
+  });
+
+}
+
+
+// * VIEW ARCHIVE ORDER ARRAY \\
+ArchiveOrdersStorage(orders: OrdersInterface[]) {
+  this.storage.set(this.ArchivedStoreKey, orders).then((savedresult) => {
+
+   this.ArchivedOrdersArray = savedresult;
+  });
+
+}
+
+
+// * VIEW DETAILS OF A SPECIFIC ACTIVE ORDER  \\
+  ViewActiveOrder(date: Date) {
+    this.FilteredOrder = this.ActiveOrdersArray.find(
       filterOrder => filterOrder.orderdate === date
 
     );
 
   }
+
+// * VIEW DETAILS OF A SPECIFIC ACTIVE ORDER   \\
+  ViewArchivedOrder(date: Date) {
+    this.FilteredOrder = this.ArchivedOrdersArray.find(
+      filterOrder => filterOrder.orderdate === date
+
+    );
+
+  }
+
+// * MOVE COMPLETED ORDER TO ARCHIVED ORDERS  \\
+// * LOGIC TO POPULATE ARCHIVED ARRAY\\
+  MoveCompletedOrder() {
+
+    this.ArchivedOrdersArray.push(this.FilteredOrder);
+    this.ArchiveOrdersStorage(this.ArchivedOrdersArray);
+
+
+    const index = this.ActiveOrdersArray.indexOf( this.FilteredOrder);
+    this.ActiveOrdersArray.splice(index, 1);
+    this.ActiveOrdersStorage(this.ActiveOrdersArray);
+
+
+  }
+
+
 
 
 

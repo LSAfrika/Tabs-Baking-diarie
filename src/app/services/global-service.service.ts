@@ -189,9 +189,9 @@ export class GlobalServiceService {
 
    }
 
-   loadSpecificPersonalRecipe(Title: string) {
+   loadSpecificPersonalRecipe(date: Date) {
     this.ViewRecipie = this.personalRecipies.find(
-      filteredRecipe =>   filteredRecipe.title === Title
+      filteredRecipe =>   filteredRecipe.date === date
       );
     console.log(this.ViewRecipie);
 

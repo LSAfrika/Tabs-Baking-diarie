@@ -31,7 +31,9 @@
         </div> -->
         <ion-row>
           <ion-col size="6">
-              <img class="imageSize"   [src]="RecipeView.imageUrl">
+            <div class="imageSizeMax">
+              <img class="borderCircle"   [src]="RecipeView.imageUrl">
+              </div>
           </ion-col>
           <ion-col size="6">
               <ion-label class="titleposition"  >{{RecipeView.title}}</ion-label>
@@ -78,7 +80,9 @@
     <ion-card>
         <ion-row>
             <ion-col size="6">
-                <img class="imageSize"   [src]="RecipeView.imageUrl">
+                <div class="imageSizeMax">
+                <img class="borderCircle"   [src]="RecipeView.imageUrl">
+                </div>
             </ion-col>
             <ion-col size="6">
                 <ion-label class="titleposition"  >{{RecipeView.title}}</ion-label>

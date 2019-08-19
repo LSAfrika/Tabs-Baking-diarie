@@ -48,7 +48,34 @@ ion-content{
     
   
     }
+    .imageSizeMax{
+      position: relative;
+     min-width: 96px !important;
+     max-width: 96px!important;
+     min-height: 96px !important;
+     max-height: 96px!important;
+     display: block;
+     padding: 10px auto;
+     margin-left: 1% auto !important;
   
+    
+  
+    }
+    .borderCircle{
+      display: block;
+       border: 1px solid #3880ff;
+       border-radius: 95px;
+       min-width: 96px !important;
+       max-width: 96px !important;
+       min-height: 96px !important;
+       max-height: 96px !important;
+       object-fit:cover !important;
+     // object-fit: fill
+       
+      }
+
+
+
     .maxsize{
       position: relative;
        display: block;

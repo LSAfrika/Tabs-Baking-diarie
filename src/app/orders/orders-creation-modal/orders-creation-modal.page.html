@@ -9,7 +9,235 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- value:{{OrdersFormGroup.value| json}} -->
+
 <ion-content>
+
+  <ion-card  [formGroup]="OrdersFormGroup">
+
+    <ion-title class="ion-text-center" color="primary">Grace'd bakers</ion-title>
+    <ion-grid fixed>
+      <ion-row>
+
+          <!-- * clients name -->
+        <ion-col size="10" offset="1"> 
+            <ion-item>
+                <ion-label position="floating">
+                  client Name
+                </ion-label>
+                <ion-input formControlName="clientname" >
+
+                </ion-input>
+               
+                  </ion-item>
+                  <ion-item *ngIf="CLIENTNAME.invalid" lines="none">
+                
+                    <div class="error"  > filed is required* </div>
+                  </ion-item>
+        </ion-col>
+
+        <!-- * clients contacts -->
+        <ion-col size="10" offset="1">
+       <ion-item>
+      <ion-label position="floating">
+          contact
+        </ion-label>
+        <ion-input type="number" formControlName="contact" minlength="9" ></ion-input>
+          </ion-item>
+        
+          <ion-item *ngIf="CONTACTS.invalid ||CONTACTS.value===null  " lines="none">
+                
+            <div class="error"  >field is required* </div>
+          </ion-item>
+          =
+          
+        </ion-col>
+
+        <!-- * clients email -->
+        <ion-col size="10" offset="1">
+            <ion-item>
+                <ion-label position="floating">
+                  email (optional)
+                </ion-label>
+                <ion-input type="email" formControlName="Email" ></ion-input>
+                  </ion-item>
+        </ion-col>
+          <!-- * cake type -->
+          <ion-col size="10" offset="1">
+              <ion-item>
+                  <ion-label position="floating">
+                   cake type/flavor
+                  </ion-label>
+                  <ion-input formControlName="caketype" ></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="CAKETYPE.invalid" lines="none">
+                
+                      <div class="error"  >field is required* </div>
+                    </ion-item>
+          </ion-col>
+           <!-- * cake color -->
+           <ion-col size="10" offset="1">
+              <ion-item>
+                  <ion-label position="floating">
+                   cake color
+                  </ion-label>
+                  <ion-input formControlName="cakecolor" ></ion-input>
+                    </ion-item>
+
+                    <ion-item *ngIf="CAKECOLOR.invalid" lines="none">
+                
+                      <div class="error"  >field is required* </div>
+                    </ion-item>
+          </ion-col>
+  
+           <!-- * cake shape -->
+           <ion-col size="10" offset="1">
+              <ion-item>
+                  <ion-label position="floating">
+                   cake shape
+                  </ion-label>
+                  <ion-input formControlName="cakeshape" ></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="CAKESHAPE.invalid" lines="none">
+                
+                      <div class="error"  >field is required* </div>
+                    </ion-item>
+
+          </ion-col>
+      
+          <!-- * cake weight -->
+          <ion-col size="10" offset="1">
+              <ion-item>
+                  <ion-label position="floating">
+                   cake weight in KG's
+                  </ion-label>
+                  <ion-input type="number" formControlName="Cakeweight" minlength="1"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="CAKEWEIGHT.invalid||CAKEWEIGHT.value===null" lines="none">
+                
+                      <div class="error"  >field is required* </div>
+                    </ion-item>
+          </ion-col>
+
+          <!-- * cake quantity -->
+          <ion-col size="10" offset="1">
+              <ion-item>
+                  <ion-label position="floating">
+                   number of cakes
+                  </ion-label>
+                  <ion-input type="number" formControlName="NumberOfCakes" ></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="CAKEORDERNUMBER.invalid ||CAKEORDERNUMBER.value===null" lines="none">
+                
+                      <div class="error"  >field is required* </div>
+                    </ion-item>
+          </ion-col>
+
+           <!-- * delivery date -->
+           <ion-col size="10" offset="1">
+
+                  <ion-item>
+                    <ion-label style="font-size: 16px" position="floating" >delivery date:</ion-label>
+                    <ion-datetime display-format="DD.MM.YYYY HH:mm" formControlName="deliveryDate" ></ion-datetime>
+                    
+                  </ion-item>
+                  <ion-item *ngIf="DELIVERYDATE.invalid ||DELIVERYDATE.value===null" lines="none">
+                
+                    <div class="error"  >field is required* </div>
+                  </ion-item>
+                  
+          </ion-col>
+
+           <!-- * down payment -->
+           <ion-col size="10" offset="1">
+              <ion-item>
+                  <ion-label position="floating">
+                   deposit
+                  </ion-label>
+                  <ion-input type="number" formControlName="deposit" ></ion-input>
+                    </ion-item>
+
+                    <ion-item *ngIf="DEPOSIT.invalid ||DEPOSIT.value===null" lines="none">
+                
+                      <div class="error"  >field is required* </div>
+                    </ion-item>
+          </ion-col>
+
+           <!-- * balance -->
+           <ion-col size="10" offset="1">
+              <ion-item>
+                  <ion-label position="floating">
+                   balance
+                  </ion-label>
+                  <ion-input type="number" formControlName="balance" ></ion-input>
+                    </ion-item>
+
+                    <ion-item *ngIf="BALANCE.invalid ||BALANCE.value===null" lines="none">
+                
+                      <div class="error"  >field is required* </div>
+                    </ion-item>
+          </ion-col>
+
+           <!-- * total cost -->
+           <ion-col size="10" offset="1">
+              <ion-item>
+                  <ion-label position="floating">
+                   total cost
+                  </ion-label>
+                  <ion-input type="number" formControlName="totalcost" ></ion-input>
+                    </ion-item>
+
+                    <ion-item *ngIf="TOTALCOST.invalid ||TOTALCOST.value===null" lines="none">
+                
+                      <div class="error"  >field is required* </div>
+                    </ion-item>
+          </ion-col>
+
+
+
+
+             <!-- * cake inscription -->
+             <ion-col size="10" offset="1">
+                <ion-item>
+                    <ion-label position="floating">
+                     cake inscription
+                    </ion-label>
+                    <ion-textarea formControlName="CakeInscription" ></ion-textarea>
+                      </ion-item>
+
+                      <ion-item *ngIf="CAKEINSCRIPTION.invalid " lines="none">
+                
+                        <div class="error"  >field is required* </div>
+                      </ion-item>
+            </ion-col>
+<br>
+               <!-- * special instructions -->
+          <ion-col size="10" offset="1">
+              <ion-item>
+                  <ion-label position="floating">
+                   special instructions (optional)
+                  </ion-label>
+                  <ion-textarea formControlName="SpecialInstruction"></ion-textarea>
+                    </ion-item>
+          </ion-col>
+
+        <ion-col size="8" offset="2">
+            <ion-button fill="solid" shape="round" expand="block" (click)="Viewlog()" [disabled]="OrdersFormGroup.invalid" >
+                save order
+              </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
+   
+
+  
+
+       
+
+      
+    
+  </ion-card>
  
 
 </ion-content>

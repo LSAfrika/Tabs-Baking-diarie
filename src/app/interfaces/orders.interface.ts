@@ -1,18 +1,19 @@
-export interface OrdersInterface {
+export interface  OrdersInterface {
 
-    ClientContacts: [
-        {name: string},
-        {contacts: number},
-        {email?: string}
-                ];
+    Clientname: string;
 
-    BakersBussinessName: string;
+    Clientcontacts: number;
+
+    Clientemail?: string;
+
+
+    BakersBussinessName?: string;
 
     imageUrl?: string;
 
-    orderdate: Date;
+    orderdate?: string;
 
-    deliveryDate: Date;
+    deliveryDate: string;
 
     cakeType: string;
 
@@ -20,21 +21,21 @@ export interface OrdersInterface {
 
     Cakeshape: string;
 
-    Cakedescription: string;
-
     CakeInscription: string;
 
     Cakeweight: number;
 
-    CakeQuantity: number;
+    NumberOfCakes: number;
+
+    SpecialInstruction?: string;
 
     totalcost: number;
 
-    downpayment: number;
+    deposit: number;
 
     balance: number;
 
-    bakerycontacts: [
+    bakerycontacts?: [
         {name: string},
         {contacts: number},
         {email?: string}

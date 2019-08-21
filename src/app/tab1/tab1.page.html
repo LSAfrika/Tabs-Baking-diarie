@@ -111,7 +111,7 @@
                   expand="full"
                   fill="outline" 
                    style=" text-transform: lowercase;font-weight: 300;width: 100%"
-                  (click)="ViewPersonalRecepie(recipes.title,true)"
+                  (click)="ViewPersonalRecepie(recipes.date,true)"
                   [routerLink]="['/view-recepie-modal']" 
                     >
                 
@@ -145,9 +145,9 @@
     
     
     <ion-fab [hidden]="Tab2" vertical="bottom" horizontal="end" slot="fixed" size="large">
-        <ion-fab-button color="light" (click)="NewRecipeForm(false)" [routerLink]="['/recipe-creator']" >
+        <ion-fab-button color="primary" (click)="NewRecipeForm(false)" [routerLink]="['/recipe-creator']" >
           
-          <ion-icon color="primary" name="add" size="large"></ion-icon>
+          <ion-icon  name="add" size="large"></ion-icon>
         </ion-fab-button>
       </ion-fab> 
          

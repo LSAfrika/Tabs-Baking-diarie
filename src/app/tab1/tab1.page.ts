@@ -70,8 +70,8 @@ NewRecipeForm(isEditable: boolean) {
     this.GService.personalState = state;
 
   }
-  ViewPersonalRecepie(title: string, state: boolean) {
-    this.GService.loadSpecificPersonalRecipe(title);
+  ViewPersonalRecepie(date: Date, state: boolean) {
+    this.GService.loadSpecificPersonalRecipe(date);
     this.GService.personalState = state;
     this.EditPersonalRecepie(state);
   }

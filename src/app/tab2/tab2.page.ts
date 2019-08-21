@@ -36,5 +36,9 @@ filterSubject(filter: number) {
   }
 }
 
+SearchBar() {
+  this.SearchBarActive = !this.SearchBarActive;
+}
+
 
 }

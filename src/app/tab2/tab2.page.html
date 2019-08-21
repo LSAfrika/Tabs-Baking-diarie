@@ -1,62 +1,108 @@
 <ion-header >
-  
-  <ion-toolbar >
-    <!-- search event (ionChange)="onSearchChange($event)"  class="searchbar-input sc-ion-searchbar-md" -->
-    <ion-row >
-      <ion-col size="12 ">
-        
-          <ion-searchbar   animated="true" [placeholder]="filter"  [debounce]="250"  >
-            </ion-searchbar>
-          
-      </ion-col>
-     
-      <ion-col size="12" >
-          <ion-segment  >
-       
 
-              <ion-segment-button layout="icon-start" (click)="filterSubject(1)" checked>
+  <ion-toolbar >
+
+    <!-- * CATEGORY SAEGMENT BUTTONS -->
+    <ion-row   [hidden]="SearchBarActive" >
+
+
+      <ion-col offset="1"  size="10" >
+          <ion-segment  >
+
+
+              <ion-segment-button (click)="filterSubject(1)" checked>
                   <ion-icon name="locate"></ion-icon>
-              
+
                 <ion-label style=" text-transform: lowercase;">Bakers</ion-label>
               </ion-segment-button>
-              <ion-segment-button layout="icon-start" (click)="filterSubject(2)">
+              <!-- icon position start layout="icon-start"  -->
+              <ion-segment-button (click)="filterSubject(2)">
                   <ion-icon name="pin"></ion-icon>
                 <ion-label style=" text-transform: lowercase;">Shops</ion-label>
               </ion-segment-button>
-              <ion-segment-button layout="icon-start" (click)="filterSubject(3)">
+              <ion-segment-button (click)="filterSubject(3)">
                   <ion-icon name="compass"></ion-icon>
                  <ion-label style=" text-transform: lowercase;"> jobs</ion-label>
                </ion-segment-button>
-              
-              
-  
-            </ion-segment> 
-         
+               <ion-segment-button (click)="SearchBar()">
+                  <ion-icon name="search"></ion-icon>
+                 <ion-label style=" text-transform: lowercase;"> search</ion-label>
+               </ion-segment-button>
+            </ion-segment>
+
       </ion-col>
-     
+      <!-- <ion-col size="2" >
+        <ion-icon name="search" size="large" class="searchIconposition"></ion-icon>
+
+      </ion-col> -->
+
     </ion-row>
- 
 
-      
-     
-          
-     
 
-    
+    <!-- * SEARCH BAR COMPONENT -->
+    <ion-row  [hidden]="!SearchBarActive">
+        <ion-col size="12">
+          <ion-searchbar [placeholder]="filter"  [debounce]="250"></ion-searchbar>
 
-   
-<!-- <ion-searchbar placeholder="Filter Pizza"  [debounce]="250" ></ion-searchbar> -->
-        
-          
-        
-  
+        </ion-col>
+
+
+        <ion-col offset="1"  size="9" >
+            <ion-segment  >
+
+
+                <ion-segment-button (click)="filterSubject(1)" checked>
+                  <ion-label style=" text-transform: lowercase;">Bakers</ion-label>
+                </ion-segment-button>
+                <!-- icon position start layout="icon-start"  -->
+                <ion-segment-button (click)="filterSubject(2)">
+
+                  <ion-label style=" text-transform: lowercase;">Shops</ion-label>
+                </ion-segment-button>
+                <ion-segment-button (click)="filterSubject(3)">
+
+                   <ion-label style=" text-transform: lowercase;"> jobs</ion-label>
+                 </ion-segment-button>
+                
+                 
+                 
+                 
+
+              </ion-segment>
+
+        </ion-col>
+         <ion-col size="2" (click)="SearchBar()">
+          <ion-icon name="close-circle" color="primary" size="large" class="searchIconposition"></ion-icon>
+
+        </ion-col>
+
+      </ion-row>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </ion-toolbar>
 </ion-header>
 <!-- event manager search bar (ionChange)="onSearchChange($event)" -->
 
 
+
+
+
+
 <ion-content  hidenav-content  >
- 
+
 
     <ion-card [routerLink]="['/view-advert-modal']"  *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"  >
       <ion-card-title>hello world</ion-card-title>
@@ -64,7 +110,7 @@
         <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
             Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-            an unknown printer. 
+            an unknown printer.
 
             </p>
       </ion-card-content>
@@ -75,11 +121,11 @@
     <br class="break"/>
 
     <ion-fab  vertical="bottom" horizontal="end" slot="fixed" size="large">
-      <ion-fab-button color="light"  [routerLink]="['/advert-creation-modal']" >
-        
-        <ion-icon color="primary" name="add" size="large"></ion-icon>
+      <ion-fab-button color="primary"  [routerLink]="['/advert-creation-modal']" >
+
+        <ion-icon name="add" size="large"></ion-icon>
       </ion-fab-button>
-    </ion-fab> 
+    </ion-fab>
 
 
 </ion-content >
@@ -90,12 +136,12 @@
 <!-- <div class="setpos" *ngIf="!IsPersonalRecipe">
     <ion-row>
         <ion-col size="6" offset="3">
-            <ion-button 
-      shape="round" 
-    
-      
+            <ion-button
+      shape="round"
+
+
       color="primary"
-      expand="block" 
+      expand="block"
       >
       <ion-icon slot="start" name="images"></ion-icon>
       <ion-label style="color:white;text-transform: lowercase;">

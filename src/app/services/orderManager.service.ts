@@ -73,7 +73,7 @@ ArchiveOrdersStorage(orders: OrdersInterface[]) {
 // * VIEW DETAILS OF A SPECIFIC ACTIVE ORDER  \\
   ViewActiveOrder(date: Date) {
     this.FilteredOrder = this.ActiveOrdersArray.find(
-      filterOrder => filterOrder.orderdate === date
+      filterOrder => filterOrder.orderdate === date.toDateString()
 
     );
 
@@ -82,7 +82,7 @@ ArchiveOrdersStorage(orders: OrdersInterface[]) {
 // * VIEW DETAILS OF A SPECIFIC ACTIVE ORDER   \\
   ViewArchivedOrder(date: Date) {
     this.FilteredOrder = this.ArchivedOrdersArray.find(
-      filterOrder => filterOrder.orderdate === date
+      filterOrder => filterOrder.orderdate === date.toDateString()
 
     );
 

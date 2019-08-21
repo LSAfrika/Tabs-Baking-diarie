@@ -51,6 +51,7 @@ export class RecipeCreatorPage implements OnInit {
     if (this.GService.isRecipeEditable === false) {
       this.recipeGroup = this.fb.group({
         title: ['', [Validators.required, Validators.minLength(5)]],
+        date: this.setDate(),
         imageUrl: null,
         ingredients: this.fb.array([]),
         procedure: this.fb.array([]),
@@ -78,11 +79,23 @@ export class RecipeCreatorPage implements OnInit {
     //  console.log( this.GService.ViewRecipie );
     this.ImageLink('/assets/icon/defaultCake.png');
 
+    console.log(this.setDate());
     this.recipeGroup.valueChanges.subscribe();
     this.plt.ready().then(() => {
       this.loadStoredImages();
     });
   }
+
+
+// * new date \\
+setDate() {
+  const d = new Date(),
+    newdate = d.getTime();
+
+  return newdate;
+}
+
+
 
   // *pulpulate ingredients form array
   polpulateIngredientsArray(recipe: RecepieInterface) {

@@ -1,4 +1,4 @@
-import { DynamiccounterService } from './../services/dynamiccounter.service';
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class Tab5Page implements OnInit {
 
   cakeflavours: string[];
-  constructor( public countersevice: DynamiccounterService) {
+  constructor() {
     this.cakeflavours = [
       'chocolate cake',
       'vannilla cake',
@@ -24,7 +24,7 @@ export class Tab5Page implements OnInit {
      ];
 
  
-    this.countersevice.OrdersCount(this.cakeflavours.length);
+  
   }
 
   

@@ -1,6 +1,8 @@
 import { OrdersInterface } from './../interfaces/orders.interface';
 import { Injectable } from '@angular/core';
 import {Storage} from '@ionic/storage';
+import { ELEMENT_MARKER } from '@angular/core/src/render3/interfaces/i18n';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -14,7 +16,7 @@ export class OrderManagerService {
  ActiveStoreKey = 'savedorders';
  ArchivedStoreKey = 'archivedOrder';
 
-  constructor(private storage: Storage) {
+  constructor(private storage: Storage, private router: Router) {
     this.LoadActiveSavedOrders();
     this.LoadArchivedSavedOrders();
 
@@ -23,7 +25,14 @@ export class OrderManagerService {
   LoadActiveSavedOrders() {
     this.storage.get(this.ActiveStoreKey).then((loadedOrders) => {
 
-      this.ActiveOrdersArray = loadedOrders;
+      if (loadedOrders) {
+        this.ActiveOrdersArray = loadedOrders;
+        console.log('active array filled: ', this.ActiveOrdersArray);
+      } else {
+        this.ActiveOrdersArray = [];
+        console.log('active array empty: ', this.ActiveOrdersArray);
+
+      }
 
     }).catch(err =>
       console.log('logged an error:', err)
@@ -33,7 +42,12 @@ export class OrderManagerService {
   LoadArchivedSavedOrders() {
     this.storage.get(this.ArchivedStoreKey).then((loadedOrders) => {
 
+      if (loadedOrders) {
       this.ArchivedOrdersArray = loadedOrders;
+      } else {
+        this.ArchivedOrdersArray = [];
+
+      }
 
     }).catch(err =>
       console.log('logged an error:', err)
@@ -43,7 +57,8 @@ export class OrderManagerService {
 
 
 // * LOGIC TO SAVE AN ORDER \\
-  ActiveSaveOrder(order: OrdersInterface) {
+  SaveOrder(order) {
+    console.log('order service value: ', order);
     this.ActiveOrdersArray.push(order);
     this.ActiveOrdersStorage(this.ActiveOrdersArray);
 
@@ -55,6 +70,7 @@ export class OrderManagerService {
   this.storage.set(this.ActiveStoreKey, orders).then((savedresult) => {
 
     this.ActiveOrdersArray = savedresult;
+    console.log(this.ActiveOrdersArray);
   });
 
 }
@@ -73,18 +89,23 @@ ArchiveOrdersStorage(orders: OrdersInterface[]) {
 // * VIEW DETAILS OF A SPECIFIC ACTIVE ORDER  \\
   ViewActiveOrder(date: Date) {
     this.FilteredOrder = this.ActiveOrdersArray.find(
-      filterOrder => filterOrder.orderdate === date.toDateString()
+      filterOrder => filterOrder.orderdate === date
 
     );
+
+    console.log('filtered oreder: ',this.FilteredOrder);
+    this.router.navigate(['/view-order-modal']);
 
   }
 
 // * VIEW DETAILS OF A SPECIFIC ACTIVE ORDER   \\
   ViewArchivedOrder(date: Date) {
     this.FilteredOrder = this.ArchivedOrdersArray.find(
-      filterOrder => filterOrder.orderdate === date.toDateString()
+      filterOrder => filterOrder.orderdate === date
 
     );
+
+
 
   }
 

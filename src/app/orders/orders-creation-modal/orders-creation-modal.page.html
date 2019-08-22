@@ -25,7 +25,7 @@
                 <ion-label position="floating">
                   client Name
                 </ion-label>
-                <ion-input formControlName="clientname" >
+                <ion-input formControlName="Clientname" >
 
                 </ion-input>
                
@@ -42,7 +42,7 @@
       <ion-label position="floating">
           contact
         </ion-label>
-        <ion-input type="number" formControlName="contact" minlength="9" ></ion-input>
+        <ion-input type="number" formControlName="Clientcontacts" minlength="9" ></ion-input>
           </ion-item>
         
           <ion-item *ngIf="CONTACTS.invalid ||CONTACTS.value===null  " lines="none">
@@ -59,7 +59,7 @@
                 <ion-label position="floating">
                   email (optional)
                 </ion-label>
-                <ion-input type="email" formControlName="Email" ></ion-input>
+                <ion-input type="email" formControlName="Clientemail" ></ion-input>
                   </ion-item>
         </ion-col>
           <!-- * cake type -->
@@ -68,7 +68,7 @@
                   <ion-label position="floating">
                    cake type/flavor
                   </ion-label>
-                  <ion-input formControlName="caketype" ></ion-input>
+                  <ion-input formControlName="cakeType" ></ion-input>
                     </ion-item>
                     <ion-item *ngIf="CAKETYPE.invalid" lines="none">
                 
@@ -81,7 +81,7 @@
                   <ion-label position="floating">
                    cake color
                   </ion-label>
-                  <ion-input formControlName="cakecolor" ></ion-input>
+                  <ion-input formControlName="cakeColor" ></ion-input>
                     </ion-item>
 
                     <ion-item *ngIf="CAKECOLOR.invalid" lines="none">
@@ -96,7 +96,7 @@
                   <ion-label position="floating">
                    cake shape
                   </ion-label>
-                  <ion-input formControlName="cakeshape" ></ion-input>
+                  <ion-input formControlName="Cakeshape" ></ion-input>
                     </ion-item>
                     <ion-item *ngIf="CAKESHAPE.invalid" lines="none">
                 
@@ -222,7 +222,11 @@
           </ion-col>
 
         <ion-col size="8" offset="2">
-            <ion-button fill="solid" shape="round" expand="block" (click)="Viewlog()" [disabled]="OrdersFormGroup.invalid" >
+            <ion-button fill="solid"
+                        shape="round" 
+                        expand="block"
+                        (click)="SaveOrder(OrdersFormGroup.value)" 
+                        [disabled]="OrdersFormGroup.invalid" >
                 save order
               </ion-button>
         </ion-col>

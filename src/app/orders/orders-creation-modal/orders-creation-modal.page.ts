@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { OrdersInterface } from 'src/app/interfaces/orders.interface';
 import { AlertController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Storage } from '@ionic/storage';
+import { OrderManagerService } from 'src/app/services/orderManager.service';
+
 
 @Component({
   selector: 'app-orders-creation-modal',
@@ -16,12 +17,15 @@ export class OrdersCreationModalPage implements OnInit {
   OrdersFormGroup: FormGroup;
   ErrorValue = '';
   FormValidation = true;
-  numberas = 1.23;
 
-  constructor(private alertController: AlertController, public FB: FormBuilder) {
+  ActiveOrdersTestArray: OrdersInterface[] = [];
+
+  constructor(private alertController: AlertController,
+              public FB: FormBuilder,
+              private OrdersManager: OrderManagerService) {
 
 
-this.OrderToSave = {} as OrdersInterface;
+
 
 
 
@@ -32,15 +36,16 @@ this.OrderToSave = {} as OrdersInterface;
   ngOnInit() {
 
     this.OrdersFormGroup = this.FB.group({
-      clientname: ['', [Validators.required, Validators.minLength(5)]],
-      contact: [null, [  Validators.required,
+      orderdate: this.setDate(),
+      Clientname: ['', [Validators.required, Validators.minLength(5)]],
+      Clientcontacts: [null, [  Validators.required,
         Validators.pattern('^[0-9]*$'),
         Validators.minLength(9)] ],
-      Email: ['', [ Validators.required, Validators.email]],
-      caketype: ['', [Validators.required, Validators.minLength(5)]],
-      cakecolor: ['', [Validators.required, Validators.minLength(3)]],
-      cakeshape: ['', [Validators.required, Validators.minLength(3)]],
-      Cakeweight: [null, [Validators.required, Validators.minLength(1)]],
+        Clientemail: ['', [ Validators.email]],
+        cakeType: ['', [Validators.required, Validators.minLength(5)]],
+        cakeColor: ['', [Validators.required, Validators.minLength(3)]],
+        Cakeshape: ['', [Validators.required, Validators.minLength(3)]],
+        Cakeweight: [null, [Validators.required, Validators.minLength(1)]],
       NumberOfCakes: [null, [Validators.required, Validators.minLength(1)]],
       deliveryDate: [null, [Validators.required]],
       deposit: [null, [Validators.required, Validators.minLength(3)]],
@@ -58,38 +63,48 @@ this.OrderToSave = {} as OrdersInterface;
 
 
   Viewlog() {
-    console.log(this.OrdersFormGroup.value);
+  //  console.log(this.OrdersFormGroup.value);
   }
 
+// * date creator
 
+setDate() {
+  const d = new Date(),
+    newdate = d.getTime();
+
+  return newdate;
+}
+
+
+//#region FORM CONTROLS
 
   // * CLIENT NAME FORM FIELD
  get CLIENTNAME() {
-   return this.OrdersFormGroup.get('clientname');
+   return this.OrdersFormGroup.get('Clientname');
  }
 
   // * CLIENT CONTACT FORM FIELD
  get CONTACTS() {
-  return this.OrdersFormGroup.get('contact');
+  return this.OrdersFormGroup.get('Clientcontacts');
 }
 
   // * CLIENT EMAIL FORM FIELD
   get EMAIL() {
-    return this.OrdersFormGroup.get('Email');
+    return this.OrdersFormGroup.get('Clientemail');
   }
 
   // *  CAKE TYPE FORM FIELD
   get CAKETYPE() {
-    return this.OrdersFormGroup.get('caketype');
+    return this.OrdersFormGroup.get('cakeType');
   }
 
    // * CAKE COLOR FORM FIELD
    get CAKECOLOR() {
-    return this.OrdersFormGroup.get('cakecolor');
+    return this.OrdersFormGroup.get('cakeColor');
   }
    // * CAKE SHAPE FORM FIELD
    get CAKESHAPE() {
-    return this.OrdersFormGroup.get('cakeshape');
+    return this.OrdersFormGroup.get('Cakeshape');
   }
 
    // * CAKE WEIGHT FORM FIELD
@@ -134,6 +149,17 @@ this.OrderToSave = {} as OrdersInterface;
    get SPECIALINSTRUCTION() {
     return this.OrdersFormGroup.get('SpecialInstruction');
   }
+
+  //#endregion
+
+
+SaveOrder(order) {
+  // console.log('order value: ', order);
+ this.OrdersManager.SaveOrder(order);
+
+ this.ActiveOrdersTestArray.push(order);
+ console.log(this.ActiveOrdersTestArray);
+}
 
 
 

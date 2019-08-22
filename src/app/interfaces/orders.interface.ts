@@ -11,7 +11,7 @@ export interface  OrdersInterface {
 
     imageUrl?: string;
 
-    orderdate?: string;
+    orderdate?: Date;
 
     deliveryDate: string;
 

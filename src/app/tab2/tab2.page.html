@@ -1,12 +1,10 @@
-<ion-header >
 
-  <ion-toolbar >
 
     <!-- * CATEGORY SAEGMENT BUTTONS -->
-    <ion-row   [hidden]="SearchBarActive" >
+    <ion-row   [hidden]="SearchBarActive" class="ion-no-margin" class="ion-no-padding" >
 
 
-      <ion-col offset="1"  size="10" >
+      <ion-col offset="1"  size="10" class="ion-no-margin" class="ion-no-padding">
           <ion-segment  >
 
 
@@ -40,14 +38,14 @@
 
 
     <!-- * SEARCH BAR COMPONENT -->
-    <ion-row  [hidden]="!SearchBarActive">
-        <ion-col size="12">
+    <ion-row class="ion-no-margin" class="ion-no-padding" [hidden]="!SearchBarActive">
+        <ion-col size="12 " class="ion-no-margin" class="ion-no-padding">
           <ion-searchbar [placeholder]="filter"  [debounce]="250"></ion-searchbar>
 
         </ion-col>
 
 
-        <ion-col offset="1"  size="9" >
+        <ion-col offset="1"  size="9" class="ion-no-margin" class="ion-no-padding">
             <ion-segment  >
 
 
@@ -71,7 +69,7 @@
               </ion-segment>
 
         </ion-col>
-         <ion-col size="2" (click)="SearchBar()">
+         <ion-col class="ion-no-margin" class="ion-no-padding" size="2" (click)="SearchBar()">
           <ion-icon name="close-circle" color="primary" size="large" class="searchIconposition"></ion-icon>
 
         </ion-col>
@@ -92,8 +90,7 @@
 
 
 
-  </ion-toolbar>
-</ion-header>
+  
 <!-- event manager search bar (ionChange)="onSearchChange($event)" -->
 
 

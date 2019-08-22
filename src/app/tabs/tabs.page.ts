@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderManagerService } from '../services/orderManager.service';
 
 
 @Component({
@@ -8,15 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsPage implements OnInit {
 
-  orderCount = 0;
+  
 
 
-constructor(){
+constructor(public OrdersManager: OrderManagerService){
 
  
 }
 ngOnInit() {
 
+ // this.OrdersManager. LoadActiveSavedOrders();
+ 
+ 
 
 }
 

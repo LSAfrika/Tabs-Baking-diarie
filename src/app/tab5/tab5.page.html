@@ -16,16 +16,19 @@
       <ion-card *ngFor="let order of OrdersManager.ActiveOrdersArray" >
         <ion-card-header>
            
-            <ion-card-title color="primary" style=" text-transform: lowercase;font-weight: 500;width: 100%"> cake ordered: {{order.cakeType}}</ion-card-title>
+            <ion-card-title color="primary" style=" text-transform: uppercase;font-weight: 500;width: 100%">  {{order.cakeType }}</ion-card-title>
        
 
           
          
         </ion-card-header>
         <ion-card-content>
-
+            <ion-label color="dark"  style=" font-weight: 350;width: 100%">CLIENT NAME: {{order.Clientname }}</ion-label> <br>
+     
            
-            <ion-label  style=" text-transform: lowercase;font-weight: 350;width: 100%">delivery date: {{order.orderdate  | date:'medium'}}</ion-label>
+           
+            <ion-label color="dark"  style=" text-transform: uppercase;font-weight: 350;width: 100%">delivery date: </ion-label> <br>
+            <ion-label color="dark" style=" text-transform: lowercase;font-weight: 350;width: 100%"> {{order.orderdate  | date:'medium'}}</ion-label><br>
             
           
         </ion-card-content>

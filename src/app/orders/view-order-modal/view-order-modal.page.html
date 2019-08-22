@@ -15,10 +15,10 @@
   <!-- * ION CARD CLIENT DETAIL -->
 <ion-card>
   <ion-card-header>
-    <ion-card-title color="primary">CLIENT INFO:</ion-card-title>
+    <ion-card-title color="primary">Client info:</ion-card-title>
     <ion-card-subtitle color="dark">name: {{viewOrder.Clientname}}</ion-card-subtitle>
-    <ion-card-subtitle>number: 0{{viewOrder.Clientcontacts}}</ion-card-subtitle>
-    <ion-card-subtitle>email: {{viewOrder.Clientemail}}</ion-card-subtitle>
+    <ion-card-subtitle  color="dark">number: 0{{viewOrder.Clientcontacts}}</ion-card-subtitle>
+    <ion-card-subtitle  color="dark">email: {{viewOrder.Clientemail}}</ion-card-subtitle>
 
   </ion-card-header>
 
@@ -26,8 +26,8 @@
  <!-- * ION CARD DELIVERY DATE DETAIL -->
  <ion-card>
     <ion-card-header>
-        <ion-card-title color="primary">DELIVERY DATE:</ion-card-title>
-      <ion-card-subtitle>{{viewOrder.deliveryDate | date:'medium'}}</ion-card-subtitle>
+        <ion-card-title color="primary">Delivery date:</ion-card-title>
+      <ion-card-subtitle  color="dark">{{viewOrder.deliveryDate | date:'medium'}}</ion-card-subtitle>
     </ion-card-header>
   
   </ion-card>
@@ -35,14 +35,14 @@
  <!-- * ION CARD CAKE DETAIL -->
  <ion-card>
     <ion-card-header>
-        <ion-card-title color="primary">CAKE DETAILS:</ion-card-title>
-      <ion-card-subtitle>CAKE FLAVOUR:{{viewOrder.cakeType}}</ion-card-subtitle>
-      <ion-card-subtitle>CAKE COLOR: {{viewOrder.cakeColor}}</ion-card-subtitle>
-      <ion-card-subtitle>CAKE SHAPE: {{viewOrder.Cakeshape}}</ion-card-subtitle>
-      <ion-card-subtitle>CAKE WEIGHT: {{viewOrder.Cakeweight}} kg(s)</ion-card-subtitle>
-      <ion-card-subtitle>CAKE ORDER(S) : {{viewOrder.NumberOfCakes}} </ion-card-subtitle>
-      <ion-card-subtitle>CAKE INSCRIPTION: {{viewOrder.CakeInscription}}</ion-card-subtitle>
-      <ion-card-subtitle>SPECIAL INSTRUCTION: {{viewOrder.SpecialInstruction}}</ion-card-subtitle>
+        <ion-card-title   color="primary">Cake details:</ion-card-title>
+      <ion-card-subtitle  color="dark"> FLAVOUR:{{viewOrder.cakeType}}</ion-card-subtitle>
+      <ion-card-subtitle  color="dark"> COLOR: {{viewOrder.cakeColor}}</ion-card-subtitle>
+      <ion-card-subtitle  color="dark"> SHAPE: {{viewOrder.Cakeshape}}</ion-card-subtitle>
+      <ion-card-subtitle  color="dark"> WEIGHT: {{viewOrder.Cakeweight}} kg(s)</ion-card-subtitle>
+      <ion-card-subtitle  color="dark"> ORDER(S) : {{viewOrder.NumberOfCakes}} </ion-card-subtitle>
+      <ion-card-subtitle  color="dark"> INSCRIPTION: {{viewOrder.CakeInscription}}</ion-card-subtitle>
+      <ion-card-subtitle  color="dark">SPECIAL INSTRUCTION: {{viewOrder.SpecialInstruction}}</ion-card-subtitle>
 
     </ion-card-header>
   
@@ -51,10 +51,10 @@
    <!-- * ION CARD PAYMENT DETAIL -->
 <ion-card>
     <ion-card-header>
-      <ion-card-title color="primary">PAYMENT INFO:</ion-card-title>
-      <ion-card-subtitle>DEPOSIT: {{viewOrder.deposit}}</ion-card-subtitle>
-      <ion-card-subtitle>BALANCE: {{viewOrder.balance}}</ion-card-subtitle>
-      <ion-card-subtitle>TOTAL COST: {{viewOrder.totalcost}}</ion-card-subtitle>
+      <ion-card-title color="primary">Payment info:</ion-card-title>
+      <ion-card-subtitle  color="dark">DEPOSIT: {{viewOrder.deposit}}</ion-card-subtitle>
+      <ion-card-subtitle  color="dark">BALANCE: {{viewOrder.balance}}</ion-card-subtitle>
+      <ion-card-subtitle  color="dark">TOTAL COST: {{viewOrder.totalcost}}</ion-card-subtitle>
     </ion-card-header>
   
   </ion-card>

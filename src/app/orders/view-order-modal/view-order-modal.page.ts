@@ -16,7 +16,7 @@ viewOrder: OrdersInterface;
 
   ngOnInit() {
     this.viewOrder = this.Ordermanager.FilteredOrder;
-    console.log('order view template: ',this.viewOrder);
+  //  console.log('order view template: ',this.viewOrder);
   }
 
 }

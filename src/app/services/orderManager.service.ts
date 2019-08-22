@@ -15,6 +15,7 @@ export class OrderManagerService {
  ArchivedOrdersArray: OrdersInterface[] = [];
  ActiveStoreKey = 'savedorders';
  ArchivedStoreKey = 'archivedOrder';
+ activecounter = 0;
 
   constructor(private storage: Storage, private router: Router) {
     this.LoadActiveSavedOrders();
@@ -27,6 +28,7 @@ export class OrderManagerService {
 
       if (loadedOrders) {
         this.ActiveOrdersArray = loadedOrders;
+        this.activecounter = this.ActiveOrdersArray.length;
         console.log('active array filled: ', this.ActiveOrdersArray);
       } else {
         this.ActiveOrdersArray = [];
@@ -70,6 +72,7 @@ export class OrderManagerService {
   this.storage.set(this.ActiveStoreKey, orders).then((savedresult) => {
 
     this.ActiveOrdersArray = savedresult;
+    this.activecounter = this.ActiveOrdersArray.length;
     console.log(this.ActiveOrdersArray);
   });
 
@@ -93,7 +96,7 @@ ArchiveOrdersStorage(orders: OrdersInterface[]) {
 
     );
 
-    console.log('filtered oreder: ',this.FilteredOrder);
+ //   console.log('filtered oreder: ',this.FilteredOrder);
     this.router.navigate(['/view-order-modal']);
 
   }

@@ -1,4 +1,7 @@
+import { OrdersInterface } from 'src/app/interfaces/orders.interface';
 import { Component, OnInit } from '@angular/core';
+import { OrderManagerService } from 'src/app/services/orderManager.service';
+
 
 @Component({
   selector: 'app-view-order-modal',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewOrderModalPage implements OnInit {
 
-  constructor() { }
+viewOrder: OrdersInterface;
+
+  constructor(public Ordermanager: OrderManagerService) { }
 
   ngOnInit() {
+    this.viewOrder = this.Ordermanager.FilteredOrder;
+    console.log('order view template: ',this.viewOrder);
   }
 
 }

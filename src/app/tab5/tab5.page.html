@@ -55,7 +55,7 @@
 </ion-content>
 
 <ion-fab  vertical="bottom" horizontal="end" slot="fixed" size="large">
-    <ion-fab-button color="primary" [routerLink]="['/orders-creation-modal']" >
+    <ion-fab-button color="primary" (click)="OrderCreationPage(false)">
       
       <ion-icon  name="add" size="large"></ion-icon>
     </ion-fab-button>

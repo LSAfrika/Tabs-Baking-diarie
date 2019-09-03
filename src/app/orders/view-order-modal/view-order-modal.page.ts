@@ -3,6 +3,7 @@ import { ActionSheetController, PopoverController } from '@ionic/angular';
 import { OrdersInterface } from 'src/app/interfaces/orders.interface';
 import { Component, OnInit } from '@angular/core';
 import { OrderManagerService } from 'src/app/services/orderManager.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,7 +17,8 @@ viewOrder: OrdersInterface;
 
   constructor(public Ordermanager: OrderManagerService,
               private optionsSheet: ActionSheetController,
-              public popoverController: PopoverController
+              public popoverController: PopoverController,
+              public router: Router
      ) { }
 
   ngOnInit() {
@@ -70,4 +72,8 @@ viewOrder: OrdersInterface;
 
     await popovermenu.present();
   }
+
+
+
+
 }

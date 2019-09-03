@@ -3,6 +3,7 @@ import { OrdersInterface } from 'src/app/interfaces/orders.interface';
 import { AlertController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { OrderManagerService } from 'src/app/services/orderManager.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class OrdersCreationModalPage implements OnInit {
 
   constructor(private alertController: AlertController,
               public FB: FormBuilder,
-              private OrdersManager: OrderManagerService) {
+              private OrdersManager: OrderManagerService,
+              private router: Router) {
 
 
 
@@ -158,9 +160,29 @@ SaveOrder(order) {
  this.OrdersManager.SaveOrder(order);
 
  this.ActiveOrdersTestArray.push(order);
+ this.SuccesstNotifier(this.OrdersFormGroup.get('Clientname').value);
  console.log(this.ActiveOrdersTestArray);
 }
 
+
+async SuccesstNotifier(notification: string) {
+  const alert = await this.alertController.create({
+    header: `succesfully saved`,
+    message: `<strong>${notification}'s </strong> order has been saved!!!`,
+    backdropDismiss: false,
+    buttons: [
+      {
+        text: 'Okay',
+        handler: () => {
+          this.OrdersFormGroup.reset();
+          this.router.navigate(['/tabs/tab5']);
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
 
 
 

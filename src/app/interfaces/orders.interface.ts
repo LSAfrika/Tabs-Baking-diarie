@@ -35,11 +35,10 @@ export interface  OrdersInterface {
 
     balance: number;
 
-    bakerycontacts?: [
-        {name: string},
-        {contacts: number},
-        {email?: string}
-                ];
+    Bakeryname: string;
+    bakerycontacts: number;
+    Bakeryemail?: string;
 
 
-    }
+
+}

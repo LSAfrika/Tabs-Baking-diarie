@@ -2,8 +2,9 @@
   <ion-toolbar>
     <ion-title color="primary" >ORDER DETAILS</ion-title>
     <ion-buttons slot="end">
-      <ion-button  [routerLink]="['/tabs/tab5']" >
-        <ion-icon  color="primary" size="large" name="close-circle" ></ion-icon>
+      <!-- [routerLink]="['/tabs/tab5']" -->
+      <ion-button (click)="popOver($event)"  >
+        <ion-icon  color="primary" size="large" name="more" ></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -61,43 +62,30 @@
 
 
   
-<ion-card style="background: 0%; border:none;box-shadow: 0px">
+
     <ion-row class="ion-no-margin" class="ion-no-padding">
     
   
-        <ion-col size="6" class="ion-no-margin" class="ion-no-padding">
+        <!-- <ion-col offset="3" size="6" class="ion-no-margin" class="ion-no-padding">
             <ion-button fill="solid"
                         shape="round" 
                         expand="block"
                         color="primary"
+                        (click)="launchActionSheet()"
                         >
-                        <ion-icon slot="start" name="create"></ion-icon>
-                <ion-label style="text-transform: lowercase">edit</ion-label>
+                        <ion-icon slot="start" name="more"></ion-icon>
+                <ion-label style="text-transform: lowercase">Actions</ion-label>
               </ion-button>
-        </ion-col>
+              
+        </ion-col> -->
         
-        <ion-col size="6" class="ion-no-margin" class="ion-no-padding">
       
-            <ion-button fill="solid"
-                        shape="round" 
-                        expand="block"
-                        color="danger"
-                        >
-                        <ion-icon slot="start" name="trash"></ion-icon>
-                <ion-label style="text-transform: lowercase">delete</ion-label> 
-              </ion-button>
-        </ion-col>
       
-        <ion-col size="12" class="ion-no-margin" class="ion-no-padding">
-            <ion-button fill="solid"
-                        shape="round" 
-                        expand="block"
-                        color="success"
-                        >
-                        <ion-icon slot="start" name="done-all"></ion-icon>
-                <ion-label style="text-transform: lowercase">complete</ion-label> 
-              </ion-button>
-        </ion-col>
+         
+      
+        
       </ion-row>
-</ion-card>
+      <br>
+     
+
 </ion-content>

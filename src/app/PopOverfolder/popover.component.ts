@@ -24,8 +24,8 @@ export class PopoverComponent implements OnInit {
 
   editOrder(iseditable?: boolean) {
     this.Ordermanager.isEditable = iseditable;
-    console.log('iseditable value: ', iseditable);
-    console.log('active order: ', this.Ordermanager.FilteredOrder);
+ //   console.log('iseditable value: ', iseditable);
+ //   console.log('active order: ', this.Ordermanager.FilteredOrder);
     this.router.navigate(['/orders-creation-modal']);
     this.popover.dismiss();
   }

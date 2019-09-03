@@ -16,6 +16,7 @@ export class OrderManagerService {
  ActiveStoreKey = 'savedorders';
  ArchivedStoreKey = 'archivedOrder';
  activecounter = 0;
+ isEditable =false;
 
   constructor(private storage: Storage, private router: Router) {
     this.LoadActiveSavedOrders();
@@ -62,6 +63,22 @@ export class OrderManagerService {
   SaveOrder(order) {
     console.log('order service value: ', order);
     this.ActiveOrdersArray.push(order);
+    this.ActiveOrdersStorage(this.ActiveOrdersArray);
+
+  }
+
+  // * LOGIC TO UPDATE AN ORDER \\
+  updateOrder(order) {
+    const index = this.ActiveOrdersArray.indexOf(this.FilteredOrder);
+    this.ActiveOrdersArray.splice(index, 1, order);
+    this.ActiveOrdersStorage(this.ActiveOrdersArray);
+
+  }
+
+   // * LOGIC TO DELETE AN ORDER \\
+   DeletaActiveOrder() {
+    const index = this.ActiveOrdersArray.indexOf(this.FilteredOrder);
+    this.ActiveOrdersArray.splice(index, 1);
     this.ActiveOrdersStorage(this.ActiveOrdersArray);
 
   }

@@ -18,6 +18,7 @@ export class OrdersCreationModalPage implements OnInit {
   OrdersFormGroup: FormGroup;
   ErrorValue = '';
   FormValidation = true;
+  isEditable = false;
 
   ActiveOrdersTestArray: OrdersInterface[] = [];
 
@@ -36,7 +37,10 @@ export class OrdersCreationModalPage implements OnInit {
 
 
   ngOnInit() {
+    this.isEditable = this.OrdersManager.isEditable;
 
+
+    if (this.isEditable === false) {
     this.OrdersFormGroup = this.FB.group({
       orderdate: this.setDate(),
       Clientname: ['', [Validators.required, Validators.minLength(5)]],
@@ -58,10 +62,33 @@ export class OrdersCreationModalPage implements OnInit {
 
 
     });
+   } else {
 
+    this.OrdersFormGroup = this.FB.group({
+      orderdate: this.OrdersManager.FilteredOrder.orderdate,
+      Clientname: [this.OrdersManager.FilteredOrder.Clientname, [Validators.required, Validators.minLength(5)]],
+      Clientcontacts: [this.OrdersManager.FilteredOrder.Clientcontacts, [  Validators.required,
+        Validators.pattern('^[0-9]*$'),
+        Validators.minLength(9)] ],
+        Clientemail: [this.OrdersManager.FilteredOrder.Clientemail, [ Validators.email]],
+        cakeType: [this.OrdersManager.FilteredOrder.cakeType, [Validators.required, Validators.minLength(5)]],
+        cakeColor: [this.OrdersManager.FilteredOrder.cakeColor, [Validators.required, Validators.minLength(3)]],
+        Cakeshape: [this.OrdersManager.FilteredOrder.Cakeshape, [Validators.required, Validators.minLength(3)]],
+        Cakeweight: [this.OrdersManager.FilteredOrder.Cakeweight, [Validators.required, Validators.minLength(1)]],
+      NumberOfCakes: [this.OrdersManager.FilteredOrder.NumberOfCakes, [Validators.required, Validators.minLength(1)]],
+      deliveryDate: [this.OrdersManager.FilteredOrder.deliveryDate, [Validators.required]],
+      deposit: [this.OrdersManager.FilteredOrder.deposit, [Validators.required, Validators.minLength(3)]],
+      balance: [this.OrdersManager.FilteredOrder.balance, [Validators.required, Validators.minLength(3)]],
+      totalcost: [this.OrdersManager.FilteredOrder.totalcost, [Validators.required, Validators.minLength(3)]],
+      CakeInscription: [this.OrdersManager.FilteredOrder.CakeInscription, [Validators.required, Validators.minLength(5)]],
+      SpecialInstruction: this.OrdersManager.FilteredOrder.SpecialInstruction,
+
+
+    });
 
 
   }
+}
 
 
   Viewlog() {
@@ -157,11 +184,27 @@ setDate() {
 
 SaveOrder(order) {
   // console.log('order value: ', order);
+  if (this.isEditable === false) {
  this.OrdersManager.SaveOrder(order);
 
  this.ActiveOrdersTestArray.push(order);
  this.SuccesstNotifier(this.OrdersFormGroup.get('Clientname').value);
  console.log(this.ActiveOrdersTestArray);
+  } else {
+    this.OrdersManager.updateOrder(order);
+    this.ActiveOrdersTestArray.push(order);
+    this.SuccesstNotifier(this.OrdersFormGroup.get('Clientname').value);
+  }
+}
+
+creationModalNavigation() {
+  if (this.isEditable === false) {
+    this.router.navigate(['/tabs/tab5']);
+
+  } else {
+    this.router.navigate(['/view-order-modal']);
+
+  }
 }
 
 

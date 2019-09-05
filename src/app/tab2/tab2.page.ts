@@ -1,7 +1,7 @@
 
-import { GlobalServiceService } from './../services/global-service.service';
-import { Component, ViewChild } from '@angular/core';
-import { NavController, IonContent } from '@ionic/angular';
+
+import { Component } from '@angular/core';
+
 
 
 @Component({
@@ -14,11 +14,13 @@ export class Tab2Page {
 
   SearchBarActive = false;
   filter = '';
-  @ViewChild(IonContent) content: IonContent;
+  
+  InitialScrollvalue = 0;
+  Actualvalue = 0;
+  IsSearchBarVisible = true;
 
 constructor() {
-  console.log(this.SearchBarActive);
-  this.filterSubject(1);
+this.filterSubject(1);
 }
 
 
@@ -36,8 +38,36 @@ filterSubject(filter: number) {
   }
 }
 
-SearchBar() {
-  this.SearchBarActive = !this.SearchBarActive;
+
+
+
+logScrolling(event) {
+  // console.log(event.detail.scrollTop);
+  this.Actualvalue = event.detail.scrollTop;
+
+  if ( this.InitialScrollvalue > this.Actualvalue ) {
+    this.IsSearchBarVisible = true;
+    console.log('scrolling to the top \n' + 'boolean value: ', this.IsSearchBarVisible);
+  } else {
+    this.IsSearchBarVisible = false;
+    console.log('scrolling to the bottom  \n' + ' boolean value: ', this.IsSearchBarVisible);
+
+  }
+}
+
+logScrollStart() {
+
+  this.InitialScrollvalue = this.Actualvalue;
+  console.log('scorolling has started scroll value : ', this.InitialScrollvalue);
+
+
+}
+
+logScrollEnd() {
+  this.InitialScrollvalue = this.Actualvalue;
+ 
+  console.log('scorolling has stopped scroll value : ', this.InitialScrollvalue);
+
 }
 
 

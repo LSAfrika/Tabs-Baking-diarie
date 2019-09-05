@@ -1,7 +1,7 @@
 
 
     <!-- * CATEGORY SAEGMENT BUTTONS -->
-    <ion-row   [hidden]="SearchBarActive" class="ion-no-margin" class="ion-no-padding" >
+    <!-- <ion-row   [hidden]="SearchBarActive" class="ion-no-margin" class="ion-no-padding" >
 
 
       <ion-col offset="1"  size="10" class="ion-no-margin" class="ion-no-padding">
@@ -13,7 +13,7 @@
 
                 <ion-label style=" text-transform: lowercase;">Bakers</ion-label>
               </ion-segment-button>
-              <!-- icon position start layout="icon-start"  -->
+               icon position start layout="icon-start" 
               <ion-segment-button (click)="filterSubject(2)">
                   <ion-icon name="pin"></ion-icon>
                 <ion-label style=" text-transform: lowercase;">Shops</ion-label>
@@ -29,23 +29,23 @@
             </ion-segment>
 
       </ion-col>
-      <!-- <ion-col size="2" >
+      <ion-col size="2" >
         <ion-icon name="search" size="large" class="searchIconposition"></ion-icon>
 
-      </ion-col> -->
+      </ion-col> 
 
-    </ion-row>
+    </ion-row> -->
 
 
     <!-- * SEARCH BAR COMPONENT -->
-    <ion-row class="ion-no-margin" class="ion-no-padding" [hidden]="!SearchBarActive">
-        <ion-col size="12 " class="ion-no-margin" class="ion-no-padding">
+    <ion-row class="ion-no-margin" class="ion-no-padding" >
+        <ion-col size="12 " class="ion-no-margin" class="ion-no-padding" [hidden]="!IsSearchBarVisible">
           <ion-searchbar [placeholder]="filter"  [debounce]="250"></ion-searchbar>
 
         </ion-col>
 
 
-        <ion-col offset="1"  size="9" class="ion-no-margin" class="ion-no-padding">
+        <ion-col offset="1"  size="10" class="ion-no-margin" class="ion-no-padding">
             <ion-segment  >
 
 
@@ -69,10 +69,10 @@
               </ion-segment>
 
         </ion-col>
-         <ion-col class="ion-no-margin" class="ion-no-padding" size="2" (click)="SearchBar()">
+         <!-- <ion-col class="ion-no-margin" class="ion-no-padding" size="2" (click)="SearchBar()">
           <ion-icon name="close-circle" color="primary" size="large" class="searchIconposition"></ion-icon>
 
-        </ion-col>
+        </ion-col> -->
 
       </ion-row>
 
@@ -98,7 +98,10 @@
 
 
 
-<ion-content  hidenav-content  >
+<ion-content   [scrollEvents]="true"
+(ionScrollStart)="logScrollStart()"
+(ionScroll)="logScrolling($event)"
+(ionScrollEnd)="logScrollEnd()"  >
 
 
     <ion-card [routerLink]="['/view-advert-modal']"  *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"  >

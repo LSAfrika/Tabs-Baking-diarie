@@ -1,20 +1,18 @@
 export interface BakingJobInterface {
     title: string;
 
-    orderOwnerContacts: [
-        {name: string},
-        {contacts: number}
-                ];
+    orderOwnerName: string;
+    orderOwnerNameContacts: number;
 
     imageUrl?: string;
 
-    deliveryDate: Date;
+    deliveryDate?: Date;
 
     cakeType: string;
 
-    cakeweight: number;
+    cakeweight?: number;
 
-    numberOfCakes: number;
+    numberOfCakes?: number;
 
     jobDescription: string;
 

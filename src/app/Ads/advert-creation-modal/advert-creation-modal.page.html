@@ -1,14 +1,50 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title color="primary">NEW ADVERT LISTING</ion-title>
-    <ion-buttons slot="end">
-      <ion-button  [routerLink]="['/tabs/tab2']" >
-        <ion-icon color="primary" size="large" name="close-circle" ></ion-icon>
-      </ion-button>
-    </ion-buttons>
+  <ion-toolbar  >
+    <ion-title color="primary">create your posting</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<ion-card>
+  
+
+
+    <ion-list>
+        <ion-radio-group>
+          <ion-list-header>
+            <ion-label color="primary" >Select type of ad you want to create</ion-label>
+          </ion-list-header>
+      
+          <ion-item lines="none" (click)="SelectedAd('Baker')"  >
+            <ion-label>Baker's Listing</ion-label>
+            <ion-radio slot="start" value="Baker" ></ion-radio>
+          </ion-item>
+      
+          <ion-item lines="none" (click)="SelectedAd('Shop')" >
+            <ion-label>Accessories Shop Listing</ion-label>
+            <ion-radio slot="start" value="Shop" ></ion-radio>
+          </ion-item>
+      
+          <ion-item lines="none" (click)="SelectedAd('Job')" >
+            <ion-label>Jobs Listings</ion-label>
+            <ion-radio slot="start" value="Job"  ></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </ion-card>
+
+    <ion-button  fill="solid" shape="round">
+      Click me
+    </ion-button>
+ 
+    <ion-card *ngIf="SelectedAdtype!==''" >
+    
+        
+        <ion-card-title [hidden]="SelectedAdtype!=='Baker'">Awesome Baker</ion-card-title>
+        <ion-card-title [hidden]= "SelectedAdtype!=='Shop'">Awesome Shop</ion-card-title>
+        <ion-card-title [hidden]="SelectedAdtype!=='Job'">Awesome Job</ion-card-title>
+     
+    </ion-card>
+
 
 </ion-content>

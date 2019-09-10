@@ -35,11 +35,11 @@ export class PopoverComponent implements OnInit {
     this.popover.dismiss();
     const alert = await this.alertController.create({
       header: `deleted content can't be recovered`,
-      message: `are you sure want to delete order?`,
+      message: `Are you sure want to delete order?`,
       backdropDismiss: false,
       buttons: [
         {
-          text: 'Ok',
+          text: 'YES',
           handler: () => {
             this.Ordermanager.DeletaActiveOrder();
             this.router.navigate(['/tabs/tab5']);
@@ -47,7 +47,7 @@ export class PopoverComponent implements OnInit {
           }
         },
         {
-          text: 'Cancel',
+          text: 'NO',
           role: 'cancel'
 
         }

@@ -1,7 +1,7 @@
       
       <!-- <ion-header > -->
         <!-- hidenav-header  -->
-        <ion-toolbar  >
+        <ion-toolbar color="primary" >
        <ion-segment   >
        
        <!-- icon slots position layout="icon-start" 
@@ -50,7 +50,7 @@
             <ion-button color="primary" 
                         shape="round" 
                         expand="full"
-                        fill="outline" 
+                        fill="solid" 
                        
                          style=" text-transform: lowercase;font-weight: 300;" 
                          (click)="ViewRecepie(recipes.title,false)"
@@ -109,7 +109,7 @@
                   <ion-button color="primary" 
                   shape="round" 
                   expand="full"
-                  fill="outline" 
+                  fill="solid" 
                    style=" text-transform: lowercase;font-weight: 300;width: 100%"
                   (click)="ViewPersonalRecepie(recipes.date,true)"
                   [routerLink]="['/view-recepie-modal']" 

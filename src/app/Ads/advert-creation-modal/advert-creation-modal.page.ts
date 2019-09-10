@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,15 +9,50 @@ import { Component, OnInit } from '@angular/core';
 export class AdvertCreationModalPage implements OnInit {
 
   SelectedAdtype = '';
-  constructor() { }
+  ProceedToSelected ='';
+  BakersFormData: FormGroup;
+  ShopFormData: FormGroup;
+  JobFormData: FormGroup;
+
+  constructor(private fb: FormBuilder) { }
 
 
 
 
   ngOnInit() {
-  //  console.log('slected ad type: ', this.SelectedAdtype);
-
+  
+    this.Bakersform();
+    this.Shopsform();
+    this.Jobsform();
+    
   }
+
+ Bakersform() {
+   console.log('baker is working');
+   this.BakersFormData = this.fb.group({
+
+   });
+ }
+
+ Shopsform() {
+  console.log('shop is working');
+  this.ShopFormData = this.fb.group({
+    
+  });
+}
+
+Jobsform() {
+  console.log('job is working');
+  this.JobFormData = this.fb.group({
+    
+  });
+}
+
+
+
+
+
+
 
   SelectedAd(ad: string) {
     if (ad === 'Job') {
@@ -32,6 +68,15 @@ export class AdvertCreationModalPage implements OnInit {
 
 
     }
+  }
+
+  Next() {
+    this.ProceedToSelected = this.SelectedAdtype;
+  }
+  back() {
+
+    this.ProceedToSelected = '';
+    this.SelectedAdtype = '';
   }
 
 

@@ -3,14 +3,14 @@
  
  
     
-    <ion-toolbar >
+    <ion-toolbar color="primary" >
         <ion-buttons  slot="end"   >
             <ion-button (click)="dismissView()">
-              <ion-icon  color="primary" size="large"  name= "close-circle"></ion-icon>
+              <ion-icon  size="large"  name= "close-circle"></ion-icon>
              
             </ion-button>
           </ion-buttons>
-      <ion-title  color="primary" >
+      <ion-title >
         {{RecipeView.title}}
       </ion-title>
     </ion-toolbar>
@@ -138,7 +138,7 @@
 
 <div class="setpos" *ngIf="IsPersonalRecipe" >
   
-    <ion-fab vertical="bottom" horizontal="end">
+    <!-- <ion-fab vertical="bottom" horizontal="end">
         <ion-fab-button  color="primary" >
           <ion-icon  name="menu" size="large">
 
@@ -157,11 +157,19 @@
           </ion-fab-button>
          
         
-        </ion-fab-list>
+        </ion-fab-list> 
+      </ion-fab>  -->
       
-        
+        <ion-row>
+          <ion-col size="6" offset="3">
+            <ion-button expand="full" (click)="OpenActionSheet()">
+              <ion-icon slot="start" name="more"></ion-icon>
+             <ion-label>Actions</ion-label>
+            </ion-button>
+          </ion-col>
+        </ion-row>
       
-      </ion-fab>
+      
 
 
 

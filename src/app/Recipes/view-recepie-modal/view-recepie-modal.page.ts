@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalServiceService } from '../../services/global-service.service';
 import { RecepieInterface } from './../../interfaces/recepie-interface';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-view-recepie-modal',
@@ -15,7 +15,10 @@ export class ViewRecepieModalPage implements OnInit {
   RecipeView: RecepieInterface;
   IsPersonalRecipe = false;
 
-  constructor( public GService: GlobalServiceService, private router: Router, private alertController: AlertController) { }
+  constructor( public GService: GlobalServiceService, 
+               private router: Router, 
+               private alertController: AlertController,
+               private ASheet: ActionSheetController) { }
 
   ngOnInit() {
     this.RecipeView = this.GService.ViewRecipie;
@@ -33,6 +36,7 @@ export class ViewRecepieModalPage implements OnInit {
 
   EditPersonalRecepie( isEditable: boolean) {
     this.GService.isRecipeEditable = isEditable;
+    this.router.navigate (['/recipe-creator']);
   //  this.GService.loadSpecificPersonalRecipe(title);
 
   }
@@ -54,7 +58,7 @@ export class ViewRecepieModalPage implements OnInit {
           role: 'cancel'
         },
         {
-          text: 'Okay',
+          text: 'Yes',
           handler: () => {
             this.GService.DeletePersonalRecepies();
           }
@@ -65,6 +69,38 @@ export class ViewRecepieModalPage implements OnInit {
     await alert.present();
   }
 
+
+
+  async OpenActionSheet() {
+    const options = await this.ASheet.create({
+
+      header: 'Edit / Delete recipe',
+      buttons: [{
+        text: 'edit recipe',
+        icon: 'create',
+        handler: () => {
+          this.EditPersonalRecepie(true);
+        }
+      },
+      {
+        text: 'Delete Recipe',
+        icon: 'trash',
+        handler: () => {
+          this.DeleteNotifier();
+        }
+      },
+      {
+        icon: 'close-circle',
+        text: 'Cancel',
+        role: 'cancel'
+      }
+      ]
+
+    });
+
+    await options.present();
+
+  }
 
 
 }

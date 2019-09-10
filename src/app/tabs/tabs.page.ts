@@ -9,18 +9,20 @@ import { OrderManagerService } from '../services/orderManager.service';
 })
 export class TabsPage implements OnInit {
 
-  
 
+hidelable = 1;
 
 constructor(public OrdersManager: OrderManagerService){
 
- 
+
 }
 ngOnInit() {
 
- // this.OrdersManager. LoadActiveSavedOrders();
- 
- 
+
+}
+
+LableAction(val: number) {
+  this.hidelable = val;
 
 }
 

@@ -1,13 +1,18 @@
 <ion-header>
-  <ion-toolbar  >
-    <ion-title color="primary">create your posting</ion-title>
+  <ion-toolbar color="primary" >
+    <ion-title >create your posting</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/tabs/tab2']" (click)="back()">
+        <ion-icon size="large" name="close-circle"></ion-icon>
+        
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 <ion-card>
-  
-
 
     <ion-list>
         <ion-radio-group>
@@ -31,20 +36,54 @@
           </ion-item>
         </ion-radio-group>
       </ion-list>
-    </ion-card>
 
-    <ion-button  fill="solid" shape="round">
-      Click me
-    </ion-button>
- 
-    <ion-card *ngIf="SelectedAdtype!==''" >
-    
+      <ion-row>
+      <ion-col size="6" offset="3">
+
+          <ion-button expand="block" fill="solid" shape="round" [disabled]="SelectedAdtype===''" (click)="Next()">
+              next
+            </ion-button>
+
         
-        <ion-card-title [hidden]="SelectedAdtype!=='Baker'">Awesome Baker</ion-card-title>
-        <ion-card-title [hidden]= "SelectedAdtype!=='Shop'">Awesome Shop</ion-card-title>
-        <ion-card-title [hidden]="SelectedAdtype!=='Job'">Awesome Job</ion-card-title>
-     
+      </ion-col>
+    </ion-row>
+   </ion-card>
+
+    
+ 
+   
+
+    <div *ngIf="ProceedToSelected!==''">
+
+    <ion-card [formGroup]="BakersFormData" [hidden]="SelectedAdtype!=='Baker'" >
+
+      <p>
+          Date: 2019-09-10T09:50:55.568Z - Hash: fe5a40de1a3e417a45bb - Time: 4717ms
+          [ng] 192 unchanged chunks
+          [ng] chunk Ads-advert-creation-modal-advert-creation-modal-module Ads-advert-creation-modal-advert-creation-modal-module.js, Ads-advert-creation-modal-advert-creation-modal-module.js.map (Ads-advert-creation-modal-advert-creation-modal-module) 9.51 kB  [rendered][ng] i ｢wdm｣: Compiled successfully.
+          
+      </p>
+      
     </ion-card>
+    <ion-card [formGroup]="ShopFormData" [hidden]= "SelectedAdtype!=='Shop'">
+        <p>
+            Date: 2019-09-10T09:50:55.568Z - Hash: fe5a40de1a3e417a45bb - Time: 4717ms
+            [ng] 193 unchanged chunks
+            [ng] chunk Ads-advert-creation-modal-advert-creation-modal-module Ads-advert-creation-modal-advert-creation-modal-module.js, Ads-advert-creation-modal-advert-creation-modal-module.js.map (Ads-advert-creation-modal-advert-creation-modal-module) 9.51 kB  [rendered][ng] i ｢wdm｣: Compiled successfully.
+            
+        </p>
+      
+      </ion-card>
+      <ion-card [formGroup]="JobFormData" [hidden]="SelectedAdtype!=='Job'">
+          <p>
+              Date: 2019-09-10T09:50:55.568Z - Hash: fe5a40de1a3e417a45bb - Time: 4717ms
+              [ng] 194 unchanged chunks
+              [ng] chunk Ads-advert-creation-modal-advert-creation-modal-module Ads-advert-creation-modal-advert-creation-modal-module.js, Ads-advert-creation-modal-advert-creation-modal-module.js.map (Ads-advert-creation-modal-advert-creation-modal-module) 9.51 kB  [rendered][ng] i ｢wdm｣: Compiled successfully.
+              
+          </p>
+      
+        </ion-card>
+      </div>
 
+    </ion-content>
 
-</ion-content>

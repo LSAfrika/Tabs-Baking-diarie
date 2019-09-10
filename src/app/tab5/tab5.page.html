@@ -1,6 +1,8 @@
+<ion-toolbar color="primary">
+  
 
-<ion-segment class="ion-no-margin" class="ion-no-padding" >
-  <ion-segment-button checked>
+<ion-segment  class="ion-no-margin" class="ion-no-padding" >
+  <ion-segment-button checked color="primary">
     <ion-icon name="cart"></ion-icon>
     <ion-label style="text-transform: lowercase">active orders</ion-label>
   </ion-segment-button>
@@ -9,6 +11,7 @@
     <ion-label style="text-transform: lowercase">archived orders</ion-label>
   </ion-segment-button>
 </ion-segment>
+</ion-toolbar>
 
 <ion-content>
 
@@ -35,7 +38,7 @@
         <ion-row >
           <ion-col size="6" offset="3" >
               <ion-button  (click)="viewOrder(order.orderdate)"
-                style=" text-transform: lowercase;font-weight: 300;width: 100%" color="primary" expand="full" fill="outline" shape="round">
+                style=" text-transform: lowercase;font-weight: 300;width: 100%" color="primary" expand="expand" fill="solid" shape="round">
                 
                 <ion-icon slot="end" mode="ios" size="large" name="arrow-dropright-circle"></ion-icon>
                   <ion-label> view details </ion-label>

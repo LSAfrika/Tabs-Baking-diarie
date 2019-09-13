@@ -1,7 +1,7 @@
 export interface UserInterface {
     Uid: string;
     Username: string;
-    phonenumber?: string;
+    phonenumber: string;
     imageUrl?: string;
 
 

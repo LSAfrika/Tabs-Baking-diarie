@@ -1,17 +1,20 @@
 export interface BakersShopsListingInterface {
-    BakersNametitle: string;
+    ShopName: string;
 
-    BakeryContacts: number;
+    ShopContacts: number;
 
-    BakeryLocation: string;
+    ShopEmail?: string;
+
+    ShopLocation: string;
 
     ImageUrl?: string;
+
+    ShopDescription: string;
 
     CakeTypes?: [];
 
     AccesoriesListing?: [];
 
-    BakeryDescription: string;
 
 
     }

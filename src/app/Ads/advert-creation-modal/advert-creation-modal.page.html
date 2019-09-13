@@ -12,27 +12,27 @@
 </ion-header>
 
 <ion-content>
-<ion-card>
+<ion-card [hidden]="ProceedToSelected!==''">
 
     <ion-list>
-        <ion-radio-group>
+        <ion-radio-group >
           <ion-list-header>
             <ion-label color="primary" >Select type of ad you want to create</ion-label>
           </ion-list-header>
       
           <ion-item lines="none" (click)="SelectedAd('Baker')"  >
             <ion-label>Baker's Listing</ion-label>
-            <ion-radio slot="start" value="Baker" ></ion-radio>
+            <ion-radio slot="start" value="Baker"  [checked]="checked1"></ion-radio>
           </ion-item>
       
           <ion-item lines="none" (click)="SelectedAd('Shop')" >
             <ion-label>Accessories Shop Listing</ion-label>
-            <ion-radio slot="start" value="Shop" ></ion-radio>
+            <ion-radio slot="start" value="Shop" [checked]="checked2"></ion-radio>
           </ion-item>
       
           <ion-item lines="none" (click)="SelectedAd('Job')" >
             <ion-label>Jobs Listings</ion-label>
-            <ion-radio slot="start" value="Job"  ></ion-radio>
+            <ion-radio slot="start" value="Job" [checked]="checked3" ></ion-radio>
           </ion-item>
         </ion-radio-group>
       </ion-list>
@@ -49,38 +49,243 @@
     </ion-row>
    </ion-card>
 
+   <ion-card>
+     <ion-row>
+      
+     
+     <ion-col size="8" offset="2" [hidden]="ProceedToSelected ===''" >
+
+        <ion-button (click)="back()" fill="solid"  expand="block">
+            
+            <ion-label>
+              change advert type
+            </ion-label>
+            
+           </ion-button>
+        
+     </ion-col>
+    </ion-row>
+   </ion-card>
+
+   <ion-card color="primary">
+      <ion-row>
+
+   
+   <ion-col size="12" [hidden]="ProceedToSelected ===''">
+      <ion-title  class="ion-text-center" > {{SelectedAdtype}} ad creation  </ion-title>
+     
+   </ion-col>
+  </ion-row>
+ </ion-card>
+
     
  
    
 
     <div *ngIf="ProceedToSelected!==''">
+<!-- 
+   <div *ngIf="SelectedAdtype === 'Job'" >
+      JOBS FORM VALUE:  {{JobFormData.value | json}}
+   </div>  
 
+   <div  *ngIf="SelectedAdtype === 'Shop'" > 
+      json value {{ShopFormData.value | json}}
+   </div> -->
+
+
+      <!-- TODO: BAKERS LISTING CARD -->
     <ion-card [formGroup]="BakersFormData" [hidden]="SelectedAdtype!=='Baker'" >
 
-      <p>
-          Date: 2019-09-10T09:50:55.568Z - Hash: fe5a40de1a3e417a45bb - Time: 4717ms
-          [ng] 192 unchanged chunks
-          [ng] chunk Ads-advert-creation-modal-advert-creation-modal-module Ads-advert-creation-modal-advert-creation-modal-module.js, Ads-advert-creation-modal-advert-creation-modal-module.js.map (Ads-advert-creation-modal-advert-creation-modal-module) 9.51 kB  [rendered][ng] i ｢wdm｣: Compiled successfully.
-          
-      </p>
+        
+
+
+
       
     </ion-card>
-    <ion-card [formGroup]="ShopFormData" [hidden]= "SelectedAdtype!=='Shop'">
-        <p>
-            Date: 2019-09-10T09:50:55.568Z - Hash: fe5a40de1a3e417a45bb - Time: 4717ms
-            [ng] 193 unchanged chunks
-            [ng] chunk Ads-advert-creation-modal-advert-creation-modal-module Ads-advert-creation-modal-advert-creation-modal-module.js, Ads-advert-creation-modal-advert-creation-modal-module.js.map (Ads-advert-creation-modal-advert-creation-modal-module) 9.51 kB  [rendered][ng] i ｢wdm｣: Compiled successfully.
-            
-        </p>
-      
+
+
+       <!-- TODO: SHOP LISTING CARD   -->
+       <ion-card [formGroup]="ShopFormData" [hidden]= "SelectedAdtype!=='Shop'">
+        <ion-row>
+            <ion-col size="10" offset="1">
+
+      <!-- * SHOP NAME FORM CONTROL -->
+     <ion-item>
+       <ion-label position="floating">Shop Name <ion-text color="danger">*</ion-text></ion-label>
+       <ion-input required formControlName="ShopName" type="text"></ion-input>
+     </ion-item>
+
+       <!-- * SHOP CONTACTS FORM CONTROL -->
+       <ion-item>
+        <ion-label position="floating">Shop Contact(s)<ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required formControlName="ShopContacts" type="number"></ion-input>
+      </ion-item>
+
+        <!-- * EMAIL FORM CONTROL -->
+     <ion-item>
+      <ion-label position="floating">Shop Email <ion-text >(optional)</ion-text></ion-label>
+      <ion-input required formControlName="ShopEmail" type="email"></ion-input>
+    </ion-item>
+
+      <!-- * SHOP LOCATION FORM CONTROL -->
+      <ion-item>
+        <ion-label position="floating">Shop Location <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required formControlName="ShopLocation" type="text"></ion-input>
+      </ion-item>
+
+       <!-- * SHOP DESCRIPTION FORM CONTROL -->
+       <ion-item>
+          <ion-label position="floating">Shop Location <ion-text color="danger">*</ion-text></ion-label>
+          <ion-textarea required formControlName="ShopDescription" type="text"></ion-textarea>
+          
+       </ion-item >
+        <ion-item lines="none" *ngIf="ShopDescription.invalid && ShopDescription.touched">
+          <p style="color: red" > minimum description is 50 charachters</p>
+        </ion-item>
+
+        <br>
+
+
+        <!--  TODO CAKE TYPE FORMARRAY -->
+        <!-- * FORM ARRAY CAKE TYPES -->
+    <ion-label position="inline" color="primary">Add list of cake types</ion-label>
+
+    <br>
+        <div formArrayName="CakeTypes">
+     <ion-item lines="inset" *ngFor="let cake of CakeTypesArray.controls; let i = index" [formGroupName]="i" >
+
+        <ion-input placeholder=""  formControlName="cake"> {{i+1 }}. </ion-input>
+                    <ion-icon button (click)="deleteCake(i)" slot="end" name="remove-circle" color="danger"></ion-icon>
+                    <br/>
+
+
+    </ion-item>
+    
+
+  </div>
+  <br>
+  <ion-button (click)="AddCakeListing()" fill="solid" shape="round" color="primary">
+      <ion-icon slot="start" name="add"  >
+  
+        </ion-icon>
+        <ion-label style=" text-transform: lowercase;
+        font-weight: 500;
+        ">add</ion-label>
+  </ion-button> 
+  <br>
+
+
+    <!--  TODO ACCESSORIES FORM ARRAY -->
+     <!-- * FORM ARRAY ACCESSORIES -->
+    <ion-label position="inline" color="primary">Add list of accesories</ion-label>
+    <div formArrayName="AccesoriesListing">
+        <ion-item lines="inset" *ngFor="let accessory of AccesoriesListingArray.controls; let i = index" [formGroupName]="i" >
+   
+           <ion-input placeholder=""  formControlName="accesory"> {{i+1 }}. </ion-input>
+                       <ion-icon button (click)="deleteAccesories(i)" slot="end" name="remove-circle" color="danger"></ion-icon>
+                       <br/>
+   
+   
+       </ion-item>
+   
+   
+     </div>
+     <ion-button (click)="AddAccesoriesListing()" fill="solid" shape="round" color="primary">
+         <ion-icon slot="start" name="add"  >
+     
+           </ion-icon>
+           <ion-label style=" text-transform: lowercase;
+           font-weight: 500;
+           ">add</ion-label>
+     </ion-button>
+
+    
+
+   
+
+ 
+</ion-col>
+</ion-row>
+ <ion-row>
+  <ion-col size="6" offset="3">
+
+      <ion-button expand="block" fill="solid" shape="round"
+                  [disabled]="!ShopFormData.valid" >
+          submit
+        </ion-button> 
+
+    
+  </ion-col>
+</ion-row>
+    
       </ion-card>
+
+
+         <!-- TODO: JOB LISTING CARD -->
       <ion-card [formGroup]="JobFormData" [hidden]="SelectedAdtype!=='Job'">
-          <p>
-              Date: 2019-09-10T09:50:55.568Z - Hash: fe5a40de1a3e417a45bb - Time: 4717ms
-              [ng] 194 unchanged chunks
-              [ng] chunk Ads-advert-creation-modal-advert-creation-modal-module Ads-advert-creation-modal-advert-creation-modal-module.js, Ads-advert-creation-modal-advert-creation-modal-module.js.map (Ads-advert-creation-modal-advert-creation-modal-module) 9.51 kB  [rendered][ng] i ｢wdm｣: Compiled successfully.
-              
-          </p>
+          <ion-row>
+              <ion-col size="10" offset="1">
+  
+        <!-- * JOB TITLE AND FORM CONTROL -->
+       <ion-item>
+         <ion-label position="floating">Job description <ion-text color="danger">*</ion-text></ion-label>
+         <ion-input required formControlName="title" type="text"></ion-input>
+       </ion-item>
+  
+         <!-- * JOB OWNER AND FORM CONTROL -->
+         <ion-item>
+          <ion-label position="floating">your name<ion-text color="danger">*</ion-text></ion-label>
+          <ion-input required formControlName="owner_name" type="text"></ion-input>
+        </ion-item>
+  
+          <!-- * OWNER CONTACTS AND FORM CONTROL -->
+       <ion-item>
+        <ion-label position="floating">your contacts <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required formControlName="owner_contacts" type="number"></ion-input>
+      </ion-item>
+  
+        <!-- * CAKE TYPE FORM CONTROL -->
+        <ion-item>
+          <ion-label position="floating">Cake Type <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input required formControlName="cake_type" type="text"></ion-input>
+        </ion-item>
+  
+          <!-- * CAKE WEIGHT FORM CONTROL -->
+       <ion-item>
+        <ion-label position="floating">Cake Weight<ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required formControlName="cake_weight" type="number"></ion-input>
+      </ion-item>
+  
+       <!-- * NUMBER OF CAKES FORM CONTROL -->
+       <ion-item>
+        <ion-label position="floating">How many cakes would you want to order ?<ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required formControlName="cake_number" type="number"></ion-input>
+      </ion-item>
+  
+       <!-- * JOB DESCRIPTION FORM CONTROL -->
+       <ion-item>
+        <ion-label position="floating">Job description<ion-text color="danger">*</ion-text></ion-label>
+        <ion-textarea required formControlName="job_description" type="text"></ion-textarea>
+      </ion-item>
+  
+   <!-- * DELIVERY DATE FORM CONTROL -->
+   <ion-item>
+     <ion-label position="stacked"> Delivery date </ion-label>
+     <ion-datetime formControlName="delivery_date" placeholder="delivery date"></ion-datetime>
+   </ion-item>
+  </ion-col>
+  </ion-row>
+   <ion-row>
+    <ion-col size="6" offset="3">
+  
+        <ion-button expand="block" fill="solid" shape="round"
+                    [disabled]="!JobFormData.valid" (click)="submitJobsFormvalue(JobFormData.value)">
+            submit
+          </ion-button> 
+  
+      
+    </ion-col>
+  </ion-row>
       
         </ion-card>
       </div>

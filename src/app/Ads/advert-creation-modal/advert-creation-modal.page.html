@@ -1,9 +1,9 @@
-<ion-header>
+<ion-header [hidden]="ProceedToSelected ===''">
   <ion-toolbar color="primary" >
     <ion-title >create your posting</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button [routerLink]="['/tabs/tab2']" (click)="back()">
+      <ion-button [routerLink]="['/tabs/tab2']" >
         <ion-icon size="large" name="close-circle"></ion-icon>
         
       </ion-button>
@@ -12,67 +12,68 @@
 </ion-header>
 
 <ion-content>
-<ion-card [hidden]="ProceedToSelected!==''">
 
-    <ion-list>
-        <ion-radio-group >
-          <ion-list-header>
-            <ion-label color="primary" >Select type of ad you want to create</ion-label>
-          </ion-list-header>
-      
-          <ion-item lines="none" (click)="SelectedAd('Baker')"  >
-            <ion-label>Baker's Listing</ion-label>
-            <ion-radio slot="start" value="Baker"  [checked]="checked1"></ion-radio>
-          </ion-item>
-      
-          <ion-item lines="none" (click)="SelectedAd('Shop')" >
-            <ion-label>Accessories Shop Listing</ion-label>
-            <ion-radio slot="start" value="Shop" [checked]="checked2"></ion-radio>
-          </ion-item>
-      
-          <ion-item lines="none" (click)="SelectedAd('Job')" >
-            <ion-label>Jobs Listings</ion-label>
-            <ion-radio slot="start" value="Job" [checked]="checked3" ></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-      </ion-list>
+    <ion-card class="selection" [hidden]="ProceedToSelected !==''" >
+ 
 
-      <ion-row>
-      <ion-col size="6" offset="3">
-
-          <ion-button expand="block" fill="solid" shape="round" [disabled]="SelectedAdtype===''" (click)="Next()">
-              next
-            </ion-button>
-
-        
-      </ion-col>
-    </ion-row>
-   </ion-card>
-
-   <ion-card>
-     <ion-row>
+        <ion-list>
+            <ion-radio-group >
+              <ion-list-header>
+                <ion-label color="primary" >Select type of ad you want to create</ion-label>
+              </ion-list-header>
+          
+              <ion-item lines="none" (click)="SelectedAd('Baker')"  >
+                <ion-label>Baker's Listing</ion-label>
+                <ion-radio slot="start" value="Baker"  [checked]="checked1"></ion-radio>
+              </ion-item>
+          
+              <ion-item lines="none" (click)="SelectedAd('Shop')" >
+                <ion-label>Accessories Shop Listing</ion-label>
+                <ion-radio slot="start" value="Shop" [checked]="checked2"></ion-radio>
+              </ion-item>
+          
+              <ion-item lines="none" (click)="SelectedAd('Job')" >
+                <ion-label>Jobs Listings</ion-label>
+                <ion-radio slot="start" value="Job" [checked]="checked3" ></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+    
+          <ion-row>
+          <ion-col size="6" offset="3">
+    
+              <ion-button expand="block" fill="solid" shape="round" [disabled]="SelectedAdtype===''" (click)="Next()">
+                  next
+                </ion-button>
+    
+            
+          </ion-col>
+        </ion-row>
+       </ion-card>
+ 
+  
+   <ion-row class="ion-no-margin" class="ion-no-padding">
       
      
-     <ion-col size="8" offset="2" [hidden]="ProceedToSelected ===''" >
-
-        <ion-button (click)="back()" fill="solid"  expand="block">
-            
-            <ion-label>
-              change advert type
-            </ion-label>
-            
-           </ion-button>
-        
-     </ion-col>
-    </ion-row>
-   </ion-card>
+      <ion-col size="8" offset="2" [hidden]="ProceedToSelected ===''" >
+ 
+         <ion-button (click)="back()" fill="solid"  expand="block">
+             
+             <ion-label style="text-transform: lowercase">
+               change advert type
+             </ion-label>
+             
+            </ion-button>
+         
+      </ion-col>
+     </ion-row>
 
    <ion-card color="primary">
       <ion-row>
 
    
    <ion-col size="12" [hidden]="ProceedToSelected ===''">
-      <ion-title  class="ion-text-center" > {{SelectedAdtype}} ad creation  </ion-title>
+      <ion-title  class="ion-text-center" > {{SelectedAdtype}} advertisement   </ion-title>
      
    </ion-col>
   </ion-row>

@@ -16,35 +16,31 @@
 <ion-content>
 
 
-      <ion-card *ngFor="let order of OrdersManager.ActiveOrdersArray" >
-        <ion-card-header>
+      <ion-card *ngFor="let order of OrdersManager.ActiveOrdersArray"  >
+        <ion-card-header class="ion-no-padding" class="ion-no-margin">
            
-            <ion-card-title color="primary" style=" text-transform: uppercase;font-weight: 500;width: 100%">  {{order.cakeType }}</ion-card-title>
+            <ion-card-title color="primary" style=" text-transform: lowercase;font-weight: 500;width: 100%;">  {{order.cakeType }}</ion-card-title>
        
 
           
          
         </ion-card-header>
-        <ion-card-content>
-            <ion-label color="dark"  style=" font-weight: 350;width: 100%">CLIENT NAME: {{order.Clientname }}</ion-label> <br>
-     
-           
-           
-            <ion-label color="dark"  style=" text-transform: uppercase;font-weight: 350;width: 100%">delivery date: </ion-label> <br>
-            <ion-label color="dark" style=" text-transform: lowercase;font-weight: 350;width: 100%"> {{order.orderdate  | date:'medium'}}</ion-label><br>
-            
+        <ion-card-content class="ion-no-padding" class="ion-no-margin">
+            <ion-label color="primary"  style=" text-transform: lowercase;font-weight: 350;width: 100%">delivery date: </ion-label> <br>
+            <ion-label color="dark" style=" text-transform: lowercase;font-weight: 350;width: 100%"> {{order.deliveryDate | date:'fullDate'}} </ion-label><br>
+            <ion-row class="ion-no-padding" class="ion-no-margin" >
+                <ion-col size="8" offset="2" class="ion-no-padding" class="ion-no-margin" >
+                    <ion-button  (click)="viewOrder(order.orderdate)"
+                      style=" text-transform: lowercase;font-weight: 300;width: 100%" color="primary" expand="full" fill="solid" shape="round">
+                      
+                      
+                        <ion-label> view details </ion-label>
+                      </ion-button>
+                </ion-col>
+              </ion-row>
           
         </ion-card-content>
-        <ion-row >
-          <ion-col size="6" offset="3" >
-              <ion-button  (click)="viewOrder(order.orderdate)"
-                style=" text-transform: lowercase;font-weight: 300;width: 100%" color="primary" expand="expand" fill="solid" shape="round">
-                
-                <ion-icon slot="end" mode="ios" size="large" name="arrow-dropright-circle"></ion-icon>
-                  <ion-label> view details </ion-label>
-                </ion-button>
-          </ion-col>
-        </ion-row>
+        
        
       </ion-card>
 

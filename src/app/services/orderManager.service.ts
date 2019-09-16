@@ -88,8 +88,9 @@ export class OrderManagerService {
  ActiveOrdersStorage(orders: OrdersInterface[]) {
   this.storage.set(this.ActiveStoreKey, orders).then((savedresult) => {
 
-    this.ActiveOrdersArray = savedresult;
-    this.activecounter = this.ActiveOrdersArray.length;
+  //  this.ActiveOrdersArray = savedresult;
+    this.LoadActiveSavedOrders();
+   // this.activecounter = this.ActiveOrdersArray.length;
     console.log(this.ActiveOrdersArray);
   });
 

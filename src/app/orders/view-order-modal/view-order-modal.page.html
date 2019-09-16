@@ -42,10 +42,19 @@
       <ion-card-subtitle  color="dark"> SHAPE: {{viewOrder.Cakeshape}}</ion-card-subtitle>
       <ion-card-subtitle  color="dark"> WEIGHT: {{viewOrder.Cakeweight}} kg(s)</ion-card-subtitle>
       <ion-card-subtitle  color="dark"> ORDER(S) : {{viewOrder.NumberOfCakes}} </ion-card-subtitle>
-      <ion-card-subtitle  color="dark"> INSCRIPTION: {{viewOrder.CakeInscription}}</ion-card-subtitle>
-      <ion-card-subtitle  color="dark">SPECIAL INSTRUCTION: {{viewOrder.SpecialInstruction}}</ion-card-subtitle>
+      <ion-card-subtitle  color="dark"> INSCRIPTION:
+         
+        <p>
+            {{viewOrder.CakeInscription}}
+        </p> 
+      </ion-card-subtitle> 
+      <ion-card-subtitle color="dark">SPECIAL INSTRUCTION: </ion-card-subtitle> 
+      <p style="color: #222428">
+          {{viewOrder.SpecialInstruction}}
+      </p>
 
     </ion-card-header>
+   
   
   </ion-card>
 

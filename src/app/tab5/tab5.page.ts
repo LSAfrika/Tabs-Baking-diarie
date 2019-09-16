@@ -17,12 +17,12 @@ export class Tab5Page implements OnInit {
 
 
   ngOnInit( ) {
-    
+  
 
 
   }
 
-  viewOrder(date:Date) {
+  viewOrder(date: Date) {
     this.OrdersManager.ViewActiveOrder(date);
   }
 

@@ -44,9 +44,7 @@ export class OrdersCreationModalPage implements OnInit {
     this.OrdersFormGroup = this.FB.group({
       orderdate: this.setDate(),
       Clientname: ['', [Validators.required, Validators.minLength(5)]],
-      Clientcontacts: [null, [  Validators.required,
-        Validators.pattern('^[0-9]*$'),
-        Validators.minLength(9)] ],
+      Clientcontacts: ['', [  Validators.required,Validators.minLength(9)] ],
         Clientemail: ['', [ Validators.email]],
         cakeType: ['', [Validators.required, Validators.minLength(5)]],
         cakeColor: ['', [Validators.required, Validators.minLength(3)]],
@@ -67,9 +65,7 @@ export class OrdersCreationModalPage implements OnInit {
     this.OrdersFormGroup = this.FB.group({
       orderdate: this.OrdersManager.FilteredOrder.orderdate,
       Clientname: [this.OrdersManager.FilteredOrder.Clientname, [Validators.required, Validators.minLength(5)]],
-      Clientcontacts: [this.OrdersManager.FilteredOrder.Clientcontacts, [  Validators.required,
-        Validators.pattern('^[0-9]*$'),
-        Validators.minLength(9)] ],
+      Clientcontacts: [this.OrdersManager.FilteredOrder.Clientcontacts, [  Validators.required, Validators.minLength(9)] ],
         Clientemail: [this.OrdersManager.FilteredOrder.Clientemail, [ Validators.email]],
         cakeType: [this.OrdersManager.FilteredOrder.cakeType, [Validators.required, Validators.minLength(5)]],
         cakeColor: [this.OrdersManager.FilteredOrder.cakeColor, [Validators.required, Validators.minLength(3)]],

@@ -9,7 +9,55 @@ display: flex;
 align-items: center;
 justify-content: center;
 
-background: linear-gradient(#5576fb,#55edfb);" ></div>
+background: linear-gradient(#5576fb,#55edfb);" >
+  <ion-grid  class="ion-align-items-center" class="ion-justify-content-center">
+      <ion-row>
+          <ion-col size="8" offset="2">
+            <div style="max-width: 256px; max-width: height 256px;align-self: auto;" >
+              <img src="/assets/icon/applogoicon.png"/>
+            </div>
+            </ion-col>
+          
+        <!-- </ion-row>
+    <ion-row> -->
+ 
+      <!-- <ion-col size="12">
+        <br>
+        <br>
+        <br>
+      </ion-col> -->
+    </ion-row>
+    <ion-row class="ion-align-items-center" class="ion-justify-content-center">
+      
+      <ion-col size="12">
+          <ion-button class="ion-align-self-auto" color="light" shape="round" fill="outline" (click)="disablesplash()">
+              <ion-icon slot="start" name="logo-facebook"></ion-icon>
+              <ion-label> facebook login</ion-label>
+            </ion-button>
+
+      </ion-col>
+
+      <ion-col size="12">
+          <ion-button color="light" shape="round" fill="outline" (click)="disablesplash()">
+              <ion-icon slot="start" name="logo-google"></ion-icon>
+              
+              <ion-label> google login</ion-label>
+            </ion-button> 
+      </ion-col>
+      <ion-col size="12">
+          <br>
+        <br>
+        <br>
+              
+          <ion-title color="light" class="ion-text-center"  style="font-weight: 350"> continue without signing in?</ion-title>
+          <br>
+          <ion-card-subtitle color="light" class="ion-text-center" (click)="disablesplash()" style="text-decoration: underline;"> Skip</ion-card-subtitle>
+
+            
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
   
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

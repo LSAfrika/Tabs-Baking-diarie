@@ -3,13 +3,15 @@ export interface BakersInterface {
 
     BakerContacts: number;
 
+    BakerImageUrl?: string;
+
     BakerEmail?: string;
 
     BakerLocation: string;
 
     BakerDescription: string;
 
-    CakeImagesUrl?: [];
+    CakeImagesUrl?: [] ;
 
     CakeTypes: [];
 

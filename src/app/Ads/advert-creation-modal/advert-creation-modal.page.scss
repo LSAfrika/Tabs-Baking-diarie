@@ -23,3 +23,28 @@ ion-content{
    
     transform: translate(0%,-50%);
   }
+
+
+  .CakeSize{
+    position: relative;
+    display: block;
+    align-content: center;
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    .actualimage{
+      position: relative;
+     display: block;
+     align-self: auto;
+     max-width: 128px !important;
+     max-height:128px !important;
+     min-width: 128px !important;
+     min-height:128px !important;
+     left: calc(50% - 64px);
+     border: 2px solid #5576fb83;
+     border-radius: 95px;
+     object-fit: cover;
+ 
+    }
+   
+  }

@@ -96,13 +96,147 @@
 
       <!-- TODO: BAKERS LISTING CARD -->
     <ion-card [formGroup]="BakersFormData" [hidden]="SelectedAdtype!=='Baker'" >
+        <ion-row>
+            <ion-col size="10" offset="1">
 
+      <!-- * BAKER NAME FORM CONTROL -->
+     <ion-item>
+       <ion-label position="floating">Baker Name <ion-text color="danger">*</ion-text></ion-label>
+       <ion-input required formControlName="BakerName" type="text"></ion-input>
+     </ion-item>
+
+       <!-- * BAKER CONTACTS FORM CONTROL -->
+       <ion-label position="inline" color="primary"> Shop contacts</ion-label>
+
+    <br>
+        <div formArrayName="BakerContacts">
+     <ion-item lines="inset" *ngFor="let contact of BakerContactsArry.controls; let i = index" [formGroupName]="i" >
+
+        <ion-input placeholder=""  formControlName="contact" type="number"> {{i+1 }}. </ion-input>
+                    <ion-icon button (click)="DeleteBakerContact(i)" slot="end" name="remove-circle" color="danger"></ion-icon>
+                    <br/>
+
+
+    </ion-item>
+    
+
+  </div>
+  <br>
+  <ion-button (click)="BakerContactsListing()" fill="solid" shape="round" color="primary">
+      <ion-icon slot="start" name="add"  >
+  
+        </ion-icon>
+        <ion-label style=" text-transform: lowercase;
+        font-weight: 500;
+        ">add</ion-label>
+  </ion-button> 
+  <br>
+
+        <!-- * BAKER EMAIL FORM CONTROL -->
+     <ion-item>
+      <ion-label position="floating">Baker Email <ion-text >(optional)</ion-text></ion-label>
+      <ion-input required formControlName="BakerEmail" type="email"></ion-input>
+    </ion-item>
+
+      <!-- * BAKER LOCATION FORM CONTROL -->
+      <ion-item>
+        <ion-label position="floating">Baker Location <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required formControlName="BakerLocation" type="text"></ion-input>
+      </ion-item>
+
+       <!-- * BAKER DESCRIPTION FORM CONTROL -->
+       <ion-item>
+          <ion-label position="floating">Baker Description <ion-text color="danger">*</ion-text></ion-label>
+          <ion-textarea required formControlName="BakerDescription" type="text"></ion-textarea>
+          
+       </ion-item >
+        <ion-item lines="none" *ngIf="BakerDescription.invalid && BakerDescription.touched">
+          <p style="color: red" > minimum description is 50 charachters</p>
+        </ion-item>
+
+  <!-- * BAKER IMAGE FORM CONTROL -->
+  <ion-item lines="none">
+    <ion-col size="12" class="ion-no-padding" class="ion-no-margin">
+        <ion-label color="primary" >Shop banner image </ion-label>
+  
+        <br>
+        <div class="CakeSize">
+        <img  class="actualimage"  *ngIf="BakerImageUrl.value === null"  src='/assets/icon/defaultCake.png' />
+        <img  class="actualimage"  *ngIf="BakerImageUrl.value !== null"  [src]="ShopImageUrl.value" />
+        </div>
+        
+
+        <ion-button (click)="launchActionSheet()"
+        fill="solid" shape="round" color="primary" expand="block">
+         <ion-icon slot="start" name="photos"  >
+     
+           </ion-icon>
+           <ion-label style=" text-transform: lowercase;
+           font-weight: 500;
+           "> select image</ion-label>
+     </ion-button> 
+      
+    </ion-col>
+   
+   
+   
+    
+ </ion-item >
+
+
+        <br>
+
+
+        <!--  TODO CAKE TYPE FORMARRAY -->
+        <!-- * FORM ARRAY CAKE TYPES -->
+    <ion-label position="inline" color="primary"> list of cakes you bake</ion-label>
+
+    <br>
+        <div formArrayName="BakerCakes">
+     <ion-item lines="inset" *ngFor="let cake of BakerCakesArray.controls; let i = index" [formGroupName]="i" >
+
+        <ion-input placeholder=""  formControlName="cake"> {{i+1 }}. </ion-input>
+                    <ion-icon button (click)="DeleteBakerCakes(i)" slot="end" name="remove-circle" color="danger"></ion-icon>
+                    <br/>
+
+
+    </ion-item>
+    
+
+  </div>
+  <br>
+  <ion-button (click)="BakerCakeListing()" fill="solid" shape="round" color="primary">
+      <ion-icon slot="start" name="add"  >
+  
+        </ion-icon>
+        <ion-label style=" text-transform: lowercase;
+        font-weight: 500;
+        ">add</ion-label>
+  </ion-button> 
+  <br>
+  <br><br>
+
+</ion-col>
+</ion-row>
+ <ion-row>
+  <ion-col size="6" offset="3">
+
+      <ion-button expand="block" fill="solid" shape="round"
+                  [disabled]="!BakersFormData.valid"  (click)="submitBakerFormvalue(BakersFormData.value)">
+          submit
+        </ion-button> 
+
+    
+  </ion-col>
+</ion-row>
+    
+      </ion-card>
         
 
 
 
       
-    </ion-card>
+    
 
 
        <!-- TODO: SHOP LISTING CARD   -->
@@ -136,7 +270,7 @@
 
        <!-- * SHOP DESCRIPTION FORM CONTROL -->
        <ion-item>
-          <ion-label position="floating">Shop Location <ion-text color="danger">*</ion-text></ion-label>
+          <ion-label position="floating">Shop Description <ion-text color="danger">*</ion-text></ion-label>
           <ion-textarea required formControlName="ShopDescription" type="text"></ion-textarea>
           
        </ion-item >
@@ -144,19 +278,51 @@
           <p style="color: red" > minimum description is 50 charachters</p>
         </ion-item>
 
+  <!-- * SHOP IMAGE FORM CONTROL -->
+  <ion-item lines="none">
+    <ion-col size="12" class="ion-no-padding" class="ion-no-margin">
+        <ion-label color="primary" >Shop banner image </ion-label>
+  
+        <br>
+        <div class="CakeSize">
+        <img  class="actualimage"  *ngIf="ShopImageUrl.value === null"  src='/assets/icon/defaultCake.png' />
+        <img  class="actualimage"  *ngIf="ShopImageUrl.value !== null"  [src]="ShopImageUrl.value" />
+        </div>
+        
+
+        <ion-button (click)="launchActionSheet()"
+        fill="solid" shape="round" color="primary" expand="block">
+         <ion-icon slot="start" name="photos"  >
+     
+           </ion-icon>
+           <ion-label style=" text-transform: lowercase;
+           font-weight: 500;
+           "> select image</ion-label>
+     </ion-button> 
+      
+    </ion-col>
+   
+   
+   
+    
+ </ion-item >
+
+
         <br>
 
 
         <!--  TODO CAKE TYPE FORMARRAY -->
         <!-- * FORM ARRAY CAKE TYPES -->
-    <ion-label position="inline" color="primary">Add list of cake types</ion-label>
+    <ion-label position="inline" color="primary"> list of cakes you bake <ion-text color="danger">
+      *
+    </ion-text> </ion-label>
 
     <br>
         <div formArrayName="CakeTypes">
      <ion-item lines="inset" *ngFor="let cake of CakeTypesArray.controls; let i = index" [formGroupName]="i" >
 
         <ion-input placeholder=""  formControlName="cake"> {{i+1 }}. </ion-input>
-                    <ion-icon button (click)="deleteCake(i)" slot="end" name="remove-circle" color="danger"></ion-icon>
+                    <ion-icon button (click)="deleteShopCake(i)" slot="end" name="remove-circle" color="danger"></ion-icon>
                     <br/>
 
 
@@ -165,7 +331,7 @@
 
   </div>
   <br>
-  <ion-button (click)="AddCakeListing()" fill="solid" shape="round" color="primary">
+  <ion-button (click)="AddShopCakeListing()" fill="solid" shape="round" color="primary">
       <ion-icon slot="start" name="add"  >
   
         </ion-icon>
@@ -174,11 +340,13 @@
         ">add</ion-label>
   </ion-button> 
   <br>
-
+  <br><br>
 
     <!--  TODO ACCESSORIES FORM ARRAY -->
      <!-- * FORM ARRAY ACCESSORIES -->
-    <ion-label position="inline" color="primary">Add list of accesories</ion-label>
+    <ion-label position="inline" color="primary"> list of accesories you sell  
+      <ion-text color="danger">  *
+      </ion-text></ion-label>
     <div formArrayName="AccesoriesListing">
         <ion-item lines="inset" *ngFor="let accessory of AccesoriesListingArray.controls; let i = index" [formGroupName]="i" >
    
@@ -211,7 +379,7 @@
   <ion-col size="6" offset="3">
 
       <ion-button expand="block" fill="solid" shape="round"
-                  [disabled]="!ShopFormData.valid" >
+                  [disabled]="!ShopFormData.valid" (click)="submitShopFormvalue(ShopFormData.value)" >
           submit
         </ion-button> 
 
@@ -229,7 +397,7 @@
   
         <!-- * JOB TITLE AND FORM CONTROL -->
        <ion-item>
-         <ion-label position="floating">Job description <ion-text color="danger">*</ion-text></ion-label>
+         <ion-label position="floating">Job title <ion-text color="danger">*</ion-text></ion-label>
          <ion-input required formControlName="title" type="text"></ion-input>
        </ion-item>
   

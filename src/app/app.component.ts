@@ -13,7 +13,8 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
 
-  showsplash = true;
+  // todo remeber to set this to true
+  showsplash = false;
 
   constructor(
     private platform: Platform,

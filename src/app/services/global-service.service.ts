@@ -23,6 +23,8 @@ export class GlobalServiceService {
               private alertctrl: AlertController,
               private router: Router
     ) {
+      this.loadAppRecipies();
+      this.loadPersonalRecepies();
 
 
 

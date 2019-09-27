@@ -54,9 +54,14 @@
   </ion-card-title>
   
     <ion-list>
-    <ion-item *ngFor="let ingredients of RecipeView.ingredients; let i=index" style="font-weight: 350;" >
-     {{i+1}}. {{ingredients.ingredient}}
-    </ion-item>
+      <ion-row>
+        <ion-col class="ion-padding" size="12" *ngFor="let ingredients of RecipeView.ingredients;let i=index">
+            <ion-item   style="font-weight: 450;" >
+                {{i+1}}. {{ingredients.ingredient}}
+               </ion-item>
+        </ion-col>
+      </ion-row>
+    
   </ion-list>
  <!-- </div> -->
  <!-- <div [hidden]="!IsActive"> -->
@@ -67,9 +72,14 @@
 </ion-card-title>
   
   <ion-list>
-  <ion-item *ngFor="let procedure of RecipeView.procedure; let i=index" style="font-weight: 350;">
-   {{i+1}} - {{procedure.procedure}}
-  </ion-item>
+    <ion-row>
+      <ion-col class="ion-padding" size="12" *ngFor="let procedure of RecipeView.procedure; let i=index">
+          <ion-item  style="font-weight: 450;">
+              {{i+1}} - {{procedure.procedure}}
+             </ion-item>
+      </ion-col>
+    </ion-row>
+ 
 </ion-list>
 <!-- </div> -->
 </ion-card>
@@ -103,9 +113,15 @@
 </ion-card-title>
 
   <ion-list>
-  <ion-item *ngFor="let ingredients of RecipeView.ingredients; let i=index" style="font-weight: 350;" >
-   {{i+1}}. {{ingredients.ingredient}}
-  </ion-item>
+    <ion-row>
+      <ion-col class="ion-padding"  size="12" *ngFor="let ingredients of RecipeView.ingredients; let i=index" >
+          <ion-item style="font-weight: 450;" >
+              {{i+1}}. {{ingredients.ingredient}}
+             </ion-item>
+
+      </ion-col>
+    </ion-row>
+  
 </ion-list>
 <!-- </div> -->
 <!-- <div [hidden]="!IsActive"> -->
@@ -116,9 +132,14 @@
 </ion-card-title>
 
 <ion-list>
-<ion-item *ngFor="let procedure of RecipeView.procedure; let i=index" style="font-weight: 350;">
- {{i+1}} - {{procedure.procedure}}
-</ion-item>
+  <ion-row>
+    <ion-col class="ion-padding" size="12" *ngFor="let procedure of RecipeView.procedure; let i=index">
+        <ion-item  style="font-weight: 450;">
+            {{i+1}} - {{procedure.procedure}}
+           </ion-item>
+    </ion-col>
+  </ion-row>
+
 </ion-list>
 <!-- </div> -->
 </ion-card>

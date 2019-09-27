@@ -1,4 +1,3 @@
-import { PopoverComponent } from './../../PopOverfolder/popover.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -22,8 +21,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  entryComponents: [PopoverComponent]
+  entryComponents: []
   ,
-  declarations: [ViewOrderModalPage, PopoverComponent]
+  declarations: [ViewOrderModalPage]
 })
 export class ViewOrderModalPageModule {}

@@ -1,5 +1,4 @@
-import { PopoverComponent } from '../../PopOverfolder/popover.component';
-import { ActionSheetController, PopoverController } from '@ionic/angular';
+import { ActionSheetController, PopoverController, AlertController } from '@ionic/angular';
 import { OrdersInterface } from 'src/app/interfaces/orders.interface';
 import { Component, OnInit } from '@angular/core';
 import { OrderManagerService } from 'src/app/services/orderManager.service';
@@ -18,7 +17,8 @@ viewOrder: OrdersInterface;
   constructor(public Ordermanager: OrderManagerService,
               private optionsSheet: ActionSheetController,
               public popoverController: PopoverController,
-              public router: Router
+              public router: Router,
+              private alertController: AlertController
      ) { }
 
   ngOnInit() {
@@ -36,6 +36,7 @@ viewOrder: OrdersInterface;
         text: 'edit order',
         icon: 'create',
         handler: () => {
+          this.editOrder(true);
 
         }
       },
@@ -43,6 +44,8 @@ viewOrder: OrdersInterface;
         text: 'delete order',
         icon: 'trash',
         handler: () => {
+          this.OrderDeleteNotifier();
+
 
         }
       },
@@ -63,17 +66,41 @@ viewOrder: OrdersInterface;
     await actionSheet.present();
   }
 
-  async popOver(ev: any) {
-    const popovermenu = await this.popoverController.create({
-      component: PopoverComponent,
-      event: ev
+  editOrder(iseditable?: boolean) {
+    this.Ordermanager.isEditable = iseditable;
+ //   console.log('iseditable value: ', iseditable);
+ //   console.log('active order: ', this.Ordermanager.FilteredOrder);
+    this.router.navigate(['/orders-creation-modal']);
 
-    });
-
-    await popovermenu.present();
   }
 
 
+  async OrderDeleteNotifier() {
+
+    const alert = await this.alertController.create({
+      header: `deleted content can't be recovered`,
+      message: `Are you sure want to delete order?`,
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'YES',
+          handler: () => {
+            this.Ordermanager.DeletaActiveOrder();
+            this.router.navigate(['/tabs/tab5']);
+
+          }
+        },
+        {
+          text: 'NO',
+          role: 'cancel'
+
+        }
+      ]
+    });
+
+    await alert.present();
+
+  }
 
 
 }

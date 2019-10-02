@@ -1,4 +1,6 @@
 export interface BakingJobInterface {
+    uid?: string;
+
     title: string;
 
     orderOwnerName: string;

@@ -1,7 +1,11 @@
-import { ActionSheetController } from '@ionic/angular';
+import { BakingJobInterface } from './../../interfaces/BakingJob.interace';
+import { ShopsListingInterface } from './../../interfaces/ShopsListing.interface';
+import { BakersInterface } from './../../interfaces/BakerListing.interface';
+import { ActionSheetController, AlertController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { formatDate } from '@angular/common';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 
 @Component({
@@ -20,7 +24,20 @@ export class AdvertCreationModalPage implements OnInit {
   checked2 = false;
   checked3 = false;
 
-  constructor(private fb: FormBuilder, private actionSheetController:ActionSheetController ) { }
+  private BakersCollection: AngularFirestoreCollection<BakersInterface>;
+  private ShopsCollection: AngularFirestoreCollection<ShopsListingInterface>;
+  private JobsCollection: AngularFirestoreCollection<BakingJobInterface>;
+
+  constructor(private fb: FormBuilder,
+              private actionSheetController: ActionSheetController,
+              private afs: AngularFirestore,
+              private alertctrl: AlertController ) {
+
+                this.BakersCollection = this.afs.collection<BakersInterface>('BakersAdvertisements');
+                this.ShopsCollection = this.afs.collection<ShopsListingInterface>('ShopAdvertisements');
+                this.JobsCollection = this.afs.collection<BakingJobInterface>('JobPostingAdvertisements');
+
+      }
 
 
 
@@ -305,13 +322,13 @@ Jobsform() {
   this.JobFormData = this.fb.group({
 
     title: ['', [Validators.required, Validators.minLength(5)]],
-    owner_name: ['', [Validators.required, Validators.minLength(5)]],
-    owner_contacts: [0, [Validators.required]],
-    cake_type: ['', [Validators.required, Validators.minLength(5)]],
-    cake_weight: [0, [Validators.required, ]],
-    cake_number: [0, [Validators.required]],
-    job_description: ['', [Validators.required, Validators.minLength(50)]],
-    delivery_date: [null, [Validators.required]],
+    orderOwnerName: ['', [Validators.required, Validators.minLength(5)]],
+    orderOwnerNameContacts: [0, [Validators.required]],
+    cakeType: ['', [Validators.required, Validators.minLength(5)]],
+    cakeweight: [0, [Validators.required, ]],
+    numberOfCakes: [0, [Validators.required]],
+    jobDescription: ['', [Validators.required, Validators.minLength(50)]],
+    deliveryDate: [null, [Validators.required]],
 
   });
 }
@@ -323,28 +340,28 @@ Jobsform() {
 }
 
 get ownername() {
- return this.JobFormData.get('owner_name');
+ return this.JobFormData.get('orderOwnerName');
 }
 
 get ownercontacts() {
- return this.JobFormData.get('owner_contacts');
+ return this.JobFormData.get('orderOwnerNameContacts');
 }
 
-get cake_type() {
- return this.JobFormData.get('cake_type');
+get caketype() {
+ return this.JobFormData.get('cakeType');
 }
 
-get cake_weight() {
- return this.JobFormData.get('cake_weight');
+get cakeweight() {
+ return this.JobFormData.get('cakeweight');
 }
-get cake_number() {
- return this.JobFormData.get('cake_number');
+get cakenumber() {
+ return this.JobFormData.get('numberOfCakes');
 }
-get job_description() {
- return this.JobFormData.get('job_description');
+get jobdescription() {
+ return this.JobFormData.get('jobDescription');
 }
-get delivery_date() {
- return this.JobFormData.get('delivery_date');
+get deliverydate() {
+ return this.JobFormData.get('deliveryDate');
 }
 
 //#endregion
@@ -360,29 +377,64 @@ dateparser(date) {
 }
 
 
-submitJobsFormvalue(val: {}) {
+submitJobsFormvalue(val) {
   console.log('job form data: ', val);
 
+ 
+  this.JobsCollection.add(val).then(() => {
+
+    console.log('submitted job form data: ', val);
+    this.Alertnotification('baking job has been submitted');
+  });
+
 }
 
-submitBakerFormvalue(val: {}) {
+submitBakerFormvalue(val) {
 
   console.log('bakers form data: ', val);
+  this.BakersCollection.add(val).then(() => {
+
+    console.log('submitted bakers form data: ', val);
+    this.Alertnotification('baker listing has been submitted');
+  });
 
 }
 
-submitShopFormvalue(val: {}) {
+submitShopFormvalue(val) {
 
   console.log('shop form data: ', val);
+
+  this.ShopsCollection.add(val).then(() => {
+
+    console.log('submitted shop lisiting form data: ', val);
+    this.Alertnotification('shop lisiting has been submitted');
+  });
 
 }
 
 PatchDatevalue() {
 
- const numberdate = Date.parse(this.delivery_date.value);
+ const numberdate = Date.parse(this.deliverydate.value);
  this.JobFormData.patchValue({delivery_date: numberdate});
- console.log('updated date value: ', this.delivery_date.value ,numberdate);
+ console.log('updated date value: ', this.deliverydate.value , numberdate);
 }
+
+
+async Alertnotification(headerline: string){
+  const Notification = await this.alertctrl.create({
+
+    header: headerline,
+    buttons: [{
+      text: 'ok',
+      handler: () => {
+        this.alertctrl.dismiss();
+      }
+    }]
+  });
+  await Notification.present();
+}
+
+
 
 // TODO: ====================================================================================================\\
 

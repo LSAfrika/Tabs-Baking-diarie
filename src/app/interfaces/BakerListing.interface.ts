@@ -1,4 +1,7 @@
 export interface BakersInterface {
+
+    uid?: string;
+
     BakerName: string;
 
     BakerContacts: number;

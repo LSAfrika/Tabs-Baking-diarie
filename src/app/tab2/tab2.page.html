@@ -71,10 +71,7 @@
               </ion-segment>
 
         </ion-col>
-        <ion-col size="1" (click)="MenuPopOver()">
-          <ion-icon class="searchIconposition"  name="more"></ion-icon>
-          
-        </ion-col>
+       
          <!-- <ion-col class="ion-no-margin" class="ion-no-padding" size="2" (click)="SearchBar()">
           <ion-icon name="close-circle" color="primary" size="large" class="searchIconposition"></ion-icon>
 
@@ -98,8 +95,7 @@
 
 
 
-  
-<!-- event manager search bar (ionChange)="onSearchChange($event)" -->
+ 
 
 
 
@@ -112,7 +108,7 @@
 (ionScrollEnd)="logScrollEnd()"  >
 
 
-    <ion-card [routerLink]="['/view-advert-modal']"  *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"  >
+    <!-- <ion-card [routerLink]="['/view-advert-modal']"  *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"  >
       <ion-card-title>hello world</ion-card-title>
       <ion-card-content>
         <p>
@@ -122,7 +118,38 @@
 
             </p>
       </ion-card-content>
-    </ion-card>
+    </ion-card> -->
+    
+    <div *ngIf="localitems.length !==0">
+      <ion-label>array is not empty</ion-label>
+      <!-- {{localitems | json}} -->
+      <ion-card *ngFor="let items of localitems" >
+        <ion-card-header>
+          <ion-card-title><strong>
+              {{items.title}}
+
+          </strong>
+        </ion-card-title>
+          <ion-card-subtitle><strong>Creator: </strong>{{items.orderOwnerName}}
+
+          </ion-card-subtitle>
+          <ion-card-subtitle><strong>Delivery Date: </strong>  {{items.deliveryDate  | date:'short'}} 
+
+            </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+           <ion-button  expand="full" fill="solid" shape="round" [routerLink]="['/view-advert-modal']">
+            view details
+           </ion-button>
+        </ion-card-content>
+      
+        
+      </ion-card>
+
+    </div> 
+
+      
+    
     <br class="break"/>
     <br class="break"/>
     <br class="break"/>

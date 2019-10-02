@@ -17,6 +17,13 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { File, FileEntry } from '@ionic-native/file/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 
+// TODO FIREBASE IMPORTS
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from 'src/environments/environment';
+
 
 
 
@@ -27,7 +34,10 @@ import { FilePath } from '@ionic-native/file-path/ngx';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule,
-   
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+    AngularFireStorageModule, // imports firebase/storage only needed for storage features
      IonicModule.forRoot(),
       AppRoutingModule,
       IonicStorageModule.forRoot()],

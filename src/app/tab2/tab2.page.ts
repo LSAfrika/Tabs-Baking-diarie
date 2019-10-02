@@ -1,16 +1,22 @@
 
+import { Component, OnInit } from '@angular/core';
+import {map} from 'rxjs/operators';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable, Subscription } from 'rxjs';
+import { BakersInterface } from '../interfaces/BakerListing.interface';
+import { BakingJobInterface } from '../interfaces/BakingJob.interace';
 
-import { Component } from '@angular/core';
 
-
-
+export interface Item { location: string;
+                        uid?: string;
+                      }
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit {
 
   SearchBarActive = false;
   filter = '';
@@ -19,10 +25,34 @@ export class Tab2Page {
   Actualvalue = 0;
   IsSearchBarVisible = true;
 
-constructor() {
-this.filterSubject(1);
+
+private itemsCollection: AngularFirestoreCollection<BakingJobInterface>;
+items: Observable<BakingJobInterface[]>;
+localitems: BakingJobInterface [] = [];
+LocalsSub: Subscription;
+constructor(private afs: AngularFirestore) {
+  this.itemsCollection = afs.collection<BakingJobInterface>('JobPostingAdvertisements');
+  this.items = this.itemsCollection.snapshotChanges().pipe(
+    map(returneditems =>{
+      return returneditems.map(RI => {
+        const uid = RI.payload.doc.id;
+        const data = RI.payload.doc.data();
+
+        return { uid, ...data};
+
+      });
+    })
+  );
+  this.filterSubject(1);
+
 }
 
+ngOnInit() {
+  this.LocalsSub = this.items.subscribe(res => {
+    this.localitems = res;
+    console.log('list of items: ', res);
+  });
+}
 
 
 filterSubject(filter: number) {
@@ -65,7 +95,7 @@ logScrollStart() {
 
 logScrollEnd() {
   this.InitialScrollvalue = this.Actualvalue;
- 
+
  // console.log('scorolling has stopped scroll value : ', this.InitialScrollvalue);
 
 }

@@ -1,4 +1,4 @@
-export interface BakersShopsListingInterface {
+export interface ShopsListingInterface {
     ShopName: string;
 
     ShopContacts: number;

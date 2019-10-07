@@ -31,14 +31,26 @@ ion-content{
 
 .searchIconposition{
   position: relative;
- display: block;
+  display: block;
   left: 50% !important;
   top: 50% !important;
   transform: translate(-50%,-50%);
 }
 
 
+.CardLablePosition{
+  position: relative;
+  display: block;  
+  top: 50% !important;
+  transform: translate(0%,-50%);
+}
 
-
+.deswrapper {
+  color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 5px 0px;
+}
 
 

@@ -1,22 +1,20 @@
+import { AdvertmanagerService } from './../services/advertManager.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {map} from 'rxjs/operators';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable, Subscription } from 'rxjs';
-import { BakersInterface } from '../interfaces/BakerListing.interface';
+import {  Subscription } from 'rxjs';
 import { BakingJobInterface } from '../interfaces/BakingJob.interace';
+import { BakersInterface } from '../interfaces/BakerListing.interface';
+import { ShopsListingInterface } from '../interfaces/ShopsListing.interface';
 
 
-export interface Item { location: string;
-                        uid?: string;
-                      }
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 
 })
-export class Tab2Page implements OnInit {
+export class Tab2Page implements OnInit, OnDestroy {
 
   SearchBarActive = false;
   filter = '';
@@ -26,32 +24,68 @@ export class Tab2Page implements OnInit {
   IsSearchBarVisible = true;
 
 
-private itemsCollection: AngularFirestoreCollection<BakingJobInterface>;
-items: Observable<BakingJobInterface[]>;
-localitems: BakingJobInterface [] = [];
-LocalsSub: Subscription;
-constructor(private afs: AngularFirestore) {
-  this.itemsCollection = afs.collection<BakingJobInterface>('JobPostingAdvertisements');
-  this.items = this.itemsCollection.snapshotChanges().pipe(
-    map(returneditems =>{
-      return returneditems.map(RI => {
-        const uid = RI.payload.doc.id;
-        const data = RI.payload.doc.data();
 
-        return { uid, ...data};
 
-      });
-    })
-  );
+
+LocalsJobListingSubscription: Subscription;
+LocalsBakersListingSubscription: Subscription;
+LocalsShopListingSubscription: Subscription;
+
+constructor( public AdsFireBaseService: AdvertmanagerService) {
+
+  // this.JobsListingFireStore();
+  // this.BakersListingFireStore();
+  // this.ShopsListingFireStore();
+
   this.filterSubject(1);
 
 }
 
+
+
+
+
+
 ngOnInit() {
-  this.LocalsSub = this.items.subscribe(res => {
-    this.localitems = res;
-    console.log('list of items: ', res);
+  this.LocalsJobListingSubscription = this.AdsFireBaseService.BakingJobsObservable.subscribe(BakingJobs => {
+
+    if (BakingJobs) {
+      this.AdsFireBaseService.BakingJobs = BakingJobs;
+      console.log('list of Baking jobs: ', BakingJobs);
+
+    } else {
+      console.log('no bakering jobs listing at the moment');
+    }
+    
   });
+
+  this.LocalsBakersListingSubscription = this.AdsFireBaseService.BakersObservable.subscribe (Bakers => {
+
+    if (Bakers) {
+        this.AdsFireBaseService.BakersListing = Bakers;
+        console.log('list of Baking jobs: ', Bakers);
+    } else {
+      console.log('no bakers listing at the moment');
+    }
+
+  });
+
+
+  this.LocalsShopListingSubscription = this.AdsFireBaseService.ShopsObservable.subscribe (Shops => {
+
+    if (Shops) {
+        this.AdsFireBaseService.ShopsListing = Shops;
+        console.log('list of Baking jobs: ', Shops);
+    } else {
+      console.log('no Shops listing at the moment');
+    }
+
+  });
+}
+ngOnDestroy() {
+  this.LocalsJobListingSubscription.unsubscribe();
+  this.LocalsBakersListingSubscription.unsubscribe();
+  this.LocalsShopListingSubscription.unsubscribe();
 }
 
 
@@ -60,7 +94,7 @@ filterSubject(filter: number) {
   if (filter === 1) {
     this.filter = 'bakers near you';
   } else if (filter === 2) {
-    this.filter = 'accessories shops near you ';
+    this.filter = 'accessories shops near you';
 
   } else if (filter === 3) {
     this.filter = 'baking jobs near you';
@@ -105,5 +139,21 @@ MenuPopOver() {
   console.log('event being triggered');
 
 }
+
+
+
+viewBakerListing(index: number) {
+
+  this.AdsFireBaseService.viewBakerListing(index);
+}
+
+viewJobListing(index: number) {
+
+  this.AdsFireBaseService.viewJobListing(index);
+ 
+
+
+}
+
 
 }

@@ -1,7 +1,7 @@
 import { BakingJobInterface } from './../../interfaces/BakingJob.interace';
 import { ShopsListingInterface } from './../../interfaces/ShopsListing.interface';
 import { BakersInterface } from './../../interfaces/BakerListing.interface';
-import { ActionSheetController, AlertController } from '@ionic/angular';
+import { ActionSheetController, AlertController, LoadingController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { formatDate } from '@angular/common';
@@ -31,7 +31,8 @@ export class AdvertCreationModalPage implements OnInit {
   constructor(private fb: FormBuilder,
               private actionSheetController: ActionSheetController,
               private afs: AngularFirestore,
-              private alertctrl: AlertController ) {
+              private alertctrl: AlertController,
+              private loadingctrl: LoadingController ) {
 
                 this.BakersCollection = this.afs.collection<BakersInterface>('BakersAdvertisements');
                 this.ShopsCollection = this.afs.collection<ShopsListingInterface>('ShopAdvertisements');
@@ -376,38 +377,57 @@ dateparser(date) {
 
 }
 
+async presentLoading(messagetype: string) {
+  const loading = await this.loadingctrl.create({
+    message: messagetype ,
+    spinner: 'bubbles'
+  });
+  await loading.present();
+}
 
 submitJobsFormvalue(val) {
+
+  this.presentLoading('uploading job document');
   console.log('job form data: ', val);
 
  
   this.JobsCollection.add(val).then(() => {
-
+    this.loadingctrl.dismiss();
     console.log('submitted job form data: ', val);
     this.Alertnotification('baking job has been submitted');
+  }).catch((err) => {
+    console.log('error:', err);
+    this.presentLoading(JSON.stringify(err));
   });
 
 }
 
 submitBakerFormvalue(val) {
 
+  this.presentLoading('uploading baker\'s profile');
   console.log('bakers form data: ', val);
   this.BakersCollection.add(val).then(() => {
-
+    this.loadingctrl.dismiss();
     console.log('submitted bakers form data: ', val);
     this.Alertnotification('baker listing has been submitted');
+  }).catch((err) => {
+    console.log('error:', err);
+    this.presentLoading(JSON.stringify(err));
   });
 
 }
 
 submitShopFormvalue(val) {
-
+  this.presentLoading('uploading shop\'s profile');
   console.log('shop form data: ', val);
 
   this.ShopsCollection.add(val).then(() => {
-
+    this.loadingctrl.dismiss();
     console.log('submitted shop lisiting form data: ', val);
     this.Alertnotification('shop lisiting has been submitted');
+  }).catch((err) => {
+    console.log('error:', err);
+    this.presentLoading(JSON.stringify(err));
   });
 
 }

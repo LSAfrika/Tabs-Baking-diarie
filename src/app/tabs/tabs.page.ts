@@ -19,7 +19,7 @@ constructor(public OrdersManager: OrderManagerService, public splash: Splashscre
 }
 ngOnInit() {
 
-  timer(3000).subscribe(() => console.log('splash is enabled') );
+//  timer(3000).subscribe(() => console.log('splash is enabled') );
 
 }
 

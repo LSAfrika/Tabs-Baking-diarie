@@ -5,14 +5,17 @@
 width: 100%;
 height: 100%;
 z-index: 999;
-display: flex;
-align-items: center;
-justify-content: center;
+display: Block;
+
 
 background: linear-gradient(#5576fb,#55edfb);" >
-  <ion-grid  class="ion-align-items-center" class="ion-justify-content-center">
+  <ion-grid  >
+      <br>
+      <br>
+      <br>
+      <br>
       <ion-row>
-          <ion-col size="8" offset="2">
+          <ion-col size="10" offset="1">
             <div style="max-width: 256px; max-width: height 256px;align-self: auto;" >
               <img src="/assets/icon/applogoicon.png"/>
             </div>
@@ -27,33 +30,60 @@ background: linear-gradient(#5576fb,#55edfb);" >
         <br>
       </ion-col> -->
     </ion-row>
-    <ion-row class="ion-align-items-center" class="ion-justify-content-center">
+    <ion-row >
       
-      <ion-col size="12">
-          <ion-button class="ion-align-self-auto" color="light" shape="round" fill="outline" (click)="disablesplash()">
+      <ion-col offset="2" size="8" *ngIf="FirebaseManager.HideButton === false" >
+        
+          <ion-button  expand="block" color="primary" shape="round" fill="solid" (click)="facebooklogin()">
               <ion-icon slot="start" name="logo-facebook"></ion-icon>
               <ion-label> facebook login</ion-label>
             </ion-button>
 
+            
+            
       </ion-col>
 
-      <ion-col size="12">
-          <ion-button color="light" shape="round" fill="outline" (click)="disablesplash()">
-              <ion-icon slot="start" name="logo-google"></ion-icon>
-              
-              <ion-label> google login</ion-label>
-            </ion-button> 
-      </ion-col>
-      <ion-col size="12">
-          <br>
+      <ion-col offset="1" size="10" *ngIf="FirebaseManager.HideButton === true" >
+        
+        <div *ngIf="FirebaseManager.UserObservable | async as user"  >
+          
         <br>
         <br>
+       <ion-title class="ion-text-center" color="light" style="font-weight: 350;">
+         welcome back
+       </ion-title>
+
+       <br>
+      
+
+
+       <ion-title class="ion-text-center" color="light" style="font-weight: 450">
+         {{user.displayName}}
+      </ion-title>
+    </div>
+    </ion-col>
+
+
+     
+      <ion-col size="12">
+         
               
-          <ion-title color="light" class="ion-text-center"  style="font-weight: 350"> continue without signing in?</ion-title>
+          <ion-title color="light" class="ion-text-center"  style="font-weight: 350"> {{FirebaseManager.Alerttext}}</ion-title>
           <br>
-          <ion-card-subtitle color="light" class="ion-text-center" (click)="disablesplash()" style="text-decoration: underline;"> Skip</ion-card-subtitle>
+         
 
             
+      </ion-col>
+      
+      <ion-col offset="3" size="6">
+        
+         
+        <ion-button  expand="block" color="light" shape="round" fill="solid" (click)="disablesplash()">
+          
+          <ion-label color="primary"> {{FirebaseManager.Buttontext}}</ion-label>
+        </ion-button>
+            
+
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -16,7 +16,7 @@ export interface BakersInterface {
 
     CakeImagesUrl?: [] ;
 
-    CakeTypes: [];
+    BakerCakes: [];
 
 
 

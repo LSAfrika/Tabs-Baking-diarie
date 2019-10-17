@@ -377,6 +377,12 @@ dateparser(date) {
 
 }
 
+
+
+ImageInput(event) {
+  console.log(event.target.files);
+}
+
 async presentLoading(messagetype: string) {
   const loading = await this.loadingctrl.create({
     message: messagetype ,

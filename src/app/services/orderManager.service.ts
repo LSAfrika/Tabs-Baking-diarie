@@ -30,10 +30,10 @@ export class OrderManagerService {
       if (loadedOrders) {
         this.ActiveOrdersArray = loadedOrders;
         this.activecounter = this.ActiveOrdersArray.length;
-        console.log('active array filled: ', this.ActiveOrdersArray);
+     //   console.log('active array filled: ', this.ActiveOrdersArray);
       } else {
         this.ActiveOrdersArray = [];
-        console.log('active array empty: ', this.ActiveOrdersArray);
+    //    console.log('active array empty: ', this.ActiveOrdersArray);
 
       }
 

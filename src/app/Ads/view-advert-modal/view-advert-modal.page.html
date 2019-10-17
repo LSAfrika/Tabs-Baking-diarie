@@ -11,5 +11,243 @@
 </ion-header>
 
 <ion-content>
+ 
+
+
+   <!-- todo BAKER SECTION -->
+  <div *ngIf="FireBaseManager.viewedAdtype ===1">
+    
+<!-- * ION CARD BAKER INFO  -->
+<ion-card>
+    <ion-item>
+        <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
+          <img src="../../../assets/cakes/apple.jpg" style="border-radius: 15%;">
+        </ion-thumbnail>
+        <ion-label>
+          <ion-title  color="primary"><h1>{{FireBaseManager.ReturnedBaker.BakerName}}</h1>
+          
+          
+
+          </ion-title>
+          <h2 style="color: rgb(24, 24, 24);padding: 0px 12px;">
+              location: {{FireBaseManager.ReturnedBaker.BakerLocation}}
+          </h2>
+          
+        </ion-label>
+        
+      </ion-item>
+  
+</ion-card>
+
+<!-- * ION CARD ABOUT US -->
+
+<ion-card>
+  <ion-title color="primary">About us</ion-title> 
+      <p style="color: rgb(24, 24, 24);padding: 0px 12px;">
+          {{FireBaseManager.ReturnedBaker.BakerDescription}}
+    
+          </p> 
+  
+ 
+  
+  
+</ion-card>
+
+<!-- * ION CARD GALLERY -->
+
+<ion-card>
+  <ion-title color="primary">Gallery</ion-title> 
+  
+       <ion-card class="ion-no-padding" style="background: rgb(216, 216, 216);border: none; outline: none; box-shadow: none;">
+          <ion-grid fixed >
+              <ion-row   >
+        <ion-col   *ngFor="let image of images" size="3"> <img class="img" [src]="image.image"/></ion-col>
+         
+      </ion-row>
+    </ion-grid>
+       </ion-card>
+     
+      
+
+  
+</ion-card>
+
+
+<!-- * ION CARD CAKES -->
+
+<ion-card>
+  <ion-title color="primary">Available cakes:</ion-title>
+  <ion-list >
+      <ion-item lines="none" *ngFor="let cake of FireBaseManager.ReturnedBaker.BakerCakes; let i = index">
+        <ion-label>{{i+1}}.  {{cake.cake}}</ion-label>
+      </ion-item>
+     
+    </ion-list>
+
+</ion-card>
+
+<!-- *ION CARD CONTACTS -->
+<ion-card>
+    <ion-row [hidden]="contactview !== false">
+        <ion-col offset="2" size="8" >
+            <ion-button (click)="ViewContact()" shape="round" >
+                <ion-icon slot="start" name="contact"></ion-icon>
+                <ion-label>{{Label}}</ion-label>
+              </ion-button>
+        </ion-col>
+      </ion-row>
+     
+
+      <div [hidden]="contactview !== true">
+      
+        <ion-list >
+          <ion-list-header>
+              <ion-label color="primary">
+                  EMAIL:
+                </ion-label> 
+          </ion-list-header>
+          <ion-item lines="none">
+            <ion-label>{{FireBaseManager.ReturnedBaker.BakerEmail}}</ion-label>
+          </ion-item>
+          <ion-list-header>
+              <ion-label color="primary">
+                  CONTACTS:
+                </ion-label> 
+          </ion-list-header>
+          <ion-item lines="none" *ngFor="let contact of FireBaseManager.ReturnedBaker.BakerContacts; let i = index">
+            <ion-label>{{i+1}}.  0{{contact.contact}}</ion-label>
+            <ion-icon slot="end" name="text" color="primary"></ion-icon>
+                  <ion-icon slot="end" name="phone-portrait" color="warning"></ion-icon>
+                  <ion-icon slot="end" name="logo-whatsapp" color="success"></ion-icon>
+          </ion-item>
+         
+        </ion-list>
+      </div>
+</ion-card>
+
+   
+ 
+  </div>
+
+      <!-- todo SHOPS SECTION -->
+  <div *ngIf="FireBaseManager.viewedAdtype ===2">
+    <ion-label>shops adverts</ion-label>
+    </div>
+
+
+    <!-- todo JOBS SECTION -->
+    <div *ngIf="FireBaseManager.viewedAdtype ===3">
+
+        <ion-card>
+            <ion-item>
+                <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
+                  <img src="../../../assets/cakes/apple.jpg" style="border-radius: 15%;">
+                </ion-thumbnail>
+                <ion-label>
+                    <ion-card-title color="primary" style="text-transform: lowercase;  ">order creator</ion-card-title>
+                    <ion-label color="dark">
+                      <h2>
+                          {{FireBaseManager.ReturnedJob.orderOwnerName}}
+                      </h2> </ion-label>
+                 
+                  
+                </ion-label>
+                
+              </ion-item>
+            
+                </ion-card>
+                
+                <ion-card class="ion-padding">
+                    <ion-card-title color="primary" style="text-transform: lowercase;   ">cake Details:</ion-card-title> 
+                
+                    <ion-label color="dark">
+                        <ion-label color="primary">flavor:</ion-label> <br>
+                      <h2>
+                         {{FireBaseManager.ReturnedJob.cakeType}}
+                      </h2> </ion-label>
+                
+                
+                <br>
+
+               
+              <ion-label color="dark">
+                  <ion-label color="primary">Cakes ordered:</ion-label>  <br>
+                <h2>
+                     {{FireBaseManager.ReturnedJob.numberOfCakes}}
+                </h2> </ion-label>
+
+              </ion-card>
+
+              <ion-card>
+                <ion-card-header>
+                  
+                <ion-card-title color="primary" style="text-transform: lowercase;   ">delivery date:</ion-card-title> 
+                <ion-icon color="primary" slot="start" name="calendar"></ion-icon>
+              <ion-label color="dark">
+                <h2>
+                    {{FireBaseManager.ReturnedJob.deliveryDate | date:'shortDate'}}
+                </h2> </ion-label>
+              </ion-card-header>
+
+              </ion-card>
+           
+              <ion-card >
+            <ion-card-content>
+      
+              
+      
+                <ion-card-title  color="primary">job description</ion-card-title>
+               <p style="color: rgb(24, 24, 24)">
+               {{FireBaseManager.ReturnedJob.jobDescription}}
+      
+               </p> 
+      
+               <div class="Gallery">
+          
+                
+               </div>
+               
+               
+      
+            </ion-card-content>
+
+          </ion-card>
+
+          <ion-card>
+            <ion-row [hidden]="contactview !== false" class="ion-no-padding">
+                <ion-col offset="2" size="8" shape="round" >
+                    <ion-button (click)="ViewContact()" shape="round" >
+                        <ion-icon slot="start" name="contact"></ion-icon>
+                        <ion-label>{{Label}}</ion-label>
+                      </ion-button>
+                </ion-col>
+              </ion-row>
+             
+        
+              <div [hidden]="contactview !== true">
+              
+                <ion-list >
+                  <ion-list-header>
+                      <ion-label color="primary">
+                          CONTACTS:
+                        </ion-label> <br>
+                  </ion-list-header>
+                  <ion-item lines="none" >
+                    <ion-label>  0{{FireBaseManager.ReturnedJob.orderOwnerNameContacts}}</ion-label>
+                    <ion-icon slot="end" name="text" color="primary"></ion-icon>
+                    <ion-icon slot="end" name="phone-portrait" color="warning"></ion-icon>
+                    <ion-icon slot="end" name="logo-whatsapp" color="success"></ion-icon>
+                  </ion-item>
+                 
+                </ion-list>
+              </div>
+           
+           
+      
+          </ion-card>
+
+
+    
+      </div>
 
 </ion-content>

@@ -37,17 +37,19 @@
                 <ion-radio slot="start" value="Job" [checked]="checked3" ></ion-radio>
               </ion-item>
             </ion-radio-group>
+            
           </ion-list>
     
           <ion-row>
-          <ion-col size="6" offset="3">
+              <ion-col size="6" offset="3">
     
-              <ion-button expand="block" fill="solid" shape="round" [disabled]="SelectedAdtype===''" (click)="Next()">
-                  next
-                </ion-button>
-    
-            
-          </ion-col>
+                  <ion-button expand="block" fill="solid" shape="round" [disabled]="SelectedAdtype===''" (click)="Next()">
+                      next
+                    </ion-button>
+        
+                
+              </ion-col>
+          
         </ion-row>
        </ion-card>
  
@@ -55,9 +57,9 @@
    <ion-row class="ion-no-margin" class="ion-no-padding">
       
      
-      <ion-col size="8" offset="2" [hidden]="ProceedToSelected ===''" >
+      <ion-col size="12" [hidden]="ProceedToSelected ===''" >
  
-         <ion-button (click)="back()" fill="solid"  expand="block">
+         <ion-button color="warning" (click)="back()" fill="solid"  expand="block">
              
              <ion-label style="text-transform: lowercase">
                change advert type
@@ -65,6 +67,7 @@
              
             </ion-button>
          
+            
       </ion-col>
      </ion-row>
 
@@ -166,16 +169,20 @@
         </div>
         
 
-        <ion-button (click)="launchActionSheet()"
+        <!-- <ion-button (click)="launchActionSheet()"
         fill="solid" shape="round" color="primary" expand="block">
          <ion-icon slot="start" name="photos"  >
      
            </ion-icon>
            <ion-label style=" text-transform: lowercase;
            font-weight: 500;
-           "> select image</ion-label>
-     </ion-button> 
-      
+           "> select image</ion-label> 
+
+           
+     </ion-button> -->
+     <input type="file" id="file" class="inputfile" multiple (change)="ImageInput($event)"/>
+            <label for="file" class="btn-1">upload photos max 5</label> 
+
     </ion-col>
    
    
@@ -290,7 +297,7 @@
         </div>
         
 
-        <ion-button (click)="launchActionSheet()"
+        <!-- <ion-button (click)="launchActionSheet()"
         fill="solid" shape="round" color="primary" expand="block">
          <ion-icon slot="start" name="photos"  >
      
@@ -298,7 +305,10 @@
            <ion-label style=" text-transform: lowercase;
            font-weight: 500;
            "> select image</ion-label>
-     </ion-button> 
+     </ion-button>  -->
+
+     <input type="file" id="file" class="inputfile" multiple (change)="ImageInput($event)"/>
+            <label for="file" class="btn-1">upload photos </label>
       
     </ion-col>
    

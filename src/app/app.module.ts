@@ -16,6 +16,8 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { File, FileEntry } from '@ionic-native/file/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
+import { Facebook } from '@ionic-native/facebook/ngx';
+
 
 // TODO FIREBASE IMPORTS
 import { AngularFireModule } from '@angular/fire';
@@ -48,6 +50,7 @@ import { environment } from 'src/environments/environment';
     WebView,
     File,
     FilePath,
+    Facebook,
    
    
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

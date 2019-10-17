@@ -5,3 +5,29 @@ ion-content{
   
     }
   }
+
+  .Gallery{
+    display: block ;
+   min-height: 10% !important;
+   max-height: 10% !important;
+   width: 100% !important;
+   color: black;
+   text-align: center !important;
+   
+
+   
+  }
+
+  .img{
+   width: 100% !important;
+   height: 100%!important;
+   object-fit: cover !important;
+   position: relative;
+   top: 50%;
+   left: 50%;
+   border: none;
+   border-radius: 15px;
+   transform: translate(-50%,-50%);
+ }
+
+  

@@ -1,11 +1,9 @@
-import { AdvertmanagerService } from './../services/advertManager.service';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {map} from 'rxjs/operators';
 import {  Subscription } from 'rxjs';
-import { BakingJobInterface } from '../interfaces/BakingJob.interace';
-import { BakersInterface } from '../interfaces/BakerListing.interface';
-import { ShopsListingInterface } from '../interfaces/ShopsListing.interface';
+import { LoadingController } from '@ionic/angular';
+import { FireBaseManagerservice } from '../services/FireBaseManager.service';
+
 
 
 @Component({
@@ -23,7 +21,7 @@ export class Tab2Page implements OnInit, OnDestroy {
   Actualvalue = 0;
   IsSearchBarVisible = true;
 
-
+  DataLoaded = false;
 
 
 
@@ -31,7 +29,7 @@ LocalsJobListingSubscription: Subscription;
 LocalsBakersListingSubscription: Subscription;
 LocalsShopListingSubscription: Subscription;
 
-constructor( public AdsFireBaseService: AdvertmanagerService) {
+constructor( public AdsFireBaseService: FireBaseManagerservice, private loadingCtrl: LoadingController) {
 
   // this.JobsListingFireStore();
   // this.BakersListingFireStore();
@@ -42,28 +40,53 @@ constructor( public AdsFireBaseService: AdvertmanagerService) {
 }
 
 
+ionViewWillEnter() {
+  if (this.DataLoaded === true) {
+
+ //   this.loadingCtrl.dismiss();
+} else {
+  this.Loading();
+ 
+
+}
+
+ 
+}
+
+ionViewDidEnter() {
+ 
+
+}
 
 
 
 
 ngOnInit() {
+
+
   this.LocalsJobListingSubscription = this.AdsFireBaseService.BakingJobsObservable.subscribe(BakingJobs => {
 
     if (BakingJobs) {
       this.AdsFireBaseService.BakingJobs = BakingJobs;
       console.log('list of Baking jobs: ', BakingJobs);
+      this.DataLoaded = true;
+      this.loadingCtrl.dismiss();
 
     } else {
       console.log('no bakering jobs listing at the moment');
     }
-    
+
   });
 
   this.LocalsBakersListingSubscription = this.AdsFireBaseService.BakersObservable.subscribe (Bakers => {
 
     if (Bakers) {
         this.AdsFireBaseService.BakersListing = Bakers;
-        console.log('list of Baking jobs: ', Bakers);
+        console.log('list of Bakers: ', Bakers);
+        this.DataLoaded = true;
+
+        this.loadingCtrl.dismiss();
+
     } else {
       console.log('no bakers listing at the moment');
     }
@@ -75,7 +98,11 @@ ngOnInit() {
 
     if (Shops) {
         this.AdsFireBaseService.ShopsListing = Shops;
-        console.log('list of Baking jobs: ', Shops);
+        console.log('list of Shops: ', Shops);
+        this.DataLoaded = true;
+
+        this.loadingCtrl.dismiss();
+
     } else {
       console.log('no Shops listing at the moment');
     }
@@ -92,16 +119,38 @@ ngOnDestroy() {
 filterSubject(filter: number) {
 
   if (filter === 1) {
+    this.AdsFireBaseService.viewedAdtype = filter;
+    console.log('the number is: ', this.AdsFireBaseService.viewedAdtype);
+
     this.filter = 'bakers near you';
   } else if (filter === 2) {
+    this.AdsFireBaseService.viewedAdtype = filter;
+    console.log('the number is: ', this.AdsFireBaseService.viewedAdtype);
+
     this.filter = 'accessories shops near you';
 
   } else if (filter === 3) {
+    this.AdsFireBaseService.viewedAdtype = filter;
+    console.log('the number is: ', this.AdsFireBaseService.viewedAdtype);
+
+
     this.filter = 'baking jobs near you';
 
   }
 }
 
+ async Loading(message?: string) {
+  const Ctrl = await this.loadingCtrl.create({
+
+    message: 'fetching data from server',
+    translucent: true,
+    backdropDismiss: false,
+    spinner: 'lines'
+
+  });
+  await Ctrl.present();
+
+}
 
 
 
@@ -142,7 +191,7 @@ MenuPopOver() {
 
 
 
-viewBakerListing(index: number) {
+viewBakerListing(index: number ) {
 
   this.AdsFireBaseService.viewBakerListing(index);
 }
@@ -150,7 +199,7 @@ viewBakerListing(index: number) {
 viewJobListing(index: number) {
 
   this.AdsFireBaseService.viewJobListing(index);
- 
+
 
 
 }

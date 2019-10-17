@@ -1,8 +1,9 @@
 export interface UserInterface {
     Uid: string;
-    Username: string;
-    phonenumber: string;
-    imageUrl?: string;
+    displayName: string;
+    phone: string;
+    photoURL?: string;
+    Bio?: string;
 
 
 }

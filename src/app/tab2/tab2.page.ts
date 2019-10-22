@@ -29,34 +29,19 @@ LocalsJobListingSubscription: Subscription;
 LocalsBakersListingSubscription: Subscription;
 LocalsShopListingSubscription: Subscription;
 
-constructor( public AdsFireBaseService: FireBaseManagerservice, private loadingCtrl: LoadingController) {
+constructor( public FireBaseService: FireBaseManagerservice, private loadingCtrl: LoadingController) {
 
   // this.JobsListingFireStore();
   // this.BakersListingFireStore();
   // this.ShopsListingFireStore();
 
   this.filterSubject(1);
-
-}
-
-
-ionViewWillEnter() {
-  if (this.DataLoaded === true) {
-
- //   this.loadingCtrl.dismiss();
-} else {
-  this.Loading();
  
 
 }
 
- 
-}
 
-ionViewDidEnter() {
- 
 
-}
 
 
 
@@ -64,10 +49,10 @@ ionViewDidEnter() {
 ngOnInit() {
 
 
-  this.LocalsJobListingSubscription = this.AdsFireBaseService.BakingJobsObservable.subscribe(BakingJobs => {
+  this.LocalsJobListingSubscription = this.FireBaseService.BakingJobsObservable.subscribe(BakingJobs => {
 
     if (BakingJobs) {
-      this.AdsFireBaseService.BakingJobs = BakingJobs;
+      this.FireBaseService.BakingJobs = BakingJobs;
       console.log('list of Baking jobs: ', BakingJobs);
       this.DataLoaded = true;
       this.loadingCtrl.dismiss();
@@ -78,10 +63,10 @@ ngOnInit() {
 
   });
 
-  this.LocalsBakersListingSubscription = this.AdsFireBaseService.BakersObservable.subscribe (Bakers => {
+  this.LocalsBakersListingSubscription = this.FireBaseService.BakersObservable.subscribe (Bakers => {
 
     if (Bakers) {
-        this.AdsFireBaseService.BakersListing = Bakers;
+        this.FireBaseService.BakersListing = Bakers;
         console.log('list of Bakers: ', Bakers);
         this.DataLoaded = true;
 
@@ -94,10 +79,10 @@ ngOnInit() {
   });
 
 
-  this.LocalsShopListingSubscription = this.AdsFireBaseService.ShopsObservable.subscribe (Shops => {
+  this.LocalsShopListingSubscription = this.FireBaseService.ShopsObservable.subscribe (Shops => {
 
     if (Shops) {
-        this.AdsFireBaseService.ShopsListing = Shops;
+        this.FireBaseService.ShopsListing = Shops;
         console.log('list of Shops: ', Shops);
         this.DataLoaded = true;
 
@@ -119,19 +104,19 @@ ngOnDestroy() {
 filterSubject(filter: number) {
 
   if (filter === 1) {
-    this.AdsFireBaseService.viewedAdtype = filter;
-    console.log('the number is: ', this.AdsFireBaseService.viewedAdtype);
+    this.FireBaseService.viewedAdtype = filter;
+    console.log('the number is: ', this.FireBaseService.viewedAdtype);
 
     this.filter = 'bakers near you';
   } else if (filter === 2) {
-    this.AdsFireBaseService.viewedAdtype = filter;
-    console.log('the number is: ', this.AdsFireBaseService.viewedAdtype);
+    this.FireBaseService.viewedAdtype = filter;
+    console.log('the number is: ', this.FireBaseService.viewedAdtype);
 
     this.filter = 'accessories shops near you';
 
   } else if (filter === 3) {
-    this.AdsFireBaseService.viewedAdtype = filter;
-    console.log('the number is: ', this.AdsFireBaseService.viewedAdtype);
+    this.FireBaseService.viewedAdtype = filter;
+    console.log('the number is: ', this.FireBaseService.viewedAdtype);
 
 
     this.filter = 'baking jobs near you';
@@ -193,12 +178,12 @@ MenuPopOver() {
 
 viewBakerListing(index: number ) {
 
-  this.AdsFireBaseService.viewBakerListing(index);
+  this.FireBaseService.viewBakerListing(index);
 }
 
 viewJobListing(index: number) {
 
-  this.AdsFireBaseService.viewJobListing(index);
+  this.FireBaseService.viewJobListing(index);
 
 
 

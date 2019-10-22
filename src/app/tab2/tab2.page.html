@@ -110,7 +110,7 @@
 
    <!-- TODO BAKERS LISTING SECTION -->
    <div [hidden]="filter !== 'bakers near you'">
-      <ion-card *ngFor="let Baker of AdsFireBaseService.BakersListing; let i = index"   class="ion-padding">
+      <ion-card *ngFor="let Baker of FireBaseService.BakersListing; let i = index"   class="ion-padding">
         
           <ion-card-title color="primary"><strong>
               {{Baker.BakerName}}
@@ -152,7 +152,7 @@
      <div [hidden]="filter !== 'baking jobs near you'">
         <!-- <ion-label>array is not empty</ion-label> -->
         <!-- {{localitems | json}} -->
-        <ion-card class="ion-padding" *ngFor="let Job of AdsFireBaseService.BakingJobs; let i = index" >
+        <ion-card class="ion-padding" *ngFor="let Job of FireBaseService.BakingJobs; let i = index" >
           
           <ion-card-title color="primary"><strong>
               {{Job.title}}

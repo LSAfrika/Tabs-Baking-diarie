@@ -13,38 +13,35 @@ export class Tab4Page implements OnInit, OnDestroy {
 
 
   Tabs = 'notifications';
+
 LoggedIn = false;
   ReturnedUser: UserInterface;
 UserSubScription: Subscription;
-  constructor(public FireBaseManager: FireBaseManagerservice) { }
+loggInSubscription: Subscription;
+  constructor(public FireBaseManager: FireBaseManagerservice) { this.FireBaseManager.CheckLogin(); }
 
   ngOnInit() {
-    this.UserSubScription = this.FireBaseManager.UserObservable.subscribe((user: UserInterface) => {
 
-      if (user) {
-        this.LoggedIn = true;
-        this.ReturnedUser = user;
-        console.log('bio page user: ', this.ReturnedUser);
+    this.loggInSubscription = this.FireBaseManager.behaiourIsLogged.subscribe(result => {
 
-      } else {
-        this.LoggedIn = false;
-
-
-      }
-      
-    }, err => {
-      console.log('error from subscription', err);
+      this.LoggedIn = result;
+      console.log('firtebase log status tab 4: ', this.LoggedIn);
     });
+
+
+   
   }
 
 ngOnDestroy() {
   this.UserSubScription.unsubscribe();
+  this.loggInSubscription.unsubscribe();
 }
 
 
   logout() {
 this.FireBaseManager.logout();
-this.LoggedIn = false;
+this.FireBaseManager.CheckLogin();
+
   }
 
     Login() {
@@ -52,6 +49,12 @@ this.LoggedIn = false;
 
 
   }
+
+
+     SwitchBool(){
+    
+       
+     }
 
 
   

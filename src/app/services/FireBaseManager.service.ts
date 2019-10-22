@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { auth } from 'firebase/app';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+
 // import * as EmptyObservable from 'rxjs/observable/EmptyObservable';
 // import {of} from 'rxjs/add/observable/of';
 
@@ -29,6 +30,8 @@ export class FireBaseManagerservice {
   // todo Hide ui\\
   HideButton = false;
 
+  behaiourIsLogged: BehaviorSubject<boolean>;
+
   // todo SPLASH SCREEN UI \\
   SplashScreen = true;
 
@@ -38,9 +41,9 @@ export class FireBaseManagerservice {
   // TODO JOB TYPE \\
   viewedAdtype = 0;
 
-  //todo LOGIN TYPE \\
+  // todo LOGIN TYPE \\
   Logintype = 0;
-  loginstate: Subject<boolean> = new BehaviorSubject<boolean>(true);
+ // loginstate: Subject<boolean> = new BehaviorSubject<boolean>(true);
 
   // todo FIRESTORE COLLECTIONS \\
 private JobCollection: AngularFirestoreCollection<BakingJobInterface>;
@@ -66,18 +69,47 @@ ReturnedUser: UserInterface;
   constructor(private afs: AngularFirestore,
               private router: Router,
               private fireAuth: AngularFireAuth,
-              private plt: Platform,
+              private platform: Platform,
               private fb: Facebook) {
 
     this.JobsListingFireStore();
     this.BakersListingFireStore();
     this.ShopsListingFireStore();
 
-   // this.CheckLogin();
+
+    this.behaiourIsLogged = new BehaviorSubject(false);
+
+
    }
+
+
+
+
+   SubscriptionOutput() {
+
+    this.behaiourIsLogged.subscribe(state => {
+
+
+      console.log('bool value in subject: ', state);
+
+
+
+
+     });
+
+
+
+  }
+
+
+
+
 
    //  todo ========================================== AUTHORIZATION LOGIC ======================================================
 //#region auth
+
+
+
 
 isLoggedIn() {
   return this.fireAuth.authState.pipe(first()).toPromise();
@@ -87,6 +119,7 @@ async CheckLogin() {
   const user = await this.isLoggedIn();
   if (user) {
 
+    this.behaiourIsLogged.next(true);
     this.HideButton = true;
     this.Buttontext = 'continue';
     this.Alerttext = '';
@@ -94,9 +127,11 @@ async CheckLogin() {
 
     this.UserListingFirestore(user.uid);
 
-  
+
   //  console.log ('user credentials: ', user);
   } else {
+
+    this.behaiourIsLogged.next(false);
 
     this.Buttontext = 'skip';
     this.HideButton = false;
@@ -123,7 +158,7 @@ UserListingFirestore(Uid: string) {
     // this.UserObservable = //new EmptyObservable<UserInterface>();
   }
 
- 
+
 
 
 }
@@ -138,6 +173,8 @@ facebooklogin() {
 
     this.FacebookCordovalogin();
 
+
+
   } else if (this.Logintype === 2) {  // todo 2 FOR BROWSER
     const FacebookProvider = new auth.FacebookAuthProvider();
     this.fireAuth.auth.signInWithPopup(FacebookProvider).then((LoginResponse) => {
@@ -146,7 +183,7 @@ facebooklogin() {
       this.SplashScreen = false;
       this.CheckLogin();
       console.log('splash screen status: ', this.SplashScreen);
-      
+
 
     }).catch(err => {
       console.log(err);
@@ -189,7 +226,7 @@ onFacebookLoginSuccess(res: FacebookLoginResponse) {
 
 FBlogout() {
   this.fb.logout().then(() => {
-    alert('Logged out');
+    alert('You have succesfully logged out');
 
   });
 }
@@ -197,9 +234,22 @@ FBlogout() {
 logout() {
   this.fireAuth.auth.signOut().then(() => {
 
-    this.FBlogout();
+    this.platform.ready().then(() => {
+
+
+        if (this.platform.is('cordova')) {
+       
+          console.log('cordova');
+          this.FBlogout();
+
+
+        }
+
   });
+});
+
 }
+
 
 //#endregion
 
@@ -264,7 +314,7 @@ viewBakerListing(index: number) {
 
   this.ReturnedBaker = this.BakersListing[index];
 
-  if (this.ReturnedBaker) {
+  if(this.ReturnedBaker) {
   console.log('returned Baker: ', this.ReturnedBaker);
   this.router.navigate(['/view-advert-modal']);
 }

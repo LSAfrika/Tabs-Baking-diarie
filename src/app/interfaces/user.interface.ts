@@ -3,7 +3,7 @@ export interface UserInterface {
     displayName: string;
     phone: string;
     photoURL?: string;
-    Bio?: string;
+    bio?: string;
 
 
 }

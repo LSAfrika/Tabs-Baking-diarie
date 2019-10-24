@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
   // todo remeber to set this to true
   showsplash = true;
-
+  showspinner = true;
   ReturnedUserSubscription: Subscription;
 
 
@@ -40,7 +40,10 @@ export class AppComponent implements OnInit {
 
     this.FirebaseManager.CheckLogin();
 
+    this.FirebaseManager.Spinner.subscribe(result => {
+    this.showspinner = result;
 
+  });
    // console.log('boolean state: ', this.showsplash);
 
     if (this.platform.is('cordova')) {
@@ -78,7 +81,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
-  
+
 
   }
 }

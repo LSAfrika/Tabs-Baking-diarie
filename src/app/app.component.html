@@ -24,8 +24,21 @@ background: linear-gradient(#5576fb,#55edfb);" >
      
     </ion-row>
     <ion-row >
+        
+      <ion-col size="12" [hidden]="!showspinner">
+        <ion-spinner style="width: 100%;" color="light" name="bubbles"></ion-spinner>
+        
+      </ion-col>
       
-      <ion-col offset="2" size="8" *ngIf="FirebaseManager.HideButton === false" >
+          <ion-title [hidden]="!showspinner" style=" width: 100%; text-align: center;"  color="light" >please wait...</ion-title>
+
+        
+   
+    
+
+      
+      
+      <ion-col offset="2" size="8" *ngIf="FirebaseManager.HideButton === false" [hidden]="showspinner" >
         
           <ion-button  expand="block" color="primary" shape="round" fill="solid" (click)="facebooklogin()">
               <ion-icon slot="start" name="logo-facebook"></ion-icon>
@@ -35,30 +48,33 @@ background: linear-gradient(#5576fb,#55edfb);" >
             
             
       </ion-col>
+      <br>
 
-      <ion-col offset="1" size="10" *ngIf="FirebaseManager.HideButton === true" >
+      <ion-col [hidden]="showspinner" offset="1" size="10" *ngIf="FirebaseManager.HideButton === true" >
         
          
-        <div *ngIf="FirebaseManager.UserObservable | async as user"  >
+        <div *ngIf="FirebaseManager.ReturnedUser !== undefined"  >
           
+          
+          <ion-title class="ion-text-center" color="light" style="font-weight: 450">
+            Hello {{FirebaseManager.ReturnedUser.displayName}}
+          </ion-title>
+
        
-       <ion-title class="ion-text-center" color="light" style="font-weight: 350;">
-         welcome back
-       </ion-title>
 
        <br>
-      
-
-
-       <ion-title class="ion-text-center" color="light" style="font-weight: 450">
-         {{user.displayName}}
+       <ion-title class="ion-text-center" color="light" style="font-weight: 350;">
+        welcome back
       </ion-title>
+
+
+       
     </div>
     </ion-col>
 
 
      
-      <ion-col size="12">
+      <ion-col size="12" [hidden]="showspinner">
          
               
           <ion-title color="light" class="ion-text-center"  style="font-weight: 350"> {{FirebaseManager.Alerttext}}</ion-title>
@@ -68,7 +84,7 @@ background: linear-gradient(#5576fb,#55edfb);" >
             
       </ion-col>
       
-      <ion-col offset="3" size="6">
+      <ion-col offset="3" size="6" [hidden]="showspinner">
         
          
         <ion-button  expand="block" color="light" shape="round" fill="solid" (click)="disablesplash()">
@@ -78,6 +94,7 @@ background: linear-gradient(#5576fb,#55edfb);" >
             
 
       </ion-col>
+    
     </ion-row>
   </ion-grid>
 

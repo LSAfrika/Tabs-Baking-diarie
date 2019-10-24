@@ -29,7 +29,7 @@ LocalsJobListingSubscription: Subscription;
 LocalsBakersListingSubscription: Subscription;
 LocalsShopListingSubscription: Subscription;
 
-constructor( public FireBaseService: FireBaseManagerservice, private loadingCtrl: LoadingController) {
+constructor( public FireBaseService: FireBaseManagerservice) {
 
   // this.JobsListingFireStore();
   // this.BakersListingFireStore();
@@ -55,7 +55,7 @@ ngOnInit() {
       this.FireBaseService.BakingJobs = BakingJobs;
       console.log('list of Baking jobs: ', BakingJobs);
       this.DataLoaded = true;
-      this.loadingCtrl.dismiss();
+     
 
     } else {
       console.log('no bakering jobs listing at the moment');
@@ -70,7 +70,6 @@ ngOnInit() {
         console.log('list of Bakers: ', Bakers);
         this.DataLoaded = true;
 
-        this.loadingCtrl.dismiss();
 
     } else {
       console.log('no bakers listing at the moment');
@@ -86,7 +85,7 @@ ngOnInit() {
         console.log('list of Shops: ', Shops);
         this.DataLoaded = true;
 
-        this.loadingCtrl.dismiss();
+       
 
     } else {
       console.log('no Shops listing at the moment');
@@ -124,18 +123,7 @@ filterSubject(filter: number) {
   }
 }
 
- async Loading(message?: string) {
-  const Ctrl = await this.loadingCtrl.create({
 
-    message: 'fetching data from server',
-    translucent: true,
-    backdropDismiss: false,
-    spinner: 'lines'
-
-  });
-  await Ctrl.present();
-
-}
 
 
 

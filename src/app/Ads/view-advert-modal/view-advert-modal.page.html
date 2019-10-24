@@ -21,7 +21,9 @@
 <ion-card>
     <ion-item>
         <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
-          <img src="../../../assets/cakes/apple.jpg" style="border-radius: 15%;">
+          <img *ngIf="FireBaseManager.ReturnedBaker.BakerImageUrl !== null"  src="{{FireBaseManager.ReturnedBaker.BakerImageUrl }}" style="border-radius: 15%; border:2px solid #5576fb">
+
+          <img *ngIf="FireBaseManager.ReturnedBaker.BakerImageUrl === null"  src="/assets/icon/defaultCake.png" style="border-radius: 15%; border:2px solid #5576fb">
         </ion-thumbnail>
         <ion-label>
           <ion-title  color="primary"><h1>{{FireBaseManager.ReturnedBaker.BakerName}}</h1>
@@ -43,11 +45,15 @@
 
 <ion-card>
   <ion-title color="primary">About us</ion-title> 
-      <p style="color: rgb(24, 24, 24);padding: 0px 12px;">
-          {{FireBaseManager.ReturnedBaker.BakerDescription}}
+  <ion-textarea autoGrow="true">
+    <p style="color: rgb(24, 24, 24);padding: 0px 12px;">
+      {{FireBaseManager.ReturnedBaker.BakerDescription}}
+
+      </p> 
+
+  </ion-textarea>
+
     
-          </p> 
-  
  
   
   

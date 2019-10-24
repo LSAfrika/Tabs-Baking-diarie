@@ -45,7 +45,8 @@
   <div *ngIf="Tabs === 'profile'" >
 
   
-     <div *ngIf="FireBaseManager.UserObservable | async as User; else showLogin"  >
+    
+     <div *ngIf=" FireBaseManager.ReturnedUser !== undefined"  >
   
     <br>
     <br>
@@ -54,13 +55,13 @@
       <ion-card  >
           <ion-item>
               <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
-                <img src="{{User.photoURL}}" style="border-radius: 15%;">
+                <img src="{{FireBaseManager.ReturnedUser.photoURL}}" style="border-radius: 15%;">
               </ion-thumbnail>
               <ion-label>
                   
                   <ion-label color="dark" class="ion-text-center">
                     <h2>
-                        {{User.displayName}}
+                        {{FireBaseManager.ReturnedUser.displayName}}
                     </h2> </ion-label>
                
                 
@@ -73,31 +74,35 @@
                 <ion-card-subtitle color="primary">Phone number</ion-card-subtitle>
                 <br>
 
-                <ion-card-subtitle>0{{User.phone}}</ion-card-subtitle>
+                <ion-card-subtitle color="dark">0{{FireBaseManager.ReturnedUser.phone}}</ion-card-subtitle>
                 <br>
 
                 <ion-card-subtitle color="primary">Bio</ion-card-subtitle>
                 <br>
 
-                <ion-card-subtitle>
-                  <p >
-                      {{User.bio}}
+                <ion-card-subtitle color="dark">
+                  <p *ngIf="FireBaseManager.ReturnedUser.bio !==''">
+                 {{FireBaseManager.ReturnedUser.bio}} 
                   </p>
+
+                  <p *ngIf="FireBaseManager.ReturnedUser.bio ===''">
+                      please update your baking bio information ...
+                       </p>
                 </ion-card-subtitle>
         
        </ion-card-header>
        <ion-grid fixed>
 
        <ion-row>
-          <ion-col size="10" offset="1" >
-              <ion-button (click)="logout()" fill="solid" shape="round" expand="full">
+          <ion-col size="8" offset="2" >
+              <ion-button (click)="EditProfile()" fill="solid" shape="round" expand="full">
                 <ion-icon slot="start" name="contact"></ion-icon>
                   <ion-label>Edit profile</ion-label>
                 </ion-button>
           </ion-col>
            
          
-          <ion-col size="10" offset="1" >
+          <ion-col size="8" offset="2" >
               <ion-button (click)="logout()" fill="solid" shape="round" expand="full">
                  
                 <ion-icon slot="start" name="logo-facebook"></ion-icon>
@@ -111,9 +116,11 @@
           
               </ion-card>
      </div>
-           
-     <ng-template #showLogin>
-        <div  >
+        
+   
+     
+    <div *ngIf="FireBaseManager.ReturnedUser === null || FireBaseManager.ReturnedUser === undefined || FireBaseManager.ReturnedUser === {}  " >
+       
   
             <ion-card style="position: absolute; top: 50%;left: 50%; transform: translate(-50%,-50%)!important;">
               <ion-card-header>
@@ -129,23 +136,22 @@
              </ion-row>
                 
                     </ion-card>
-           </div>
 
-     </ng-template>
+                 
+                    </div>
+
+     
+          </div >
    
              
 
        
              
 
-              <!-- <ion-card>
-                <ion-card-content>
-                  {{FireBaseManager.ReturnedUser.Bio}}
-                </ion-card-content>
-              </ion-card> -->
+           
 
      
-  </div>
+
 
   
 

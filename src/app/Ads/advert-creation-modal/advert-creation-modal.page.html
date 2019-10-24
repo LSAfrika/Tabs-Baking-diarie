@@ -164,8 +164,8 @@
   
         <br>
         <div class="CakeSize">
-        <img  class="actualimage"  *ngIf="BakerImageUrl.value === null"  src='/assets/icon/defaultCake.png' />
-        <img  class="actualimage"  *ngIf="BakerImageUrl.value !== null"  [src]="ShopImageUrl.value" />
+        <img  class="actualimage"  *ngIf="storeimagelink === undefined"  src='/assets/icon/defaultCake.png' />
+        <img  class="actualimage"  *ngIf="storeimagelink!== undefined"  [src]="storeimagelink" />
         </div>
         
 
@@ -180,8 +180,18 @@
 
            
      </ion-button> -->
-     <input type="file" id="file" class="inputfile" multiple (change)="ImageInput($event)"/>
-            <label for="file" class="btn-1">upload photos max 5</label> 
+    
+
+            <ion-label class="ion-text-center">
+                
+                      
+              <label for="file-upload" class="custom-file-upload">
+                   upload photo
+              </label>
+              <input id="file-upload" type="file" accept=".png,.jpg" (change)="ImageInput($event)"/>
+           
+            
+          </ion-label>
 
     </ion-col>
    

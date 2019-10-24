@@ -1,6 +1,6 @@
 import { UserInterface } from './../interfaces/user.interface';
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Subject, empty, observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {map, first} from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -10,9 +10,11 @@ import { BakingJobInterface } from '../interfaces/BakingJob.interace';
 import { BakersInterface } from '../interfaces/BakerListing.interface';
 import { ShopsListingInterface } from '../interfaces/ShopsListing.interface';
 import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController, LoadingController } from '@ionic/angular';
 import { auth } from 'firebase/app';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
+
 
 // import * as EmptyObservable from 'rxjs/observable/EmptyObservable';
 // import {of} from 'rxjs/add/observable/of';
@@ -31,6 +33,8 @@ export class FireBaseManagerservice {
   HideButton = false;
 
   behaiourIsLogged: BehaviorSubject<boolean>;
+  Spinner: BehaviorSubject<boolean>;
+  storeimagelink: BehaviorSubject<string>;
 
   // todo SPLASH SCREEN UI \\
   SplashScreen = true;
@@ -70,7 +74,9 @@ ReturnedUser: UserInterface;
               private router: Router,
               private fireAuth: AngularFireAuth,
               private platform: Platform,
-              private fb: Facebook) {
+              private fb: Facebook,
+              private alertctrl: AlertController, 
+              private AFStorage: AngularFireStorage,) {
 
     this.JobsListingFireStore();
     this.BakersListingFireStore();
@@ -78,7 +84,8 @@ ReturnedUser: UserInterface;
 
 
     this.behaiourIsLogged = new BehaviorSubject(false);
-
+    this.Spinner = new BehaviorSubject(true);
+    this.storeimagelink = new BehaviorSubject('');
 
    }
 
@@ -103,6 +110,22 @@ ReturnedUser: UserInterface;
 
 
 
+  SpinnerSubscriptionOutput() {
+
+    this.Spinner.subscribe(state => {
+
+
+      console.log('bool value in subject: ', state);
+
+
+
+
+     });
+
+
+
+  }
+
 
 
    //  todo ========================================== AUTHORIZATION LOGIC ======================================================
@@ -126,18 +149,21 @@ async CheckLogin() {
 
 
     this.UserListingFirestore(user.uid);
+    this.Spinner.next(false);
+
 
 
   //  console.log ('user credentials: ', user);
   } else {
 
     this.behaiourIsLogged.next(false);
+    this.Spinner.next(false);
 
     this.Buttontext = 'skip';
     this.HideButton = false;
     this.Alerttext = 'continue without signing in ?';
 
-    const sampleuser = 'SampleUser';
+   
     this.UserListingFirestore('no user');
 
     console.log ('user not logged in ');
@@ -151,9 +177,16 @@ UserListingFirestore(Uid: string) {
   if (this.User) {
   this.UserObservable = this.User.valueChanges();
 
+  this.UserObservable.subscribe((user: UserInterface) => {
+    this.ReturnedUser = user;
+    console.log('polpulated value value: ', user);
+
+  });
+
 
   } else {
 
+    
   //  const emptyObservable = observable. of(null);
     // this.UserObservable = //new EmptyObservable<UserInterface>();
   }
@@ -162,6 +195,9 @@ UserListingFirestore(Uid: string) {
 
 
 }
+
+
+
 
 
 
@@ -252,6 +288,119 @@ logout() {
 
 
 //#endregion
+
+uploadprofilepicture(pic: File, loading: LoadingController) {
+
+ 
+  const filePath = `Users/${this.ReturnedUser.uid}/profile/profilepicture`;
+  const ref = this.AFStorage.ref(filePath);
+
+  ref.put(pic).then(() => {
+    ref.getDownloadURL().subscribe(imgLink => {
+
+       const imagedata: UserInterface = {
+         displayName: this.ReturnedUser.displayName,
+         bio: this.ReturnedUser.bio,
+         phone: this.ReturnedUser.phone,
+         photoURL: imgLink,
+         uid: this.ReturnedUser.uid
+       };
+
+
+       this.uploadphoto(imagedata);
+       loading.dismiss();
+
+
+});
+
+
+
+
+  
+});
+
+}
+
+uploadstoreimage(pic: File, loading: LoadingController) {
+
+ 
+  const filePath = `DataStore/Bakerstore/${this.ReturnedUser.uid}/storebannerimage`;
+  const ref = this.AFStorage.ref(filePath);
+
+  ref.put(pic).then(() => {
+    ref.getDownloadURL().subscribe(imgLink => {
+
+      this.storeimagelink.next(imgLink);
+     
+      loading.dismiss();
+
+
+});
+
+
+
+
+  
+});
+
+}
+
+
+
+
+
+EditUpdateProfile(data: UserInterface) {
+
+  this.User.set (data, {merge: true}).then((result) => {
+    console.log('saved succesfully ');
+  });
+  this.updatenotifier();
+
+
+}
+
+uploadphoto( data: UserInterface) {
+  this.User.set (data, {merge: true}).then((result) => {
+    console.log('saved succesfully ');
+  });
+  this.Profileuploadnotifier();
+
+}
+
+
+
+async updatenotifier() {
+  const notify = await this.alertctrl.create({
+    message: '<strong>profile updated successfully</strong>',
+    backdropDismiss: false,
+    translucent: true
+
+  });
+  await notify.present();
+
+  setTimeout(() => {
+    this.alertctrl.dismiss();
+    this.router.navigate(['/tabs/tab4']);
+  }, 2000);
+}
+
+
+async Profileuploadnotifier() {
+  const notify = await this.alertctrl.create({
+    message: '<strong>picture updated successfully</strong>',
+    backdropDismiss: false,
+    translucent: true
+
+  });
+  await notify.present();
+
+  setTimeout(() => {
+    this.alertctrl.dismiss();
+   
+  }, 2000);
+}
+
+
 
 //#endregion
 

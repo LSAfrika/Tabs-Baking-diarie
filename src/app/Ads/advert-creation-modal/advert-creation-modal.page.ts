@@ -1,3 +1,4 @@
+import { FireBaseManagerservice } from './../../services/FireBaseManager.service';
 import { BakingJobInterface } from './../../interfaces/BakingJob.interace';
 import { ShopsListingInterface } from './../../interfaces/ShopsListing.interface';
 import { BakersInterface } from './../../interfaces/BakerListing.interface';
@@ -27,12 +28,14 @@ export class AdvertCreationModalPage implements OnInit {
   private BakersCollection: AngularFirestoreCollection<BakersInterface>;
   private ShopsCollection: AngularFirestoreCollection<ShopsListingInterface>;
   private JobsCollection: AngularFirestoreCollection<BakingJobInterface>;
+  storeimagelink: string;
 
   constructor(private fb: FormBuilder,
               private actionSheetController: ActionSheetController,
               private afs: AngularFirestore,
               private alertctrl: AlertController,
-              private loadingctrl: LoadingController ) {
+              private loadingctrl: LoadingController,
+              private firebasemanager: FireBaseManagerservice ) {
 
                 this.BakersCollection = this.afs.collection<BakersInterface>('BakersAdvertisements');
                 this.ShopsCollection = this.afs.collection<ShopsListingInterface>('ShopAdvertisements');
@@ -45,9 +48,19 @@ export class AdvertCreationModalPage implements OnInit {
 
   ngOnInit() {
 
+    console.log('image link: ', this.storeimagelink);
     this.Shopsform();
     this.Bakersform();
     this.Jobsform();
+    this.firebasemanager.storeimagelink.subscribe(link => {
+
+      this.updateBakerImageValue(link);
+      this.storeimagelink = link;
+      console.log('image link from subject: ', this.storeimagelink);
+
+
+
+    });
    
 
 
@@ -85,6 +98,9 @@ export class AdvertCreationModalPage implements OnInit {
   this.BakersFormData.patchValue({
     BakerImageUrl: value
   });
+  console.log('the uploaded image link  to form : ', this.BakerImageUrl.value);
+  console.log('form data for bakers : ', this.BakersFormData.value);
+
 }
 
  // todo: Methods to populate CONTACTS and accessories listings
@@ -380,7 +396,9 @@ dateparser(date) {
 
 
 ImageInput(event) {
-  console.log(event.target.files);
+  this.presentLoading('uploading store image');
+  const pic = event.target.files[0];
+  this.firebasemanager.uploadstoreimage(pic, this.loadingctrl);
 }
 
 async presentLoading(messagetype: string) {
@@ -397,7 +415,8 @@ submitJobsFormvalue(val) {
   console.log('job form data: ', val);
 
  
-  this.JobsCollection.add(val).then(() => {
+  this.JobsCollection.doc<BakingJobInterface>(`BakersAdvertisements'/${this.firebasemanager.ReturnedUser.uid}`)
+  .set(val, {merge: true}).then(() => {
     this.loadingctrl.dismiss();
     console.log('submitted job form data: ', val);
     this.Alertnotification('baking job has been submitted');
@@ -412,7 +431,8 @@ submitBakerFormvalue(val) {
 
   this.presentLoading('uploading baker\'s profile');
   console.log('bakers form data: ', val);
-  this.BakersCollection.add(val).then(() => {
+  this.BakersCollection.doc<BakersInterface>(`${this.firebasemanager.ReturnedUser.uid}`)
+  .set(val, {merge: true}).then(() => {
     this.loadingctrl.dismiss();
     console.log('submitted bakers form data: ', val);
     this.Alertnotification('baker listing has been submitted');

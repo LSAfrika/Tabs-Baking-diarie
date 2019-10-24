@@ -1,8 +1,10 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FireBaseManagerservice } from '../services/FireBaseManager.service';
 import { UserInterface } from '../interfaces/user.interface';
 import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators'
+
+
 
 @Component({
   selector: 'app-tab4',
@@ -18,7 +20,7 @@ LoggedIn = false;
   ReturnedUser: UserInterface;
 UserSubScription: Subscription;
 loggInSubscription: Subscription;
-  constructor(public FireBaseManager: FireBaseManagerservice) { this.FireBaseManager.CheckLogin(); }
+  constructor(public FireBaseManager: FireBaseManagerservice, private router: Router) { this.FireBaseManager.CheckLogin(); }
 
   ngOnInit() {
 
@@ -28,12 +30,24 @@ loggInSubscription: Subscription;
       console.log('firtebase log status tab 4: ', this.LoggedIn);
     });
 
+    if (this.FireBaseManager.ReturnedUser !== null || this.FireBaseManager.ReturnedUser !== undefined )
+    {
+      console.log('user is not null: ', this.FireBaseManager.ReturnedUser);
 
-   
+     }
+
   }
 
+
+
+
+
+
+
+
+
 ngOnDestroy() {
-  this.UserSubScription.unsubscribe();
+ // this.UserSubScription.unsubscribe();
   this.loggInSubscription.unsubscribe();
 }
 
@@ -51,13 +65,10 @@ this.FireBaseManager.CheckLogin();
   }
 
 
-     SwitchBool(){
-    
-       
-     }
 
 
-  
+
+
 
   tabSwitch(tab: string) {
     if (tab === 'notifications') {
@@ -69,6 +80,12 @@ this.FireBaseManager.CheckLogin();
 
 
     }
+  }
+
+
+  EditProfile() {
+    this.router.navigate(['/profileedit']);
+
   }
 
 }

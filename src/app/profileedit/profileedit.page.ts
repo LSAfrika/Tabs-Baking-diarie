@@ -1,5 +1,5 @@
-import { LoadingController } from '@ionic/angular';
-import { File } from '@ionic-native/file/ngx';
+import { LoadingController, AlertController } from '@ionic/angular';
+
 import { UserInterface } from './../interfaces/user.interface';
 import { FireBaseManagerservice } from './../services/FireBaseManager.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,8 +12,9 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileeditPage implements OnInit {
 
   Userbio: UserInterface;
+  uploadpic: File;
 
-  constructor(public FireBaseManager: FireBaseManagerservice, private loadingctrl: LoadingController) {
+  constructor(public FireBaseManager: FireBaseManagerservice, private loadingctrl: LoadingController, private alertctrl: AlertController) {
   //  this.Userbio = {} as UserInterface;
    // console.log('initial value: ', this.Userbio);
 
@@ -48,10 +49,23 @@ export class ProfileeditPage implements OnInit {
   photoupload(event) {
     console.log('user before photo update: ', this.Userbio);
 
-    this.Photouploadctrl();
     console.log(event.target.files[0]);
-    const pic = event.target.files[0];
+    const pic = event.target.files[0] ;
+   
+    this.uploadpic = pic;
+    const extensilon  = this.uploadpic.name.substring(this.uploadpic.name.lastIndexOf('.') + 1);
+    console.log('file input ', extensilon);
+
+    if ( extensilon === 'jpg' || extensilon === 'jpeg' || extensilon === 'png') {
+    this.Photouploadctrl();
     this.FireBaseManager.uploadprofilepicture(pic, this.loadingctrl);
+
+
+    } else {
+     this.WrongfileUpload();
+
+    }
+
   }
 
   async Photouploadctrl() {
@@ -64,6 +78,19 @@ export class ProfileeditPage implements OnInit {
 
 
 
+  }
+
+  async WrongfileUpload() {
+    const err = await this.alertctrl.create ({
+      message: 'please select an image file',
+
+    });
+    await err.present();
+
+    setTimeout(() => {
+      this.alertctrl.dismiss();
+
+    }, 3000);
   }
 
 

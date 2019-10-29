@@ -4,7 +4,7 @@ import {BehaviorSubject} from 'rxjs';
 import {map, first} from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase/app';
 import { Observable, Subscription } from 'rxjs';
 import { BakingJobInterface } from '../interfaces/BakingJob.interace';
 import { BakersInterface } from '../interfaces/BakerListing.interface';
@@ -186,9 +186,7 @@ UserListingFirestore(Uid: string) {
 
   } else {
 
-    
-  //  const emptyObservable = observable. of(null);
-    // this.UserObservable = //new EmptyObservable<UserInterface>();
+  // this.router.navigate(['/'])
   }
 
 
@@ -250,7 +248,7 @@ async FacebookCordovalogin() {
 }
 onFacebookLoginSuccess(res: FacebookLoginResponse) {
  // const { token } = res;
-  const credential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+  const credential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
   this.fireAuth.auth.signInWithCredential(credential)
     .then((response) => {
      // this.router.navigate(['/userbio']);

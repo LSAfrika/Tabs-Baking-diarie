@@ -25,12 +25,12 @@ background: linear-gradient(#5576fb,#55edfb);" >
     </ion-row>
     <ion-row >
         
-      <ion-col size="12" [hidden]="!showspinner">
+      <ion-col size="12" *ngIf="FirebaseManager.ReturnedUser === undefined">
         <ion-spinner style="width: 100%;" color="light" name="bubbles"></ion-spinner>
         
       </ion-col>
       
-          <ion-title [hidden]="!showspinner" style=" width: 100%; text-align: center;"  color="light" >please wait...</ion-title>
+          <ion-title *ngIf="FirebaseManager.ReturnedUser === undefined" style=" width: 100%; text-align: center;"  color="light" >please wait...</ion-title>
 
         
    
@@ -38,7 +38,7 @@ background: linear-gradient(#5576fb,#55edfb);" >
 
       
       
-      <ion-col offset="2" size="8" *ngIf="FirebaseManager.HideButton === false" [hidden]="showspinner" >
+      <ion-col offset="2" size="8"  *ngIf="FirebaseManager.FacebookloginState === false"   >
         
           <ion-button  expand="block" color="primary" shape="round" fill="solid" (click)="facebooklogin()">
               <ion-icon slot="start" name="logo-facebook"></ion-icon>
@@ -50,21 +50,21 @@ background: linear-gradient(#5576fb,#55edfb);" >
       </ion-col>
       <br>
 
-      <ion-col [hidden]="showspinner" offset="1" size="10" *ngIf="FirebaseManager.HideButton === true" >
+      <ion-col [hidden]="showspinner" offset="1" size="10" *ngIf="FirebaseManager.FacebookloginState === true" >
         
          
         <div *ngIf="FirebaseManager.ReturnedUser !== undefined"  >
           
           
-          <ion-title class="ion-text-center" color="light" style="font-weight: 450">
-            Hello {{FirebaseManager.ReturnedUser.displayName}}
+          
+
+          <ion-title class="ion-text-center" color="light" style="font-weight: 350;"  >
+            welcome back
           </ion-title>
 
-       
-
        <br>
-       <ion-title class="ion-text-center" color="light" style="font-weight: 350;">
-        welcome back
+       <ion-title class="ion-text-center"    color="light" style="font-weight: 450">
+        {{FirebaseManager.ReturnedUser.displayName}}
       </ion-title>
 
 
@@ -87,7 +87,7 @@ background: linear-gradient(#5576fb,#55edfb);" >
       <ion-col offset="3" size="6" [hidden]="showspinner">
         
          
-        <ion-button  expand="block" color="light" shape="round" fill="solid" (click)="disablesplash()">
+        <ion-button *ngIf="FirebaseManager.ReturnedUser !== undefined"  expand="block" color="light" shape="round" fill="solid" (click)="disablesplash()">
           
           <ion-label color="primary"> {{FirebaseManager.Buttontext}}</ion-label>
         </ion-button>

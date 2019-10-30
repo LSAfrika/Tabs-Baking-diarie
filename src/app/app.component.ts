@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
     this.FirebaseManager.CheckLogin();
 
     this.FirebaseManager.Spinner.subscribe(result => {
-    this.showspinner = result;
+    this.showsplash = result;
 
   });
    // console.log('boolean state: ', this.showsplash);

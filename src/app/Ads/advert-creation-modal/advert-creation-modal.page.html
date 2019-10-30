@@ -3,7 +3,7 @@
     <ion-title >create your posting</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button [routerLink]="['/tabs/tab2']" >
+      <ion-button (click)="backHome()" >
         <ion-icon size="large" name="close-circle"></ion-icon>
         
       </ion-button>
@@ -99,6 +99,27 @@
 
       <!-- TODO: BAKERS LISTING CARD -->
     <ion-card [formGroup]="BakersFormData" [hidden]="SelectedAdtype!=='Baker'" >
+       <!-- * BAKER IMAGE FORM CONTROL -->
+  
+
+   <ion-item lines = "none">
+      <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
+        <!-- <img src="{{FireBaseManager.ReturnedUser.photoURL}}" style="border-radius: 15%;"> -->
+        <img  class="actualimage"  *ngIf="firebasemanager.profilepicture === ''"  src='/assets/icon/defaultCake.png' />
+        <img  class="actualimage"  *ngIf="firebasemanager.profilepicture!== ''"  [src]="firebasemanager.profilepicture" />
+      </ion-thumbnail>
+      <ion-label class="ion-text-center">
+          
+                
+          <label for="file-upload" class="custom-file-upload">
+               Banner image
+          </label>
+          <input id="file-upload" type="file"  (change)="profilepicturepreview($event)"/>
+       
+        
+      </ion-label>
+      
+    </ion-item>
         <ion-row>
             <ion-col size="10" offset="1">
 
@@ -107,6 +128,10 @@
        <ion-label position="floating">Baker Name <ion-text color="danger">*</ion-text></ion-label>
        <ion-input required formControlName="BakerName" type="text"></ion-input>
      </ion-item>
+     <br>
+     <br>
+     <br>
+
 
        <!-- * BAKER CONTACTS FORM CONTROL -->
        <ion-label position="inline" color="primary"> Shop contacts</ion-label>
@@ -121,6 +146,8 @@
 
 
     </ion-item>
+    <br>
+
     
 
   </div>
@@ -150,55 +177,14 @@
        <!-- * BAKER DESCRIPTION FORM CONTROL -->
        <ion-item>
           <ion-label position="floating">Baker Description <ion-text color="danger">*</ion-text></ion-label>
-          <ion-textarea required formControlName="BakerDescription" type="text"></ion-textarea>
+          <ion-textarea autoGrow="true" required formControlName="BakerDescription" type="text"></ion-textarea>
           
        </ion-item >
         <ion-item lines="none" *ngIf="BakerDescription.invalid && BakerDescription.touched">
           <p style="color: red" > minimum description is 50 charachters</p>
         </ion-item>
 
-  <!-- * BAKER IMAGE FORM CONTROL -->
-  <ion-item lines="none">
-    <ion-col size="12" class="ion-no-padding" class="ion-no-margin">
-        <ion-label color="primary" >Shop banner image </ion-label>
-  
-        <br>
-        <div class="CakeSize">
-        <img  class="actualimage"  *ngIf="storeimagelink === undefined"  src='/assets/icon/defaultCake.png' />
-        <img  class="actualimage"  *ngIf="storeimagelink!== undefined"  [src]="storeimagelink" />
-        </div>
-        
-
-        <!-- <ion-button (click)="launchActionSheet()"
-        fill="solid" shape="round" color="primary" expand="block">
-         <ion-icon slot="start" name="photos"  >
-     
-           </ion-icon>
-           <ion-label style=" text-transform: lowercase;
-           font-weight: 500;
-           "> select image</ion-label> 
-
-           
-     </ion-button> -->
-    
-
-            <ion-label class="ion-text-center">
-                
-                      
-              <label for="file-upload" class="custom-file-upload">
-                   upload photo
-              </label>
-              <input id="file-upload" type="file" accept=".png,.jpg" (change)="ImageInput($event)"/>
-           
-            
-          </ion-label>
-
-    </ion-col>
-   
-   
-   
-    
- </ion-item >
+ 
 
 
         <br>
@@ -218,6 +204,12 @@
 
 
     </ion-item>
+
+
+
+
+    
+    
     
 
   </div>
@@ -233,8 +225,72 @@
   <br>
   <br><br>
 
+
+
+
+
 </ion-col>
 </ion-row>
+
+<ion-title class="ion-text-center" color="dark">upload images  (6 max)</ion-title>
+
+
+<ion-row *ngIf="firebasemanager.productImageFiles.length ===0" >
+
+   
+  <ion-col size="4" *ngFor="let img of [1,1,1,1,1,1]"  >
+    <img src="http://placehold.it/180" alt="">
+
+  </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="firebasemanager.productImageFiles.length !==0" >
+
+      <ion-col size="4" *ngFor="let img of firebasemanager.previewproductImageFiles; let i = index"  >
+    
+      
+
+        <img [src]="getSantizeUrl(img)" alt="" 
+        style="max-height: 96px; max-width: 96px; object-fit:contain;display: block;"
+        (click)= deleteimage(i)>
+    
+      </ion-col>
+  </ion-row>
+
+
+<ion-label color="danger" class="ion-text-center">click on image to delete</ion-label>
+
+
+          <ion-label class="ion-text-center" *ngIf ="firebasemanager.productImageFiles.length !== 6" >
+          
+        <ion-icon slot="start" name="cloud-upload"></ion-icon>
+                
+              <label for="products-upload" class="custom-file-upload">
+                  upload images
+              </label>
+              <input id="products-upload" type="file"
+                (change)="productimageupload($event)"
+                 
+                 />
+           
+            
+          </ion-label>
+          
+     
+    <ion-row>
+
+  <!-- <ion-col size="8" offset="2">
+    <ion-button shape="round" expand ="full" [disabled]="firebasemanager.productImageFiles.length ===0" >
+      <ion-icon slot="start" name="cloud-upload"></ion-icon>
+      <ion-label>upload photos</ion-label>
+    </ion-button>
+    
+  </ion-col> -->
+  
+</ion-row>
+<br>
+
+
  <ion-row>
   <ion-col size="6" offset="3">
 

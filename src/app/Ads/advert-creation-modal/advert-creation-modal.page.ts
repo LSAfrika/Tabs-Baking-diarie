@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -35,7 +37,9 @@ export class AdvertCreationModalPage implements OnInit {
               private afs: AngularFirestore,
               private alertctrl: AlertController,
               private loadingctrl: LoadingController,
-              private firebasemanager: FireBaseManagerservice ) {
+              public firebasemanager: FireBaseManagerservice,
+              private router: Router,
+              private sanitizer: DomSanitizer ) {
 
                 this.BakersCollection = this.afs.collection<BakersInterface>('BakersAdvertisements');
                 this.ShopsCollection = this.afs.collection<ShopsListingInterface>('ShopAdvertisements');
@@ -61,7 +65,7 @@ export class AdvertCreationModalPage implements OnInit {
 
 
     });
-   
+
 
 
   }
@@ -177,6 +181,13 @@ get BakerCakesArray() {
 
 
 
+// todo FILES TO BE UPLOADED ARRAY
+
+productimageupload(event) {
+
+  this.firebasemanager.productImages(event);
+
+}
 
 
 
@@ -414,7 +425,7 @@ submitJobsFormvalue(val) {
   this.presentLoading('uploading job document');
   console.log('job form data: ', val);
 
- 
+
   this.JobsCollection.doc<BakingJobInterface>(`BakersAdvertisements'/${this.firebasemanager.ReturnedUser.uid}`)
   .set(val, {merge: true}).then(() => {
     this.loadingctrl.dismiss();
@@ -466,7 +477,7 @@ PatchDatevalue() {
 }
 
 
-async Alertnotification(headerline: string){
+async Alertnotification(headerline: string) {
   const Notification = await this.alertctrl.create({
 
     header: headerline,
@@ -521,8 +532,64 @@ async Alertnotification(headerline: string){
 
     this.ProceedToSelected = '';
     this.SelectedAdtype = '';
-   
+
   }
 
+  backHome() {
+
+    this.ProceedToSelected = '';
+    this.SelectedAdtype = '';
+    this.firebasemanager.profilepicture = '';
+    this.firebasemanager.previewproductImageFiles.splice(0, this.firebasemanager.previewproductImageFiles.length);
+    this.firebasemanager.productImageFiles.splice(0, this.firebasemanager.productImageFiles.length);
+    this.router.navigate(['/tabs/tab2']);
+
+  }
+
+  deleteimage(i) {
+    this.firebasemanager.deleteproductimages(i);
+  }
+
+  public getSantizeUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+}
+
+
+profilepicturepreview(event) {
+  this.ExtensionChecker(event);
+}
+
+
+
+ExtensionChecker(event) {
+  const uploadpic: File = event.target.files[0];
+  const extensilon  = uploadpic.name.substring(uploadpic.name.lastIndexOf('.') + 1);
+  console.log('file input ', extensilon);
+
+  if ( extensilon === 'jpg' || extensilon === 'jpeg' ||
+       extensilon === 'png' || extensilon === 'PNG' ||
+       extensilon === 'JPG' || extensilon === 'JPEG') {
+    this.firebasemanager.detectprofilefile(event);
+
+
+
+  } else {
+   this.WrongfileUpload();
+
+  }
+}
+
+async WrongfileUpload() {
+  const err = await this.alertctrl.create ({
+    message: 'please select an image file',
+
+  });
+  await err.present();
+
+  setTimeout(() => {
+    this.alertctrl.dismiss();
+
+  }, 3000);
+}
 
 }

@@ -1,7 +1,8 @@
+import { Router } from '@angular/router';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {  Subscription } from 'rxjs';
-import { LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { FireBaseManagerservice } from '../services/FireBaseManager.service';
 
 
@@ -29,14 +30,16 @@ LocalsJobListingSubscription: Subscription;
 LocalsBakersListingSubscription: Subscription;
 LocalsShopListingSubscription: Subscription;
 
-constructor( public FireBaseService: FireBaseManagerservice) {
+constructor( public FireBaseService: FireBaseManagerservice,
+             private alertctrl: AlertController,
+             private router: Router) {
 
   // this.JobsListingFireStore();
   // this.BakersListingFireStore();
   // this.ShopsListingFireStore();
 
   this.filterSubject(1);
- 
+
 
 }
 
@@ -55,7 +58,7 @@ ngOnInit() {
       this.FireBaseService.BakingJobs = BakingJobs;
       console.log('list of Baking jobs: ', BakingJobs);
       this.DataLoaded = true;
-     
+
 
     } else {
       console.log('no bakering jobs listing at the moment');
@@ -85,7 +88,7 @@ ngOnInit() {
         console.log('list of Shops: ', Shops);
         this.DataLoaded = true;
 
-       
+
 
     } else {
       console.log('no Shops listing at the moment');
@@ -177,5 +180,42 @@ viewJobListing(index: number) {
 
 }
 
+
+
+AdvertCreation() {
+
+  if (this.FireBaseService.FacebookloginState === true) {
+
+    this.router.navigate(['/advert-creation-modal']);
+
+
+  } else {
+    this.LoginAlert();
+
+  }
+
+
+}
+
+async LoginAlert() {
+   const alertFb = await  this.alertctrl.create ({
+     message: 'please sign <strong>in / up</strong> to create your ad ',
+
+     buttons: [
+       {
+         text: 'sign in/up',
+         handler: () => {
+         this.FireBaseService.facebooklogin();
+         this.alertctrl.dismiss();
+        }
+       },
+       {
+        text: 'close',
+        role: 'cancel'
+      }
+     ]
+   });
+   alertFb.present();
+}
 
 }

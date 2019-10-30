@@ -11,7 +11,7 @@
 
 <ion-content>
 
-    <ion-card  >
+    <ion-card  *ngIf="FireBaseManager.BioCreationSate === false"  >
         <ion-item>
             <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
               <img src="{{FireBaseManager.ReturnedUser.photoURL}}" style="border-radius: 15%;">
@@ -61,5 +61,58 @@
        </ion-col>
      </ion-row>
     </ion-card >
+
+
+    <!-- todo creating a new user profile -->
+    <ion-card  *ngIf="FireBaseManager.BioCreationSate === true"  >
+      <ion-item>
+          <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
+            <img src="{{FireBaseManager.CreateUser.photoURL}}" style="border-radius: 15%;">
+          </ion-thumbnail>
+          <ion-label class="ion-text-center">
+              
+                    
+              <label for="file-upload" class="custom-file-upload">
+                   upload photo
+              </label>
+              <input id="file-upload" type="file"  (change)="CreateUserphotoupload($event)"/>
+           
+            
+          </ion-label>
+          
+        </ion-item>
+        <br>
+   <ion-card-header>
+
+      <ion-card-subtitle color="primary">your name</ion-card-subtitle>
+      <br>
+
+      <ion-input color="dark" [(ngModel)]="profileCreationBio.displayName"></ion-input>
+      <br>
+        
+            <ion-card-subtitle  color="primary">Phone number</ion-card-subtitle>
+            <br>
+
+            <ion-input color="dark" type="number" color="dark" [(ngModel)]="profileCreationBio.phone"></ion-input>
+            <br>
+
+            <ion-card-subtitle color="primary">Bio</ion-card-subtitle>
+            <br>
+
+            <ion-textarea  placeholder="please update your baking bio ..." autoGrow="true" color="dark"  [(ngModel)]="profileCreationBio.bio">
+              
+                 
+             
+            </ion-textarea>
+    
+   </ion-card-header>
+   <ion-row>
+     <ion-col size="8" offset="2" >
+       <ion-button style="text-transform: lowercase;" color="primary" (click)="Createprofile()" fill="solid" shape="round" expand="block">
+         Creaate profile
+       </ion-button>
+     </ion-col>
+   </ion-row>
+  </ion-card >
 
 </ion-content>

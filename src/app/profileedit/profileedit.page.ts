@@ -12,19 +12,23 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileeditPage implements OnInit {
 
   Userbio: UserInterface;
+  profileCreationBio: UserInterface;
   uploadpic: File;
 
   constructor(public FireBaseManager: FireBaseManagerservice, private loadingctrl: LoadingController, private alertctrl: AlertController) {
-  //  this.Userbio = {} as UserInterface;
-   // console.log('initial value: ', this.Userbio);
+  
+    
 
   }
 
   ngOnInit() {
-  //  console.log('polpulated value value edit : ', this.FireBaseManager.ReturnedUser);
+    this.profileCreationBio = this.FireBaseManager.CreateUser;
+
+    console.log('profile create new user: ', this.profileCreationBio);
+
 
     this.Userbio = this.FireBaseManager.ReturnedUser;
-    console.log('profile edit bio data:', this.Userbio);
+  //  console.log('profile edit bio data:', this.Userbio);
     
   }
 
@@ -46,6 +50,24 @@ export class ProfileeditPage implements OnInit {
 
   }
 
+
+
+  Createprofile() {
+
+    const updateuser: UserInterface = {
+
+      uid: this.profileCreationBio.uid,
+      displayName: this.profileCreationBio.displayName,
+      phone: this.profileCreationBio.phone,
+      bio: this.profileCreationBio.bio,
+
+    };
+
+    this.FireBaseManager.CreateProfile(updateuser, this.profileCreationBio.uid);
+
+
+  }
+
   photoupload(event) {
     console.log('user before photo update: ', this.Userbio);
 
@@ -58,7 +80,7 @@ export class ProfileeditPage implements OnInit {
 
     if ( extensilon === 'jpg' || extensilon === 'jpeg' || extensilon === 'png') {
     this.Photouploadctrl();
-    this.FireBaseManager.uploadprofilepicture(pic, this.loadingctrl);
+    this.FireBaseManager.uploadprofilepicture(pic, this.Userbio, this.loadingctrl);
 
 
     } else {
@@ -67,6 +89,29 @@ export class ProfileeditPage implements OnInit {
     }
 
   }
+
+  CreateUserphotoupload(event) {
+    console.log('user before photo update: ', this.Userbio);
+
+    console.log(event.target.files[0]);
+    const pic = event.target.files[0] ;
+   
+    this.uploadpic = pic;
+    const extensilon  = this.uploadpic.name.substring(this.uploadpic.name.lastIndexOf('.') + 1);
+    console.log('file input ', extensilon);
+
+    if ( extensilon === 'jpg' || extensilon === 'jpeg' || extensilon === 'png') {
+    this.Photouploadctrl();
+    this.FireBaseManager.uploadprofilepicture(pic, this.profileCreationBio, this.loadingctrl);
+
+
+    } else {
+     this.WrongfileUpload();
+
+    }
+
+  }
+
 
   async Photouploadctrl() {
     const upload = await this.loadingctrl.create({

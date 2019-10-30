@@ -46,7 +46,7 @@
 
   
     
-     <div *ngIf=" FireBaseManager.ReturnedUser !== undefined"  >
+     <div *ngIf=" FireBaseManager.FacebookloginState === true"  >
   
     <br>
     <br>
@@ -119,7 +119,7 @@
         
    
      
-    <div *ngIf="FireBaseManager.ReturnedUser === null || FireBaseManager.ReturnedUser === undefined || FireBaseManager.ReturnedUser === {}  " >
+    <div *ngIf="FireBaseManager.FacebookloginState === false " >
        
   
             <ion-card style="position: absolute; top: 50%;left: 50%; transform: translate(-50%,-50%)!important;">
@@ -130,7 +130,7 @@
                <ion-col size="10" offset="1">
                  <ion-button (click)="Login()" fill="solid" shape="round" expand="full">
                     <ion-icon slot="start" name="logo-facebook"></ion-icon>
-                    <ion-label> facebook login</ion-label>
+                    <ion-label>  login</ion-label>
                  </ion-button>
                </ion-col>
              </ion-row>

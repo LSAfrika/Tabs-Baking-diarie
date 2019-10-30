@@ -1,3 +1,4 @@
+import { File } from '@ionic-native/file/ngx';
 import { UserInterface } from './../interfaces/user.interface';
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
@@ -14,6 +15,8 @@ import { Platform, AlertController, LoadingController } from '@ionic/angular';
 import { auth } from 'firebase/app';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
+import { Console } from '@angular/core/src/console';
+
 
 
 // import * as EmptyObservable from 'rxjs/observable/EmptyObservable';
@@ -25,12 +28,20 @@ import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage
 })
 export class FireBaseManagerservice {
 
+
+  // todo image
+
+  image: File;
+
+  profilepicture = '';
+
   // todo TEXT LINKING to splash UI \\
   Buttontext = 'skip';
   Alerttext = 'continue without signing in ?';
 
   // todo Hide ui\\
-  HideButton = false;
+  FacebookloginState: boolean;
+  BioCreationSate: boolean;
 
   behaiourIsLogged: BehaviorSubject<boolean>;
   Spinner: BehaviorSubject<boolean>;
@@ -69,14 +80,21 @@ ReturnedJob: BakingJobInterface ;
 ReturnedBaker: BakersInterface ;
 ReturnedShop: ShopsListingInterface ;
 ReturnedUser: UserInterface;
+CreateUser: UserInterface;
+
+
+// todo files array
+productImageFiles: File [] = [];
+previewproductImageFiles: string [] = [];
+productImagesCounter = 0;
 
   constructor(private afs: AngularFirestore,
               private router: Router,
               private fireAuth: AngularFireAuth,
               private platform: Platform,
               private fb: Facebook,
-              private alertctrl: AlertController, 
-              private AFStorage: AngularFireStorage,) {
+              private alertctrl: AlertController,
+              private AFStorage: AngularFireStorage, ) {
 
     this.JobsListingFireStore();
     this.BakersListingFireStore();
@@ -143,13 +161,13 @@ async CheckLogin() {
   if (user) {
 
     this.behaiourIsLogged.next(true);
-    this.HideButton = true;
+    this.FacebookloginState = true;
     this.Buttontext = 'continue';
     this.Alerttext = '';
 
 
-    this.UserListingFirestore(user.uid);
-    this.Spinner.next(false);
+    this.UserListingFirestore(user.uid, user.displayName, user.photoURL);
+   // this.Spinner.next(false);
 
 
 
@@ -157,13 +175,13 @@ async CheckLogin() {
   } else {
 
     this.behaiourIsLogged.next(false);
-    this.Spinner.next(false);
+  //  this.Spinner.next(false);
 
     this.Buttontext = 'skip';
-    this.HideButton = false;
+    this.FacebookloginState = false;
     this.Alerttext = 'continue without signing in ?';
 
-   
+
     this.UserListingFirestore('no user');
 
     console.log ('user not logged in ');
@@ -171,29 +189,112 @@ async CheckLogin() {
 
 }
 
-UserListingFirestore(Uid: string) {
-  this.User = this.afs.doc(`Users/${Uid}`);
+UserListingFirestore(Uid: string, ReturndisplayName?: string, Returnphotourl?: string) {
 
-  if (this.User) {
-  this.UserObservable = this.User.valueChanges();
+  console.log('firebase returned uid:', Uid);
 
-  this.UserObservable.subscribe((user: UserInterface) => {
-    this.ReturnedUser = user;
-    console.log('polpulated value value: ', user);
+  const path = `Users/${Uid}`;
 
-  });
+  this.findOrCreate(path, Uid, ReturndisplayName, Returnphotourl);
+
+  // if (Uid === 'no user') {
+
+  //   const empty = {} as UserInterface;
+  //   this.ReturnedUser = empty;
+  //   console.log('empty returned user: ', this.ReturnedUser);
+
+  // } else {
+
+  //   // todo ADD LOGIC TO NAVIGATE TO USER CREATION PROFILE PAGE \\
+
+  //   this.User = this.afs.doc(`Users/${Uid}`);
+
+  //   if (this.User) {
+  //   this.UserObservable = this.User.valueChanges();
+  //   this.BioCreationSate = false;
+  //   this.UserObservable.subscribe((user: UserInterface) => {
+  //     this.ReturnedUser = user;
+  //     console.log('polpulated value value: ', user);
+
+  //   });
 
 
-  } else {
+  //   } else {
 
-  // this.router.navigate(['/'])
-  }
+  //     this.CreateUser = {
+  //       uid: Uid,
+  //       displayName: ReturndisplayName,
+  //       photoURL: Returnphotourl,
+  //       phone: '',
+  //       bio: ''
+  //     };
+
+  //     this.BioCreationSate = true;
+
+  //     this.router.navigate(['/profileedit']);
+  //   }
+
+  // }
+
+
+
 
 
 
 
 }
 
+docExists(path: string, ) {
+  return this.afs.doc<UserInterface>(path).valueChanges().pipe(first()).toPromise();
+}
+
+async findOrCreate(path: string, Uid: string, ReturndisplayName?: string, Returnphotourl?: string) {
+
+  if (Uid === 'no user') {
+
+      const empty = {} as UserInterface;
+      this.ReturnedUser = empty;
+      console.log('empty returned user: ', this.ReturnedUser);
+  
+    }
+
+  const doc = await this.docExists(path);
+
+  if (doc) {
+
+    this.User = this.afs.doc<UserInterface>(path);
+    this.ReturnedUser = doc;
+  //  this.UserObservable = doc;
+    this.BioCreationSate = false;
+    this.Spinner.next(false);
+
+    console.log('user exists ');
+
+    // this.UserObservable.subscribe((user: UserInterface) => {
+    //   this.ReturnedUser = user;
+
+    // });
+  } else {
+    this.CreateUser = {
+      uid: Uid,
+      displayName: ReturndisplayName,
+      photoURL: Returnphotourl,
+      phone: '',
+      bio: ''
+    };
+
+    console.log('service new user: ',this.CreateUser);
+
+    this.BioCreationSate = true;
+
+    this.router.navigate(['/profileedit']);
+
+    setTimeout(() => {
+    this.Spinner.next(false);
+      
+    }, 1000);
+  }
+}
 
 
 
@@ -213,7 +314,7 @@ facebooklogin() {
     const FacebookProvider = new auth.FacebookAuthProvider();
     this.fireAuth.auth.signInWithPopup(FacebookProvider).then((LoginResponse) => {
       console.log(LoginResponse.user.uid);
-      this.HideButton = true;
+      this.FacebookloginState = true;
       this.SplashScreen = false;
       this.CheckLogin();
       console.log('splash screen status: ', this.SplashScreen);
@@ -229,6 +330,8 @@ facebooklogin() {
 
 
 }
+
+//#endregion
 
 // TODO FACEBOOK CORDOVA
 
@@ -272,7 +375,7 @@ logout() {
 
 
         if (this.platform.is('cordova')) {
-       
+
           console.log('cordova');
           this.FBlogout();
 
@@ -287,25 +390,28 @@ logout() {
 
 //#endregion
 
-uploadprofilepicture(pic: File, loading: LoadingController) {
 
- 
-  const filePath = `Users/${this.ReturnedUser.uid}/profile/profilepicture`;
+//#region IMAGES LOGIC
+// todo PHOTO UPLOAD LOGIC //
+uploadprofilepicture(pic: File, User: UserInterface, loading: LoadingController) {
+
+
+  const filePath = `Users/${this.CreateUser.uid}/profile/profilepicture`;
   const ref = this.AFStorage.ref(filePath);
-
+  const DBPath = `Users/${this.CreateUser.uid}`;
   ref.put(pic).then(() => {
     ref.getDownloadURL().subscribe(imgLink => {
 
        const imagedata: UserInterface = {
-         displayName: this.ReturnedUser.displayName,
-         bio: this.ReturnedUser.bio,
-         phone: this.ReturnedUser.phone,
+         displayName: User.displayName,
+         bio: User.bio,
+         phone: User.phone,
          photoURL: imgLink,
-         uid: this.ReturnedUser.uid
+         uid: User.uid
        };
 
 
-       this.uploadphoto(imagedata);
+       this.uploadphoto(imagedata,DBPath);
        loading.dismiss();
 
 
@@ -314,14 +420,14 @@ uploadprofilepicture(pic: File, loading: LoadingController) {
 
 
 
-  
+
 });
 
 }
 
 uploadstoreimage(pic: File, loading: LoadingController) {
 
- 
+
   const filePath = `DataStore/Bakerstore/${this.ReturnedUser.uid}/storebannerimage`;
   const ref = this.AFStorage.ref(filePath);
 
@@ -329,7 +435,7 @@ uploadstoreimage(pic: File, loading: LoadingController) {
     ref.getDownloadURL().subscribe(imgLink => {
 
       this.storeimagelink.next(imgLink);
-     
+
       loading.dismiss();
 
 
@@ -338,7 +444,7 @@ uploadstoreimage(pic: File, loading: LoadingController) {
 
 
 
-  
+
 });
 
 }
@@ -357,7 +463,19 @@ EditUpdateProfile(data: UserInterface) {
 
 }
 
-uploadphoto( data: UserInterface) {
+
+CreateProfile(data: UserInterface, uid: string) {
+
+ this.afs.doc(`Users/${uid}`).set (data, {merge: true}).then((result) => {
+    console.log('saved succesfully ');
+  });
+ this.updatenotifier();
+
+
+}
+
+uploadphoto( data: UserInterface, path: string) {
+  this.User = this.afs.doc(path);
   this.User.set (data, {merge: true}).then((result) => {
     console.log('saved succesfully ');
   });
@@ -365,6 +483,67 @@ uploadphoto( data: UserInterface) {
 
 }
 
+
+productImages(event) {
+
+
+  this.image = event.target.files[0];
+
+  this.productImageFiles.push(this.image);
+  console.log('files included: ', this.productImageFiles);
+
+  this.detectProductFiles(event);
+
+
+}
+
+
+detectProductFiles(event) {
+
+  const files = event.target.files;
+  if (files) {
+    for (const file of files) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewproductImageFiles.push(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+}
+
+detectprofilefile(event) {
+
+  const file = event.target.files[0];
+  if (file) {
+
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.profilepicture = e.target.result;
+
+      };
+      reader.readAsDataURL(file);
+
+  }
+
+}
+
+deleteproductimages(i) {
+
+  this.previewproductImageFiles.splice(i, 1);
+  this.productImageFiles.splice(i, 1);
+
+}
+
+
+
+UploadproductImages() {
+
+
+
+
+
+}
 
 
 async updatenotifier() {
@@ -394,13 +573,18 @@ async Profileuploadnotifier() {
 
   setTimeout(() => {
     this.alertctrl.dismiss();
-   
+
   }, 2000);
 }
 
 
 
+
+
+
 //#endregion
+
+
 
 
 
@@ -461,7 +645,7 @@ viewBakerListing(index: number) {
 
   this.ReturnedBaker = this.BakersListing[index];
 
-  if(this.ReturnedBaker) {
+  if (this.ReturnedBaker) {
   console.log('returned Baker: ', this.ReturnedBaker);
   this.router.navigate(['/view-advert-modal']);
 }

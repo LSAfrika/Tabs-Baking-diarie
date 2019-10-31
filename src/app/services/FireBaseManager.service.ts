@@ -6,7 +6,7 @@ import {map, first} from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 // import * as firebase from 'firebase/app';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { BakingJobInterface } from '../interfaces/BakingJob.interace';
 import { BakersInterface } from '../interfaces/BakerListing.interface';
 import { ShopsListingInterface } from '../interfaces/ShopsListing.interface';
@@ -14,8 +14,8 @@ import { Router } from '@angular/router';
 import { Platform, AlertController, LoadingController } from '@ionic/angular';
 import { auth } from 'firebase/app';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
-import { Console } from '@angular/core/src/console';
+import { AngularFireStorage } from '@angular/fire/storage';
+
 
 
 
@@ -27,6 +27,10 @@ import { Console } from '@angular/core/src/console';
   providedIn: 'root'
 })
 export class FireBaseManagerservice {
+
+// todo Link for ads creation url
+
+ ViewedAd: string;
 
 
   // todo image
@@ -46,7 +50,7 @@ export class FireBaseManagerservice {
   behaiourIsLogged: BehaviorSubject<boolean>;
   Spinner: BehaviorSubject<boolean>;
   storeimagelink: BehaviorSubject<string>;
-
+  UserbehaviourSubject: BehaviorSubject<UserInterface>;
   // todo SPLASH SCREEN UI \\
   SplashScreen = true;
 
@@ -101,6 +105,8 @@ productImagesCounter = 0;
     this.ShopsListingFireStore();
 
 
+    const emptyUser = {} as UserInterface;
+    this.UserbehaviourSubject = new BehaviorSubject(undefined);
     this.behaiourIsLogged = new BehaviorSubject(false);
     this.Spinner = new BehaviorSubject(true);
     this.storeimagelink = new BehaviorSubject('');
@@ -110,39 +116,7 @@ productImagesCounter = 0;
 
 
 
-   SubscriptionOutput() {
-
-    this.behaiourIsLogged.subscribe(state => {
-
-
-      console.log('bool value in subject: ', state);
-
-
-
-
-     });
-
-
-
-  }
-
-
-
-  SpinnerSubscriptionOutput() {
-
-    this.Spinner.subscribe(state => {
-
-
-      console.log('bool value in subject: ', state);
-
-
-
-
-     });
-
-
-
-  }
+  
 
 
 
@@ -197,50 +171,6 @@ UserListingFirestore(Uid: string, ReturndisplayName?: string, Returnphotourl?: s
 
   this.findOrCreate(path, Uid, ReturndisplayName, Returnphotourl);
 
-  // if (Uid === 'no user') {
-
-  //   const empty = {} as UserInterface;
-  //   this.ReturnedUser = empty;
-  //   console.log('empty returned user: ', this.ReturnedUser);
-
-  // } else {
-
-  //   // todo ADD LOGIC TO NAVIGATE TO USER CREATION PROFILE PAGE \\
-
-  //   this.User = this.afs.doc(`Users/${Uid}`);
-
-  //   if (this.User) {
-  //   this.UserObservable = this.User.valueChanges();
-  //   this.BioCreationSate = false;
-  //   this.UserObservable.subscribe((user: UserInterface) => {
-  //     this.ReturnedUser = user;
-  //     console.log('polpulated value value: ', user);
-
-  //   });
-
-
-  //   } else {
-
-  //     this.CreateUser = {
-  //       uid: Uid,
-  //       displayName: ReturndisplayName,
-  //       photoURL: Returnphotourl,
-  //       phone: '',
-  //       bio: ''
-  //     };
-
-  //     this.BioCreationSate = true;
-
-  //     this.router.navigate(['/profileedit']);
-  //   }
-
-  // }
-
-
-
-
-
-
 
 }
 
@@ -256,6 +186,7 @@ async findOrCreate(path: string, Uid: string, ReturndisplayName?: string, Return
       this.ReturnedUser = empty;
       console.log('empty returned user: ', this.ReturnedUser);
   
+      this.UserbehaviourSubject.next(empty);
     }
 
   const doc = await this.docExists(path);
@@ -264,6 +195,8 @@ async findOrCreate(path: string, Uid: string, ReturndisplayName?: string, Return
 
     this.User = this.afs.doc<UserInterface>(path);
     this.ReturnedUser = doc;
+    this.UserbehaviourSubject.next(this.ReturnedUser);
+
   //  this.UserObservable = doc;
     this.BioCreationSate = false;
     this.Spinner.next(false);
@@ -283,16 +216,26 @@ async findOrCreate(path: string, Uid: string, ReturndisplayName?: string, Return
       bio: ''
     };
 
-    console.log('service new user: ',this.CreateUser);
+    console.log('service new user: ', this.CreateUser);
+
+    const empty = {} as UserInterface;
+    this.ReturnedUser = empty;
+    this.UserbehaviourSubject.next(empty);
+
+    console.log('empty returned user: ', this.ReturnedUser);
 
     this.BioCreationSate = true;
 
-    this.router.navigate(['/profileedit']);
+  //  this.router.navigate(['/profileedit']);
+    if (this.Spinner.value === false) {
+      setTimeout(() => {
+        this.Spinner.next(false);
 
-    setTimeout(() => {
-    this.Spinner.next(false);
-      
-    }, 1000);
+        }, 500);
+
+  }
+
+
   }
 }
 
@@ -647,6 +590,8 @@ viewBakerListing(index: number) {
 
   if (this.ReturnedBaker) {
   console.log('returned Baker: ', this.ReturnedBaker);
+  this.ViewedAd ='anonymous';
+
   this.router.navigate(['/view-advert-modal']);
 }
 
@@ -658,6 +603,8 @@ viewShopListing(index: number) {
 
   if (this.ReturnedShop) {
   console.log('returned shop: ', this.ReturnedShop);
+  this.ViewedAd ='anonymous';
+
   this.router.navigate(['/view-advert-modal']);
   }
 
@@ -669,15 +616,99 @@ viewJobListing(index: number) {
 
   if (this.ReturnedJob) {
   console.log('returned Job:', this.ReturnedJob);
+  this.ViewedAd ='anonymous';
+
   this.router.navigate(['/view-advert-modal']);
   }
 
 }
 
 
+
+
+
+
 // specific user document
 
+OwnerBakerListing(Uid: string) {
 
+  this.ReturnedBaker = this.BakersListing.find(result => result.uid === Uid);
+
+  if (this.ReturnedBaker) {
+  console.log('returned Baker: ', this.ReturnedBaker);
+  this.viewedAdtype=1;
+  this.ViewedAd ='owner';
+
+
+  this.router.navigate(['/view-advert-modal']);
+} else {
+  this.AdnotFound('you have no baker advert in data base');
+
+}
+
+
+}
+
+OwnerShopListing(Uid: string) {
+  this.ReturnedShop = this.ShopsListing.find(result => result.uid === Uid);
+
+  if (this.ReturnedShop) {
+  console.log('returned shop: ', this.ReturnedShop);
+  this.viewedAdtype=2;
+  this.ViewedAd ='owner';
+
+
+  this.router.navigate(['/view-advert-modal']);
+  } else{
+    this.AdnotFound('you have no shop advert in database');
+
+  }
+
+}
+
+OwnerJobListing(Uid: string) {
+
+  this.ReturnedJob = this.BakingJobs.find(result => result.uid === Uid);
+
+  if (this.ReturnedJob) {
+  console.log('returned Job:', this.ReturnedJob);
+  this.ViewedAd ='owner';
+  this.viewedAdtype=3;
+  this.router.navigate(['/view-advert-modal']);
+  } else{
+    this.AdnotFound('you have no job advert in advert');
+
+  }
+
+}
+
+
+async AdnotFound(sentmessage: string) {
+  const alert = await this.alertctrl.create({
+    header: 'Ad not found',
+    message: sentmessage,
+    backdropDismiss: false,
+    buttons: [
+      {
+        text: 'cancel',
+        role: 'cancel',
+        cssClass: 'background:black'
+      },
+
+      {
+        text: 'Create Ad',
+        handler: () => {
+
+          this.router.navigate(['/advert-creation-modal']);
+
+        }
+      }
+    ]
+
+  });
+
+  alert.present();
+}
 
 //#endregion
 

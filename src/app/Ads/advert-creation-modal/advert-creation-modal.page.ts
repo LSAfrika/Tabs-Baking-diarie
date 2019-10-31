@@ -426,7 +426,7 @@ submitJobsFormvalue(val) {
   console.log('job form data: ', val);
 
 
-  this.JobsCollection.doc<BakingJobInterface>(`BakersAdvertisements'/${this.firebasemanager.ReturnedUser.uid}`)
+  this.JobsCollection.doc<BakingJobInterface>(`/${this.firebasemanager.ReturnedUser.uid}`)
   .set(val, {merge: true}).then(() => {
     this.loadingctrl.dismiss();
     console.log('submitted job form data: ', val);

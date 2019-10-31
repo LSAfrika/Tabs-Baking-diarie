@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
   }
 
   disablesplash() {
-    this.showsplash = false;
+    this.FirebaseManager.Spinner.next(false);
 
   }
 

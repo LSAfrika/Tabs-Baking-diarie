@@ -51,7 +51,20 @@ constructor( public FireBaseService: FireBaseManagerservice,
 
 ngOnInit() {
 
+this.LoadingFromDataBase() ;
 
+}
+
+
+ngOnDestroy() {
+  this.LocalsJobListingSubscription.unsubscribe();
+  this.LocalsBakersListingSubscription.unsubscribe();
+  this.LocalsShopListingSubscription.unsubscribe();
+}
+
+
+
+LoadingFromDataBase() {
   this.LocalsJobListingSubscription = this.FireBaseService.BakingJobsObservable.subscribe(BakingJobs => {
 
     if (BakingJobs) {
@@ -95,11 +108,7 @@ ngOnInit() {
     }
 
   });
-}
-ngOnDestroy() {
-  this.LocalsJobListingSubscription.unsubscribe();
-  this.LocalsBakersListingSubscription.unsubscribe();
-  this.LocalsShopListingSubscription.unsubscribe();
+
 }
 
 

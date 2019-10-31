@@ -52,14 +52,14 @@
     <br>
 
 
-      <ion-card  >
+      <ion-card  *ngIf="returnedUserKeys === true "   >
           <ion-item>
               <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
                 <img src="{{FireBaseManager.ReturnedUser.photoURL}}" style="border-radius: 15%;">
               </ion-thumbnail>
               <ion-label>
                   
-                  <ion-label color="dark" class="ion-text-center">
+                  <ion-label color="dark" class="ion-text-center" style="background: rgb(245, 245, 245);">
                     <h2>
                         {{FireBaseManager.ReturnedUser.displayName}}
                     </h2> </ion-label>
@@ -74,13 +74,13 @@
                 <ion-card-subtitle color="primary">Phone number</ion-card-subtitle>
                 <br>
 
-                <ion-card-subtitle color="dark">0{{FireBaseManager.ReturnedUser.phone}}</ion-card-subtitle>
+                <ion-card-subtitle style="background: rgb(243, 243, 243);" color="dark">0{{FireBaseManager.ReturnedUser.phone}}</ion-card-subtitle>
                 <br>
 
                 <ion-card-subtitle color="primary">Bio</ion-card-subtitle>
                 <br>
 
-                <ion-card-subtitle color="dark">
+                <ion-card-subtitle color="dark" style="background: rgb(246, 246, 246);">
                   <p *ngIf="FireBaseManager.ReturnedUser.bio !==''">
                  {{FireBaseManager.ReturnedUser.bio}} 
                   </p>
@@ -115,6 +115,129 @@
       </ion-grid>
           
               </ion-card>
+
+
+              <!-- todo PERSONAL ADVERTS CARD -->
+              <ion-card *ngIf="returnedUserKeys === true " >
+
+                <ion-list>
+                  <ion-list-header>
+                      <ion-label class="ion-padding" color="primary"> baker advertisement</ion-label>
+
+                  </ion-list-header>
+                    <ion-item>
+                      <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
+                        <img src="/assets/icon/defaultCake.png" style="border-radius: 15%;">
+                      </ion-thumbnail>
+                      <ion-label>
+                          
+                   
+                          <ion-button shape=round  expand="block"  (click)="viewBaker()" >
+                              <ion-icon slot="start" name="images"></ion-icon>
+                              <ion-label style="text-transform: lowercase;">edit / create </ion-label>
+                          </ion-button>
+                       
+                        
+                     
+                    </ion-label>
+    
+                      
+                    </ion-item>
+
+                    <ion-list-header>
+                    <ion-label class="ion-padding" color="primary">shop  advertisement</ion-label>
+
+                      </ion-list-header>
+                    <ion-item>
+                      <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
+                        <img src="/assets/icon/defaultCake.png" style="border-radius: 15%;">
+                      </ion-thumbnail>
+                      <ion-label>
+                          
+                          
+                          <ion-button shape=round  expand="block" (click)="viewShop()"  >
+                              <ion-icon slot="start" name="cart"></ion-icon>
+                              <ion-label style="text-transform: lowercase;">edit / create </ion-label>
+                             
+                          </ion-button>
+                       
+                        
+                      
+                    </ion-label>
+    
+                      
+                    </ion-item>
+
+                    <ion-list-header>
+                    <ion-label class="ion-padding" color="primary">job advertisement</ion-label>
+
+                      </ion-list-header>
+
+                    <ion-item>
+                      <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
+                        <img src="/assets/icon/defaultCake.png" style="border-radius: 15%;">
+                      </ion-thumbnail>
+                      <ion-label>
+                          
+                        
+                          <ion-button shape=round  expand="block"  (click)="viewJob()" >
+
+                            <ion-icon slot="start" name="briefcase"></ion-icon>
+                            <ion-label style="text-transform: lowercase;">edit / create </ion-label>
+                            
+                          
+                          </ion-button>
+                       
+                        
+                    </ion-label>
+    
+                      
+                    </ion-item>
+
+                  
+                </ion-list>
+               
+                
+              
+
+                <!-- todo SHOP ADVERTS CARD -->
+                
+                
+                   
+                    
+                  
+
+                    <!-- todo JOB ADVERTS CARD -->
+              
+                
+                
+                  
+                </ion-card>
+
+                <!-- todo CHECK INTERNET CONNECTION CARD -->
+                <ion-card *ngIf="returnedUserKeys === false ">
+                   
+                    <ion-card-header>
+                     
+
+                      <ion-title color="danger" class="ion-text-center" >network error </ion-title>
+                      <br>
+                      <br>
+                      <br>
+                      <br>
+
+                      <ion-label class="ion-text-center">
+                      <p>please check your internet connection</p>
+
+                      </ion-label>
+
+                    </ion-card-header>
+                   
+                  
+                      
+                 </ion-card>
+
+
      </div>
         
    

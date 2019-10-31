@@ -74,20 +74,21 @@ background: linear-gradient(#5576fb,#55edfb);" >
 
 
      
-      <ion-col size="12" [hidden]="showspinner">
+      <ion-col size="12" >
          
               
-          <ion-title color="light" class="ion-text-center"  style="font-weight: 350"> {{FirebaseManager.Alerttext}}</ion-title>
+          <ion-title *ngIf="FirebaseManager.ReturnedUser !== undefined" color="light" class="ion-text-center"  style="font-weight: 350"> {{FirebaseManager.Alerttext}}</ion-title>
           
          
 
             
       </ion-col>
       
-      <ion-col offset="3" size="6" [hidden]="showspinner">
+      <ion-col offset="3" size="6" >
         
          
-        <ion-button *ngIf="FirebaseManager.ReturnedUser !== undefined"  expand="block" color="light" shape="round" fill="solid" (click)="disablesplash()">
+
+      <ion-button *ngIf="FirebaseManager.ReturnedUser !== undefined" expand="block" color="light" shape="round" fill="solid" (click)="disablesplash()">
           
           <ion-label color="primary"> {{FirebaseManager.Buttontext}}</ion-label>
         </ion-button>

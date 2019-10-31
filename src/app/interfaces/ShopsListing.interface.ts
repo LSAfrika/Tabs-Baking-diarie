@@ -14,7 +14,7 @@ export interface ShopsListingInterface {
     CakeTypes?: [];
 
     AccesoriesListing?: [];
-
+    uid: string;
 
 
     }

@@ -1,7 +1,5 @@
+import { FireBaseManagerservice } from './../../services/FireBaseManager.service';
 import { Router } from '@angular/router';
-import { ShopsListingInterface } from './../../interfaces/ShopsListing.interface';
-import { BakingJobInterface } from './../../interfaces/BakingJob.interace';
-import { FireBaseManagerservice } from '../../services/FireBaseManager.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
@@ -62,7 +60,24 @@ export class ViewAdvertModalPage implements OnInit, OnDestroy {
 }
 
 
-EditAd(){
-  
+EditAd() {
+
+if (this.FireBaseManager.viewedAdtype === 1) {
+  this.FireBaseManager. EditAd = 'Baker';
+  this.router.navigate(['/advert-creation-modal']);
+
+} else if (this.FireBaseManager.viewedAdtype === 2) {
+  this.FireBaseManager. EditAd = 'Shop';
+  this.router.navigate(['/advert-creation-modal']);
+
+} else if (this.FireBaseManager.viewedAdtype === 3) {
+  this.FireBaseManager. EditAd = 'Job';
+  this.router.navigate(['/advert-creation-modal']);
+
+}
+
+
+
+
 }
 }

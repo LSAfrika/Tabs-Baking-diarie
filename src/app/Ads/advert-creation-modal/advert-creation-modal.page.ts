@@ -66,9 +66,14 @@ export class AdvertCreationModalPage implements OnInit {
 
     });
 
+    this.EditAd();
+
 
 
   }
+
+
+
 
 // todo ================================ BAKERS FORM REGION ==============================================
   //#region bakers form controll
@@ -520,6 +525,36 @@ async Alertnotification(headerline: string) {
 
 
     }
+  }
+
+
+  navigateback() {
+
+    console.log('viewed ad state: ', this.firebasemanager.ViewedAd );
+    if (this.firebasemanager.ViewedAd === 'anonymous') {
+      this.router.navigate(['/tabs/tab2']);
+  
+    } else if (this.firebasemanager.ViewedAd === 'owner') {
+      this.router.navigate(['/tabs/tab4']);
+  
+  
+    }
+  }
+
+
+  EditAd(){
+
+
+    this. SelectedAd(this.firebasemanager.EditAd);
+    
+    this.SelectedAdtype = this.firebasemanager.EditAd;
+    
+    setTimeout(() => {
+      console.log('timeout has fired'); 
+      this.Next();
+      
+    }, 100);
+
   }
 
   Next() {

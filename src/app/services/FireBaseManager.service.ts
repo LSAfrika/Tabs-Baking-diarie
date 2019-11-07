@@ -31,7 +31,7 @@ export class FireBaseManagerservice {
 // todo Link for ads creation url
 
  ViewedAd: string;
-
+ EditAd = '';
 
   // todo image
 
@@ -208,6 +208,8 @@ async findOrCreate(path: string, Uid: string, ReturndisplayName?: string, Return
 
     // });
   } else {
+
+    
     this.CreateUser = {
       uid: Uid,
       displayName: ReturndisplayName,
@@ -225,6 +227,8 @@ async findOrCreate(path: string, Uid: string, ReturndisplayName?: string, Return
     console.log('empty returned user: ', this.ReturnedUser);
 
     this.BioCreationSate = true;
+
+// TODO CREATE LOGIC TO TRANSIST TO PROFILE CREATION PAGE
 
   //  this.router.navigate(['/profileedit']);
     if (this.Spinner.value === false) {
@@ -619,7 +623,7 @@ viewJobListing(index: number) {
   this.ViewedAd ='anonymous';
 
   this.router.navigate(['/view-advert-modal']);
-  }
+  } 
 
 }
 
@@ -642,7 +646,9 @@ OwnerBakerListing(Uid: string) {
 
   this.router.navigate(['/view-advert-modal']);
 } else {
-  this.AdnotFound('you have no baker advert in data base');
+  this.ViewedAd ='owner';
+
+  this.AdnotFound('you have no baker advert in data base','Baker');
 
 }
 
@@ -660,7 +666,9 @@ OwnerShopListing(Uid: string) {
 
   this.router.navigate(['/view-advert-modal']);
   } else{
-    this.AdnotFound('you have no shop advert in database');
+    this.ViewedAd ='owner';
+
+    this.AdnotFound('you have no shop advert in database','Shop');
 
   }
 
@@ -676,14 +684,16 @@ OwnerJobListing(Uid: string) {
   this.viewedAdtype=3;
   this.router.navigate(['/view-advert-modal']);
   } else{
-    this.AdnotFound('you have no job advert in advert');
+  this.ViewedAd ='owner';
+
+  this.AdnotFound('you have no job advert in advert','Job');
 
   }
 
 }
 
 
-async AdnotFound(sentmessage: string) {
+async AdnotFound(sentmessage: string, adcreate: string) {
   const alert = await this.alertctrl.create({
     header: 'Ad not found',
     message: sentmessage,
@@ -698,7 +708,7 @@ async AdnotFound(sentmessage: string) {
       {
         text: 'Create Ad',
         handler: () => {
-
+          this.EditAd = adcreate;
           this.router.navigate(['/advert-creation-modal']);
 
         }

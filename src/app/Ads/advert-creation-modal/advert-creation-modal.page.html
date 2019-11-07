@@ -3,7 +3,7 @@
     <ion-title >create your posting</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="backHome()" >
+      <ion-button (click)="navigateback()" >
         <ion-icon size="large" name="close-circle"></ion-icon>
         
       </ion-button>
@@ -232,13 +232,13 @@
 </ion-col>
 </ion-row>
 
-<ion-title class="ion-text-center" color="dark">upload images  (6 max)</ion-title>
+<ion-title class="ion-text-center" color="dark">upload images  (4 max)</ion-title>
 
 
 <ion-row *ngIf="firebasemanager.productImageFiles.length ===0" >
 
    
-  <ion-col size="4" *ngFor="let img of [1,1,1,1,1,1]"  >
+  <ion-col size="6" *ngFor="let img of [1,1,1,1]"  >
     <img src="http://placehold.it/180" alt="">
 
   </ion-col>
@@ -246,9 +246,13 @@
 
   <ion-row *ngIf="firebasemanager.productImageFiles.length !==0" >
 
-      <ion-col size="4" *ngFor="let img of firebasemanager.previewproductImageFiles; let i = index"  >
+      <ion-col size="6" *ngFor="let img of firebasemanager.previewproductImageFiles; let i = index"  >
     
-      
+      <ion-fab vertical="center" horizontal="center" slot="fixed">
+        <ion-fab-button>
+          <ion-icon name="close"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
 
         <img [src]="getSantizeUrl(img)" alt="" 
         style="max-height: 96px; max-width: 96px; object-fit:contain;display: block;"
@@ -261,7 +265,7 @@
 <ion-label color="danger" class="ion-text-center">click on image to delete</ion-label>
 
 
-          <ion-label class="ion-text-center" *ngIf ="firebasemanager.productImageFiles.length !== 6" >
+          <ion-label class="ion-text-center" *ngIf ="firebasemanager.productImageFiles.length !== 4" >
           
         <ion-icon slot="start" name="cloud-upload"></ion-icon>
                 

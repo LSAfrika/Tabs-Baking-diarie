@@ -195,6 +195,8 @@ AdvertCreation() {
 
   if (this.FireBaseService.FacebookloginState === true) {
 
+ 
+    this.FireBaseService.ViewedAd ='anonymous';
     this.router.navigate(['/advert-creation-modal']);
 
 

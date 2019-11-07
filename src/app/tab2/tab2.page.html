@@ -114,9 +114,9 @@
 
           <ion-item lines="none" >
               <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
-                <img *ngIf="Baker.BakerImageUrl === null"  src="/assets/icon/defaultCake.png" style="border-radius: 15%;border:2px solid #5576fb">
+                <img *ngIf="Baker.BakerImageUrl === null || Baker.BakerImageUrl === ''"  src="/assets/icon/defaultCake.png" style="border-radius: 15%;border:2px solid #5576fb">
 
-                <img *ngIf="Baker.BakerImageUrl !== null" src="{{Baker.BakerImageUrl}}" style="border-radius: 15%;border:2px solid #5576fb">
+                <img *ngIf="Baker.BakerImageUrl !== null && Baker.BakerImageUrl !== ''"  src="{{Baker.BakerImageUrl}}" style="border-radius: 15%;border:2px solid #5576fb">
               </ion-thumbnail>
               <ion-label>
                   
@@ -131,7 +131,7 @@
      
                   </ion-title>
                   <ion-label color="dark"> location :{{Baker.BakerLocation}}</ion-label>
-                  <ion-button expand="block" fill="outline" shape="round" (click)="viewBakerListing(i)">
+                  <ion-button expand="block" fill="solid" shape="round" (click)="viewBakerListing(i)">
                       <ion-label style="text-transform: lowercase; width:100%; text-align: center">view Baker</ion-label>
                   </ion-button>
                            
@@ -189,7 +189,7 @@
             </p>
   
           </ion-card-subtitle >  
-          <ion-button  fill="outline" shape="round" (click)="viewJobListing(i)">
+          <ion-button  fill="solid" shape="round" (click)="viewJobListing(i)">
               <ion-label style="text-transform: lowercase; width:100%; text-align: center">view Job</ion-label>
           </ion-button>
          

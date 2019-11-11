@@ -25,6 +25,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
+import { Network } from '@ionic-native/network/ngx';
 
 
 
@@ -51,8 +52,8 @@ import { environment } from 'src/environments/environment';
     File,
     FilePath,
     Facebook,
-   
-   
+    Network,
+
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

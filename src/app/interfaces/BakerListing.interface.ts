@@ -4,7 +4,7 @@ export interface BakersInterface {
 
     BakerName: string;
 
-    BakerContacts: number;
+    BakerContacts: number[];
 
     BakerImageUrl?: string;
 

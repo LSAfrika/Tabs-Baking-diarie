@@ -15,7 +15,8 @@ import { Platform, AlertController, LoadingController } from '@ionic/angular';
 import { auth } from 'firebase/app';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { AngularFireStorage } from '@angular/fire/storage';
-
+// todo NETWORK PLUGIN \\
+import { Network } from '@ionic-native/network/ngx';
 
 
 
@@ -28,6 +29,11 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class FireBaseManagerservice {
 
+
+
+  // todo BOOLEAN TO UPDATE
+
+  UpdateAd = false;
 // todo Link for ads creation url
 
  ViewedAd: string;
@@ -98,12 +104,14 @@ productImagesCounter = 0;
               private platform: Platform,
               private fb: Facebook,
               private alertctrl: AlertController,
-              private AFStorage: AngularFireStorage, ) {
+              private AFStorage: AngularFireStorage,
+              private newtworkCtrl: Network ) {
 
     this.JobsListingFireStore();
     this.BakersListingFireStore();
     this.ShopsListingFireStore();
-
+    this.NetworkOnConnect();
+    this.NetworkOnDissconnect();
 
     const emptyUser = {} as UserInterface;
     this.UserbehaviourSubject = new BehaviorSubject(undefined);
@@ -115,8 +123,23 @@ productImagesCounter = 0;
 
 
 
+   NetworkOnConnect() {
 
-  
+   console.log('on connect function is being called');
+   this.newtworkCtrl.onConnect().subscribe(() => {
+      console.log('internet active');
+    });
+   }
+
+   NetworkOnDissconnect() {
+    console.log('on Disconnect function is being called');
+    
+    this.newtworkCtrl.onDisconnect().subscribe(() => {
+      console.log('internet offline');
+    });
+   }
+
+
 
 
 
@@ -185,7 +208,7 @@ async findOrCreate(path: string, Uid: string, ReturndisplayName?: string, Return
       const empty = {} as UserInterface;
       this.ReturnedUser = empty;
       console.log('empty returned user: ', this.ReturnedUser);
-  
+
       this.UserbehaviourSubject.next(empty);
     }
 
@@ -209,7 +232,7 @@ async findOrCreate(path: string, Uid: string, ReturndisplayName?: string, Return
     // });
   } else {
 
-    
+
     this.CreateUser = {
       uid: Uid,
       displayName: ReturndisplayName,
@@ -358,7 +381,7 @@ uploadprofilepicture(pic: File, User: UserInterface, loading: LoadingController)
        };
 
 
-       this.uploadphoto(imagedata,DBPath);
+       this.uploadphoto(imagedata, DBPath);
        loading.dismiss();
 
 
@@ -594,7 +617,7 @@ viewBakerListing(index: number) {
 
   if (this.ReturnedBaker) {
   console.log('returned Baker: ', this.ReturnedBaker);
-  this.ViewedAd ='anonymous';
+  this.ViewedAd = 'anonymous';
 
   this.router.navigate(['/view-advert-modal']);
 }
@@ -607,7 +630,7 @@ viewShopListing(index: number) {
 
   if (this.ReturnedShop) {
   console.log('returned shop: ', this.ReturnedShop);
-  this.ViewedAd ='anonymous';
+  this.ViewedAd = 'anonymous';
 
   this.router.navigate(['/view-advert-modal']);
   }
@@ -620,10 +643,10 @@ viewJobListing(index: number) {
 
   if (this.ReturnedJob) {
   console.log('returned Job:', this.ReturnedJob);
-  this.ViewedAd ='anonymous';
+  this.ViewedAd = 'anonymous';
 
   this.router.navigate(['/view-advert-modal']);
-  } 
+  }
 
 }
 
@@ -640,15 +663,15 @@ OwnerBakerListing(Uid: string) {
 
   if (this.ReturnedBaker) {
   console.log('returned Baker: ', this.ReturnedBaker);
-  this.viewedAdtype=1;
-  this.ViewedAd ='owner';
+  this.viewedAdtype = 1;
+  this.ViewedAd = 'owner';
 
 
   this.router.navigate(['/view-advert-modal']);
 } else {
-  this.ViewedAd ='owner';
+  this.ViewedAd = 'owner';
 
-  this.AdnotFound('you have no baker advert in data base','Baker');
+  this.AdnotFound('you have no baker advert in data base', 'Baker');
 
 }
 
@@ -660,15 +683,15 @@ OwnerShopListing(Uid: string) {
 
   if (this.ReturnedShop) {
   console.log('returned shop: ', this.ReturnedShop);
-  this.viewedAdtype=2;
-  this.ViewedAd ='owner';
+  this.viewedAdtype = 2;
+  this.ViewedAd = 'owner';
 
 
   this.router.navigate(['/view-advert-modal']);
-  } else{
-    this.ViewedAd ='owner';
+  } else {
+    this.ViewedAd = 'owner';
 
-    this.AdnotFound('you have no shop advert in database','Shop');
+    this.AdnotFound('you have no shop advert in database', 'Shop');
 
   }
 
@@ -680,13 +703,13 @@ OwnerJobListing(Uid: string) {
 
   if (this.ReturnedJob) {
   console.log('returned Job:', this.ReturnedJob);
-  this.ViewedAd ='owner';
-  this.viewedAdtype=3;
+  this.ViewedAd = 'owner';
+  this.viewedAdtype = 3;
   this.router.navigate(['/view-advert-modal']);
-  } else{
-  this.ViewedAd ='owner';
+  } else {
+  this.ViewedAd = 'owner';
 
-  this.AdnotFound('you have no job advert in advert','Job');
+  this.AdnotFound('you have no job advert in advert', 'Job');
 
   }
 

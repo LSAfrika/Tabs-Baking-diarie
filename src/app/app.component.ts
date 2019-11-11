@@ -1,4 +1,3 @@
-import { UserInterface } from './interfaces/user.interface';
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -35,8 +34,11 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
 
-    this.platform.ready().then(() => {
-  //  console.log('splash state: ', this.showsplash);
+     this.platform.ready().then(() => {
+    console.log('working console log ');
+   
+
+    
 
     this.FirebaseManager.CheckLogin();
 
@@ -44,7 +46,7 @@ export class AppComponent implements OnInit {
     this.showsplash = result;
 
   });
-   // console.log('boolean state: ', this.showsplash);
+    console.log('boolean state: ', this.showsplash);
 
     if (this.platform.is('cordova')) {
       this.FirebaseManager.Logintype = 1;
@@ -56,12 +58,18 @@ export class AppComponent implements OnInit {
     }
 
     this.statusBar.styleDefault();
+
+
+   
+
     // this.splashScreen.hide();
     timer(500).subscribe(() => this.router.navigate(['/tabs/tab1']));
     timer(2000).subscribe(() => this.splashScreen.hide() );
 
      } );
 
+
+    
   }
 
   disablesplash() {
@@ -80,6 +88,8 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit() {
+
+
 
 
 

@@ -28,6 +28,8 @@ export class Tab1Page implements OnInit {
 
 
   ngOnInit() {
+    console.log('tab 1 loaded');
+   
     
 
   }

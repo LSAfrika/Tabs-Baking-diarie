@@ -64,14 +64,17 @@ EditAd() {
 
 if (this.FireBaseManager.viewedAdtype === 1) {
   this.FireBaseManager. EditAd = 'Baker';
+  this.FireBaseManager.UpdateAd = true;
   this.router.navigate(['/advert-creation-modal']);
 
 } else if (this.FireBaseManager.viewedAdtype === 2) {
   this.FireBaseManager. EditAd = 'Shop';
+  this.FireBaseManager.UpdateAd = true;
   this.router.navigate(['/advert-creation-modal']);
 
 } else if (this.FireBaseManager.viewedAdtype === 3) {
   this.FireBaseManager. EditAd = 'Job';
+  this.FireBaseManager.UpdateAd = true;
   this.router.navigate(['/advert-creation-modal']);
 
 }

@@ -56,6 +56,33 @@ export class AdvertCreationModalPage implements OnInit {
     this.Shopsform();
     this.Bakersform();
     this.Jobsform();
+
+    if ( this.firebasemanager.UpdateAd === true) {
+    const bakerycontacts = this.firebasemanager.ReturnedBaker.BakerContacts;
+
+    // tslint:disable-next-line: prefer-for-of
+    for (let contact = 0; contact < bakerycontacts.length; contact++) {
+      const returnedNumber = Object.values(bakerycontacts[contact]);
+      console.log('numbers returned', returnedNumber[0] );
+      this.UpdateEditBakerContactsListing(returnedNumber[0]);
+
+
+    }
+
+    const caketypes = this.firebasemanager.ReturnedBaker.BakerCakes;
+
+    // tslint:disable-next-line: prefer-for-of
+    for (let cake = 0; cake < caketypes.length; cake++) {
+      const returnedcake: string[] = Object.values(caketypes[cake]);
+      console.log('numbers returned', returnedcake[0] );
+      this.UpdateBakerCakeListing(returnedcake[0]);
+
+
+    }
+  }
+
+
+
     this.firebasemanager.storeimagelink.subscribe(link => {
 
       this.updateBakerImageValue(link);
@@ -79,19 +106,50 @@ export class AdvertCreationModalPage implements OnInit {
   //#region bakers form controll
  Bakersform() {
    console.log('baker is working');
-   this.BakersFormData = this.fb.group({
 
-    BakerName: ['', [Validators.required, Validators.minLength(5)]],
+   if (this.firebasemanager.UpdateAd === false) {
+
+    this.BakersFormData = this.fb.group({
+
+      BakerName: ['', [Validators.required, Validators.minLength(5)]],
+
+      BakerContacts: this.fb.array([]),
+
+      BakerEmail: ['', Validators.email],
+
+      BakerImageUrl: null,
+
+      BakerLocation: ['', [Validators.required, Validators.minLength(3)]],
+
+      BakerDescription: ['', [Validators.required, Validators.minLength(50)]],
+
+      CakeImagesUrl: this.fb.array([]),
+
+      BakerCakes: this.fb.array([]),
+
+
+
+     });
+
+  } else {
+
+    const updatebaker = this.firebasemanager.ReturnedBaker;
+   
+
+
+    this.BakersFormData = this.fb.group({
+
+    BakerName: [updatebaker.BakerName, [Validators.required, Validators.minLength(5)]],
 
     BakerContacts: this.fb.array([]),
 
-    BakerEmail: ['', Validators.email],
+    BakerEmail: [updatebaker.BakerEmail, Validators.email],
 
-    BakerImageUrl: null,
+    BakerImageUrl: updatebaker.BakerImageUrl,
 
-    BakerLocation: ['', [Validators.required, Validators.minLength(3)]],
+    BakerLocation: [updatebaker.BakerLocation, [Validators.required, Validators.minLength(3)]],
 
-    BakerDescription: ['', [Validators.required, Validators.minLength(50)]],
+    BakerDescription: [updatebaker.BakerDescription, [Validators.required, Validators.minLength(50)]],
 
     CakeImagesUrl: this.fb.array([]),
 
@@ -100,7 +158,18 @@ export class AdvertCreationModalPage implements OnInit {
 
 
    });
+
+  }
+
+
+
+
+
+
  }
+
+
+
 
 
  updateBakerImageValue(value) {
@@ -113,13 +182,34 @@ export class AdvertCreationModalPage implements OnInit {
 }
 
  // todo: Methods to populate CONTACTS and accessories listings
-BakerContactsListing(contactsedit?: string) {
+BakerContactsListing() {
+
+
   const contacts = this.fb.group({
     contact: ['', [Validators.required, Validators.minLength(3)]]
 
   });
 
   this.BakerContactsArry.push(contacts);
+
+
+}
+
+
+
+
+
+UpdateEditBakerContactsListing(contactsedit: number) {
+
+
+  const contacts = this.fb.group({
+    contact: [contactsedit, [Validators.required, Validators.minLength(3)]]
+
+  });
+
+  this.BakerContactsArry.push(contacts);
+
+
 }
 
 // todo REMOVE ITEM FROM CAKE ARRAY
@@ -128,9 +218,19 @@ DeleteBakerContact(i) {
 
 }
 
-BakerCakeListing(caketypes?: string) {
+BakerCakeListing() {
   const caketype = this.fb.group({
     cake: ['', [Validators.required, Validators.minLength(3)]]
+
+  });
+
+  this.BakerCakesArray.push(caketype);
+}
+
+
+UpdateBakerCakeListing(caketypes: string) {
+  const caketype = this.fb.group({
+    cake: [caketypes, [Validators.required, Validators.minLength(3)]]
 
   });
 
@@ -489,6 +589,8 @@ async Alertnotification(headerline: string) {
     buttons: [{
       text: 'ok',
       handler: () => {
+        this.firebasemanager.UpdateAd = false;
+        this.navigateback();
         this.alertctrl.dismiss();
       }
     }]
@@ -532,27 +634,43 @@ async Alertnotification(headerline: string) {
 
     console.log('viewed ad state: ', this.firebasemanager.ViewedAd );
     if (this.firebasemanager.ViewedAd === 'anonymous') {
+      this.JobFormData.reset();
+      this.ShopFormData.reset();
+      this.BakersFormData.reset();
+      this.firebasemanager. EditAd = '';
+      this.firebasemanager.UpdateAd = false;
+
+
+
       this.router.navigate(['/tabs/tab2']);
-  
+
     } else if (this.firebasemanager.ViewedAd === 'owner') {
+
+      this.JobFormData.reset();
+      this.ShopFormData.reset();
+      this.BakersFormData.reset();
+      this.firebasemanager. EditAd = '';
+      this.firebasemanager.UpdateAd = false;
+
+
       this.router.navigate(['/tabs/tab4']);
-  
-  
+
+
     }
   }
 
 
-  EditAd(){
+  EditAd() {
 
 
     this. SelectedAd(this.firebasemanager.EditAd);
-    
+
     this.SelectedAdtype = this.firebasemanager.EditAd;
-    
+
     setTimeout(() => {
-      console.log('timeout has fired'); 
+      console.log('timeout has fired');
       this.Next();
-      
+
     }, 100);
 
   }

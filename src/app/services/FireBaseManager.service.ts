@@ -709,7 +709,7 @@ OwnerJobListing(Uid: string) {
   } else {
   this.ViewedAd = 'owner';
 
-  this.AdnotFound('you have no job advert in advert', 'Job');
+  this.AdnotFound('you have no job advert in database', 'Job');
 
   }
 

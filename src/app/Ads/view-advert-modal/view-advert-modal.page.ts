@@ -1,3 +1,4 @@
+import { AlertController } from '@ionic/angular';
 import { FireBaseManagerservice } from './../../services/FireBaseManager.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -15,7 +16,7 @@ export class ViewAdvertModalPage implements OnInit, OnDestroy {
 
   images: any [] = [];
 
-  constructor(public FireBaseManager: FireBaseManagerservice, private router: Router) {
+  constructor(public FireBaseManager: FireBaseManagerservice, private router: Router, private alertctrl: AlertController) {
 
     this.images = [
       {image: '/assets/cakes/apple.jpg'},
@@ -42,7 +43,18 @@ export class ViewAdvertModalPage implements OnInit, OnDestroy {
   }
 
   ViewContact() {
-    this.contactview = true;
+
+    if (this.FireBaseManager.FacebookloginState === true) {
+
+ 
+      this.contactview = true;
+
+  
+  
+    } else {
+      this.LoginAlert();
+  
+    }
 
   }
 
@@ -50,9 +62,14 @@ export class ViewAdvertModalPage implements OnInit, OnDestroy {
   navigateback() {
 
   if (this.FireBaseManager.ViewedAd === 'anonymous') {
+    this.contactview = false;
+
     this.router.navigate(['/tabs/tab2']);
 
   } else if (this.FireBaseManager.ViewedAd === 'owner') {
+
+    this.contactview = false;
+    
     this.router.navigate(['/tabs/tab4']);
 
 
@@ -83,4 +100,37 @@ if (this.FireBaseManager.viewedAdtype === 1) {
 
 
 }
+
+
+async LoginAlert() {
+  const alertFb = await  this.alertctrl.create ({
+    message: 'please sign <strong>in / up</strong> to view contacts ',
+
+    buttons: [
+      {
+        text: 'sign in/up',
+        handler: () => {
+        this.FireBaseManager.facebooklogin();
+        this.alertctrl.dismiss();
+       }
+      },
+      {
+       text: 'close',
+       role: 'cancel'
+     }
+    ]
+  });
+  alertFb.present();
+}
+
+
+
+
+
+
+
+
+
+
+
 }

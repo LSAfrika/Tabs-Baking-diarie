@@ -59,7 +59,7 @@
      
       <ion-col size="12" [hidden]="ProceedToSelected ===''" >
  
-         <ion-button color="warning" (click)="back()" fill="solid"  expand="block">
+         <ion-button *ngIf="firebasemanager.UpdateAd === false"   color="primary" (click)="back()" fill="solid"  expand="block">
              
              <ion-label style="text-transform: lowercase">
                change advert type
@@ -232,14 +232,14 @@
 </ion-col>
 </ion-row>
 
-<ion-title class="ion-text-center" color="dark">upload images  (4 max)</ion-title>
+<ion-title class="ion-text-center"  color="dark">upload images  (4 max)</ion-title>
 
 
 <ion-row *ngIf="firebasemanager.productImageFiles.length ===0" >
 
    
   <ion-col size="6" *ngFor="let img of [1,1,1,1]"  >
-    <img src="http://placehold.it/180" alt="">
+    <img src="/assets/icon/placeholder.png">
 
   </ion-col>
   </ion-row>
@@ -259,15 +259,18 @@
         (click)= deleteimage(i)>
     
       </ion-col>
+
+      <ion-col size="10" offset="1">
+      <ion-label color="danger" class="ion-text-center">click on image to delete</ion-label>
+        
+      </ion-col>
   </ion-row>
 
 
-<ion-label color="danger" class="ion-text-center">click on image to delete</ion-label>
 
 
           <ion-label class="ion-text-center" *ngIf ="firebasemanager.productImageFiles.length !== 4" >
           
-        <ion-icon slot="start" name="cloud-upload"></ion-icon>
                 
               <label for="products-upload" class="custom-file-upload">
                   upload images

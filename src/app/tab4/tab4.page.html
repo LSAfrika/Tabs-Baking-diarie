@@ -130,13 +130,20 @@
                       <ion-label class="ion-text-center">
                           
                           <ion-row>
-                              <ion-col size="8" offset="2">
-                                 <ion-button shape=round  expand="block"  (click)="viewBaker()" >
-                              <ion-icon slot="start" name="images"></ion-icon>
+                              <ion-col size="6" >
+                                 <ion-button shape=round  expand="block"  (click)="EditBaker()" >
+                              <ion-icon slot="start" name="create"></ion-icon>
                               <ion-label style="text-transform: lowercase;">edit / create </ion-label>
                           </ion-button>
-                       
+                          
                               </ion-col>
+                              <ion-col size="6" >
+                                <ion-button shape=round  expand="block"  (click)="viewBaker()" >
+                             <ion-icon slot="start" name="images"></ion-icon>
+                             <ion-label style="text-transform: lowercase;">view ad </ion-label>
+                         </ion-button>
+                      
+                             </ion-col>
                             </ion-row>
                    
                          
@@ -156,10 +163,17 @@
                       <ion-label class="ion-text-center">
                           
                           <ion-row>
-                              <ion-col size="8" offset="2">
+                              <ion-col size="6">
+                                <ion-button shape=round  expand="block" (click)="EditShop()"  >
+                              <ion-icon slot="start" name="create"></ion-icon>
+                              <ion-label style="text-transform: lowercase;">edit / create </ion-label>
+                             
+                          </ion-button>
+                              </ion-col>
+                              <ion-col size="6">
                                 <ion-button shape=round  expand="block" (click)="viewShop()"  >
                               <ion-icon slot="start" name="cart"></ion-icon>
-                              <ion-label style="text-transform: lowercase;">edit / create </ion-label>
+                              <ion-label style="text-transform: lowercase;">view ad </ion-label>
                              
                           </ion-button>
                               </ion-col>
@@ -183,11 +197,21 @@
                       
                       <ion-label class="ion-text-center">
                           <ion-row>
-                            <ion-col size="8" offset="2">
+                            <ion-col size="6">
+                              <ion-button shape=round expand="block"  (click)="EditJob()" >
+
+                            <ion-icon slot="start" name="create"></ion-icon>
+                            <ion-label style="text-transform: lowercase;">edit / create </ion-label>
+                            
+                          
+                          </ion-button>
+                            </ion-col>
+
+                            <ion-col size="6">
                               <ion-button shape=round expand="block"  (click)="viewJob()" >
 
                             <ion-icon slot="start" name="briefcase"></ion-icon>
-                            <ion-label style="text-transform: lowercase;">edit / create </ion-label>
+                            <ion-label style="text-transform: lowercase;">view ad </ion-label>
                             
                           
                           </ion-button>

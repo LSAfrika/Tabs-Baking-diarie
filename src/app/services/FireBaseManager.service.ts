@@ -665,12 +665,14 @@ OwnerBakerListing(Uid: string) {
   console.log('returned Baker: ', this.ReturnedBaker);
   this.viewedAdtype = 1;
   this.ViewedAd = 'owner';
+  this.EditAdfunction();
 
 
-  this.router.navigate(['/view-advert-modal']);
+
+ // this.router.navigate(['/view-advert-modal']);
 } else {
   this.ViewedAd = 'owner';
-
+  this.UpdateAd = true;
   this.AdnotFound('you have no baker advert in data base', 'Baker');
 
 }
@@ -686,10 +688,15 @@ OwnerShopListing(Uid: string) {
   this.viewedAdtype = 2;
   this.ViewedAd = 'owner';
 
+  this.EditAdfunction();
 
-  this.router.navigate(['/view-advert-modal']);
+
+
+ // this.router.navigate(['/view-advert-modal']);
   } else {
     this.ViewedAd = 'owner';
+    this.UpdateAd = true;
+
 
     this.AdnotFound('you have no shop advert in database', 'Shop');
 
@@ -705,15 +712,91 @@ OwnerJobListing(Uid: string) {
   console.log('returned Job:', this.ReturnedJob);
   this.ViewedAd = 'owner';
   this.viewedAdtype = 3;
-  this.router.navigate(['/view-advert-modal']);
+  this.EditAdfunction();
   } else {
   this.ViewedAd = 'owner';
+  this.UpdateAd = true;
+
 
   this.AdnotFound('you have no job advert in database', 'Job');
 
   }
 
 }
+
+
+ViewOwnerBakerListing(Uid: string) {
+  this.ReturnedBaker = this.BakersListing.find(result => result.uid === Uid);
+  this.ViewedAd = 'owner';
+ 
+  this.router.navigate(['/view-advert-modal']);
+
+
+}
+
+ViewOwnerShopListing(Uid: string) {
+
+  this.ReturnedShop = this.ShopsListing.find(result => result.uid === Uid);
+
+
+  if (this.ReturnedShop) {
+  
+    this.viewedAdtype = 2;
+    this.ViewedAd = 'owner';
+    this.ViewedAd = 'owner';
+ 
+    this.router.navigate(['/view-advert-modal']);
+    } else {
+      this.ViewedAd = 'owner';
+      this.UpdateAd = true;
+  
+  
+      this.AdnotFound('you have no shop advert in database', 'Shop');
+  
+    }
+ 
+
+
+}
+
+ViewOwnerJobListing(Uid: string) {
+  this.ReturnedJob = this.BakingJobs.find(result => result.uid === Uid);
+  this.ViewedAd = 'owner';
+ 
+  this.router.navigate(['/view-advert-modal']);
+
+
+}
+
+
+
+
+EditAdfunction() {
+
+  console.log('functing is triggered number is: ', this.viewedAdtype,'viewer : ',this.ViewedAd);
+  if (this.viewedAdtype === 1) {
+    this. EditAd = 'Baker';
+    this.UpdateAd = true;
+    this.router.navigate(['/advert-creation-modal']);
+  
+  } else if (this.viewedAdtype === 2) {
+    this. EditAd = 'Shop';
+    this.UpdateAd = true;
+    this.router.navigate(['/advert-creation-modal']);
+  
+  } else if (this.viewedAdtype === 3) {
+    this. EditAd = 'Job';
+    this.UpdateAd = true;
+    this.router.navigate(['/advert-creation-modal']);
+  
+  }
+  
+  
+  
+  
+  }
+
+
 
 
 async AdnotFound(sentmessage: string, adcreate: string) {

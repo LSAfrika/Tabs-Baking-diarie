@@ -154,17 +154,37 @@ LocalsShopListingSubscription: Subscription;
     this.router.navigate(['/profileedit']);
   }
 
-  viewBaker() {
+  EditBaker() {
     this.FireBaseManager.OwnerBakerListing(this.FireBaseManager.ReturnedUser.uid);
   }
 
-  viewShop() {
+  EditShop() {
     this.FireBaseManager.OwnerShopListing(this.FireBaseManager.ReturnedUser.uid);
 
   }
 
-  viewJob() {
+  EditJob() {
     this.FireBaseManager.OwnerJobListing(this.FireBaseManager.ReturnedUser.uid);
 
   }
+
+  viewBaker() {
+    this.FireBaseManager.ViewOwnerBakerListing(this.FireBaseManager.ReturnedUser.uid);
+  }
+
+  viewShop() {
+    this.FireBaseManager.ViewOwnerShopListing(this.FireBaseManager.ReturnedUser.uid);
+
+  }
+
+  viewJob() {
+    this.FireBaseManager.ViewOwnerJobListing(this.FireBaseManager.ReturnedUser.uid);
+
+  }
+
+
+
+
+
+
 }

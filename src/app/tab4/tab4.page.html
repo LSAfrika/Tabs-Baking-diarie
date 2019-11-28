@@ -1,32 +1,18 @@
 <ion-toolbar  color="primary" >
   <ion-segment   >
       <!-- layout style layout="icon-start" -->
-       <ion-segment-button [checked]="Tabs === 'notifications'"   (click)="tabSwitch('notifications')">
-         
-         <ion-icon name="notifications"> 
-           
-         </ion-icon>
-        
-         
-                
-          
-          
-         <ion-label style=" text-transform: lowercase;">notifications</ion-label>
-
-          
        
-        
-         
-           
-
-         
-       </ion-segment-button>
 
 <!-- layout="icon-start" buttons in layout -->
-       <ion-segment-button [checked]="Tabs === 'profile'"  (click)="tabSwitch('profile')">
-         <ion-icon name="person"></ion-icon>
-         <ion-label style=" text-transform: lowercase;">my profile</ion-label>
+       <ion-segment-button layout="icon-start" [checked] = "checked" >
+         <ion-icon name="person" style="color: white;"></ion-icon>
+         <ion-label style=" text-transform: lowercase; color: white;">my profile</ion-label>
        </ion-segment-button>
+
+       <ion-segment-button disabled>
+        <ion-icon style="opacity: 0%;" name="person"></ion-icon>
+        <ion-label style=" text-transform: lowercase;opacity: 0%;">my profile</ion-label>
+      </ion-segment-button>
 
      </ion-segment> 
     
@@ -34,15 +20,10 @@
 
 <ion-content>
 
-  <!-- todo notification section -->
-  <div *ngIf="Tabs === 'notifications'">
-
-    
-    
-    </div>
+ 
 
   <!-- todo my profile section -->
-  <div *ngIf="Tabs === 'profile'" >
+  <div  >
 
   
     

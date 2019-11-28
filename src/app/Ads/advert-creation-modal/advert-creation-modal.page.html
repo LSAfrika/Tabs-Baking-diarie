@@ -1,93 +1,95 @@
 <ion-header [hidden]="ProceedToSelected ===''">
-  <ion-toolbar color="primary" >
-    <ion-title >create your posting</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>create your posting</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="navigateback()" >
+      <ion-button (click)="navigateback()">
         <ion-icon size="large" name="close-circle"></ion-icon>
-        
+
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
 
-    <ion-card class="selection" [hidden]="ProceedToSelected !==''"  >
- 
+  <ion-card class="selection" [hidden]="ProceedToSelected !==''">
 
-        <ion-list>
-            <ion-radio-group >
-              <ion-list-header>
-                <ion-label color="primary" >Select type of ad you want to create</ion-label>
-              </ion-list-header>
-          
-              <ion-item lines="none" (click)="SelectedAd('Baker')"  >
-                <ion-label>Baker's Listing</ion-label>
-                <ion-radio slot="start" value="Baker"  [checked]="checked1"></ion-radio>
-              </ion-item>
-          
-              <ion-item lines="none" (click)="SelectedAd('Shop')" >
-                <ion-label>Accessories Shop Listing</ion-label>
-                <ion-radio slot="start" value="Shop" [checked]="checked2"></ion-radio>
-              </ion-item>
-          
-              <ion-item lines="none" (click)="SelectedAd('Job')" >
-                <ion-label>Jobs Listings</ion-label>
-                <ion-radio slot="start" value="Job" [checked]="checked3" ></ion-radio>
-              </ion-item>
-            </ion-radio-group>
-            
-          </ion-list>
-    
-          <ion-row>
-              <ion-col size="6" offset="3">
-    
-                  <ion-button expand="block" fill="solid" shape="round" [disabled]="SelectedAdtype===''" (click)="Next()">
-                      next
-                    </ion-button>
-        
-                
-              </ion-col>
-          
-        </ion-row>
-       </ion-card>
- 
-  
-   <ion-row class="ion-no-margin" class="ion-no-padding">
-      
-     
-      <ion-col size="12" [hidden]="ProceedToSelected ===''" >
- 
-         <ion-button *ngIf="firebasemanager.UpdateAd === false"   color="primary" (click)="back()" fill="solid"  expand="block">
-             
-             <ion-label style="text-transform: lowercase">
-               change advert type
-             </ion-label>
-             
-            </ion-button>
-         
-            
+
+    <ion-list>
+      <ion-radio-group>
+        <ion-list-header>
+          <ion-label color="primary">Select type of ad you want to create</ion-label>
+        </ion-list-header>
+
+        <ion-item lines="none" (click)="SelectedAd('Baker')">
+          <ion-label>Baker's Listing</ion-label>
+          <ion-radio slot="start" value="Baker" [checked]="checked1"></ion-radio>
+        </ion-item>
+
+        <ion-item lines="none" (click)="SelectedAd('Shop')">
+          <ion-label>Accessories Shop Listing</ion-label>
+          <ion-radio slot="start" value="Shop" [checked]="checked2"></ion-radio>
+        </ion-item>
+
+        <ion-item lines="none" (click)="SelectedAd('Job')">
+          <ion-label>Jobs Listings</ion-label>
+          <ion-radio slot="start" value="Job" [checked]="checked3"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+
+    </ion-list>
+
+    <ion-row>
+      <ion-col size="6" offset="3">
+
+        <ion-button expand="block" fill="solid" shape="round" [disabled]="SelectedAdtype===''" (click)="Next()">
+          next
+        </ion-button>
+
+
       </ion-col>
-     </ion-row>
 
-   <ion-card color="primary">
-      <ion-row>
+    </ion-row>
+  </ion-card>
 
-   
-   <ion-col size="12" [hidden]="ProceedToSelected ===''">
-      <ion-title  class="ion-text-center" > {{SelectedAdtype}} advertisement   </ion-title>
-     
-   </ion-col>
+
+  <ion-row class="ion-no-margin" class="ion-no-padding">
+
+
+    <ion-col size="12" [hidden]="ProceedToSelected ===''">
+
+      <ion-button *ngIf="firebasemanager.UpdateAd === false" color="primary" (click)="back()" fill="solid"
+        expand="block">
+
+        <ion-label style="text-transform: lowercase">
+          change advert type
+        </ion-label>
+
+      </ion-button>
+
+
+    </ion-col>
   </ion-row>
- </ion-card>
 
-    
- 
-   
+  <ion-card color="primary">
+    <ion-row>
 
-    <div *ngIf="ProceedToSelected!==''">
-<!-- 
+
+      <ion-col size="12" [hidden]="ProceedToSelected ===''">
+        <ion-title class="ion-text-center"> {{SelectedAdtype}} advertisement </ion-title>
+
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+
+
+
+
+  <div *ngIf="ProceedToSelected!==''">
+    <!-- 
    <div *ngIf="SelectedAdtype === 'Job'" >
       JOBS FORM VALUE:  {{JobFormData.value | json}}
    </div>  
@@ -96,281 +98,256 @@
       json value {{ShopFormData.value | json}}
    </div> -->
 
+    <!-- value{{BakersFormData.value| json}} -->
 
-      <!-- TODO: BAKERS LISTING CARD -->
-    <ion-card [formGroup]="BakersFormData" [hidden]="SelectedAdtype!=='Baker'" >
-       <!-- * BAKER IMAGE FORM CONTROL -->
-  
+    <!-- TODO: BAKERS LISTING CARD -->
+    <ion-card [formGroup]="BakersFormData" *ngIf="SelectedAdtype ==='Baker'">
+      <!-- * BAKER IMAGE FORM CONTROL -->
 
-   <ion-item lines = "none">
-      <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
-        <!-- <img src="{{FireBaseManager.ReturnedUser.photoURL}}" style="border-radius: 15%;"> -->
-        <img  class="actualimage"  *ngIf="firebasemanager.profilepicture === ''"  src='/assets/icon/defaultCake.png' />
-        <img  class="actualimage"  *ngIf="firebasemanager.profilepicture!== ''"  [src]="firebasemanager.profilepicture" />
-      </ion-thumbnail>
-      <ion-label class="ion-text-center">
-          
-                
+
+      <ion-item lines="none">
+        <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
+          <!-- <img src="{{FireBaseManager.ReturnedUser.photoURL}}" style="border-radius: 15%;"> -->
+
+          <img class="actualimage" *ngIf="firebasemanager.profilepicture!== ''; else serverImg"
+            [src]="firebasemanager.profilepicture" />
+
+
+          <ng-template #serverImg>
+            <img class="actualimage" [src]="firebasemanager.ReturnedBaker.BakerImageUrl" />
+
+          </ng-template>
+
+        </ion-thumbnail>
+        <ion-label class="ion-text-center">
+
+
           <label for="file-upload" class="custom-file-upload">
-               Banner image
+            Banner image
           </label>
-          <input id="file-upload" type="file"  (change)="profilepicturepreview($event)"/>
-       
-        
-      </ion-label>
-      
-    </ion-item>
-        <ion-row>
-            <ion-col size="10" offset="1">
-
-      <!-- * BAKER NAME FORM CONTROL -->
-     <ion-item>
-       <ion-label position="floating">Baker Name <ion-text color="danger">*</ion-text></ion-label>
-       <ion-input required formControlName="BakerName" type="text"></ion-input>
-     </ion-item>
-     <br>
-     <br>
-     <br>
+          <input id="file-upload" type="file" (change)="profilepicturepreview($event)" />
 
 
-       <!-- * BAKER CONTACTS FORM CONTROL -->
-       <ion-label position="inline" color="primary"> Shop contacts</ion-label>
+        </ion-label>
 
-    <br>
-        <div formArrayName="BakerContacts">
-     <ion-item lines="inset" *ngFor="let contact of BakerContactsArry.controls; let i = index" [formGroupName]="i" >
-
-        <ion-input placeholder=""  formControlName="contact" type="number"> {{i+1 }}. </ion-input>
-                    <ion-icon button (click)="DeleteBakerContact(i)" slot="end" name="remove-circle" color="danger"></ion-icon>
-                    <br/>
-
-
-    </ion-item>
-    <br>
-
-    
-
-  </div>
-  <br>
-  <ion-button (click)="BakerContactsListing()" fill="solid" shape="round" color="primary">
-      <ion-icon slot="start" name="add"  >
-  
-        </ion-icon>
-        <ion-label style=" text-transform: lowercase;
-        font-weight: 500;
-        ">add</ion-label>
-  </ion-button> 
-  <br>
-
-        <!-- * BAKER EMAIL FORM CONTROL -->
-     <ion-item>
-      <ion-label position="floating">Baker Email <ion-text >(optional)</ion-text></ion-label>
-      <ion-input required formControlName="BakerEmail" type="email"></ion-input>
-    </ion-item>
-
-      <!-- * BAKER LOCATION FORM CONTROL -->
-      <ion-item>
-        <ion-label position="floating">Baker Location <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input required formControlName="BakerLocation" type="text"></ion-input>
       </ion-item>
+      <ion-row>
+        <ion-col size="10" offset="1">
 
-       <!-- * BAKER DESCRIPTION FORM CONTROL -->
-       <ion-item>
-          <ion-label position="floating">Baker Description <ion-text color="danger">*</ion-text></ion-label>
-          <ion-textarea autoGrow="true" required formControlName="BakerDescription" type="text"></ion-textarea>
-          
-       </ion-item >
-        <ion-item lines="none" *ngIf="BakerDescription.invalid && BakerDescription.touched">
-          <p style="color: red" > minimum description is 50 charachters</p>
-        </ion-item>
-
- 
-
-
-        <br>
+          <!-- * BAKER NAME FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">Baker Name <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required formControlName="BakerName" type="text"></ion-input>
+          </ion-item>
+          <br>
+          <br>
+          <br>
 
 
-        <!--  TODO CAKE TYPE FORMARRAY -->
-        <!-- * FORM ARRAY CAKE TYPES -->
-    <ion-label position="inline" color="primary"> list of cakes you bake</ion-label>
+          <!-- * BAKER CONTACTS FORM CONTROL -->
+          <ion-label position="inline" color="primary"> Shop contacts</ion-label>
 
-    <br>
-        <div formArrayName="BakerCakes">
-     <ion-item lines="inset" *ngFor="let cake of BakerCakesArray.controls; let i = index" [formGroupName]="i" >
+          <br>
+          <div formArrayName="BakerContacts">
+            <ion-item lines="inset" *ngFor="let contact of BakerContactsArry.controls; let i = index"
+              [formGroupName]="i">
 
-        <ion-input placeholder=""  formControlName="cake"> {{i+1 }}. </ion-input>
-                    <ion-icon button (click)="DeleteBakerCakes(i)" slot="end" name="remove-circle" color="danger"></ion-icon>
-                    <br/>
+              <ion-input placeholder="" formControlName="contact" type="number"> {{i+1 }}. </ion-input>
+              <ion-icon button (click)="DeleteBakerContact(i)" slot="end" name="remove-circle" color="danger">
+              </ion-icon>
+              <br />
 
 
-    </ion-item>
-
+            </ion-item>
+            <br>
 
 
 
-    
-    
-    
+          </div>
+          <br>
+          <ion-button (click)="BakerContactsListing()" fill="solid" shape="round" color="primary">
+            <ion-icon slot="start" name="add">
 
-  </div>
-  <br>
-  <ion-button (click)="BakerCakeListing()" fill="solid" shape="round" color="primary">
-      <ion-icon slot="start" name="add"  >
-  
-        </ion-icon>
-        <ion-label style=" text-transform: lowercase;
+            </ion-icon>
+            <ion-label style=" text-transform: lowercase;
         font-weight: 500;
         ">add</ion-label>
-  </ion-button> 
-  <br>
-  <br><br>
+          </ion-button>
+          <br>
+
+          <!-- * BAKER EMAIL FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">Baker Email <ion-text>(optional)</ion-text>
+            </ion-label>
+            <ion-input required formControlName="BakerEmail" type="email"></ion-input>
+          </ion-item>
+
+          <!-- * BAKER LOCATION FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">Baker Location <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required formControlName="BakerLocation" type="text"></ion-input>
+          </ion-item>
+
+          <!-- * BAKER DESCRIPTION FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">Baker Description <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-textarea autoGrow="true" required formControlName="BakerDescription" type="text"></ion-textarea>
+
+          </ion-item>
+          <ion-item lines="none" *ngIf="BakerDescription.invalid && BakerDescription.touched">
+            <p style="color: red"> minimum description is 50 charachters</p>
+          </ion-item>
+
+
+
+
+          <br>
+
+
+          <!--  TODO CAKE TYPE FORMARRAY -->
+          <!-- * FORM ARRAY CAKE TYPES -->
+          <ion-label position="inline" color="primary"> list of cakes you bake</ion-label>
+
+          <br>
+          <div formArrayName="BakerCakes">
+            <ion-item lines="inset" *ngFor="let cake of BakerCakesArray.controls; let i = index" [formGroupName]="i">
+
+              <ion-input placeholder="" formControlName="cake"> {{i+1 }}. </ion-input>
+              <ion-icon button (click)="DeleteBakerCakes(i)" slot="end" name="remove-circle" color="danger"></ion-icon>
+              <br />
+
+
+            </ion-item>
 
 
 
 
 
-</ion-col>
-</ion-row>
-
-<ion-title class="ion-text-center"  color="dark">upload images  (4 max)</ion-title>
 
 
-<ion-row *ngIf="firebasemanager.productImageFiles.length ===0" >
 
-   
-  <ion-col size="6" *ngFor="let img of [1,1,1,1]"  >
-    <img src="/assets/icon/placeholder.png">
+          </div>
+          <br>
+          <ion-button (click)="BakerCakeListing()" fill="solid" shape="round" color="primary">
+            <ion-icon slot="start" name="add">
 
-  </ion-col>
-  </ion-row>
-
-  <ion-row *ngIf="firebasemanager.productImageFiles.length !==0" >
-
-      <ion-col size="6" *ngFor="let img of firebasemanager.previewproductImageFiles; let i = index"  >
-    
-      <ion-fab vertical="center" horizontal="center" slot="fixed">
-        <ion-fab-button>
-          <ion-icon name="close"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-
-        <img [src]="getSantizeUrl(img)" alt="" 
-        style="max-height: 96px; max-width: 96px; object-fit:contain;display: block;"
-        (click)= deleteimage(i)>
-    
-      </ion-col>
-
-      <ion-col size="10" offset="1">
-      <ion-label color="danger" class="ion-text-center">click on image to delete</ion-label>
-        
-      </ion-col>
-  </ion-row>
+            </ion-icon>
+            <ion-label style=" text-transform: lowercase;
+        font-weight: 500;
+        ">add</ion-label>
+          </ion-button>
+          <br>
+          <br><br>
 
 
 
 
-          <ion-label class="ion-text-center" *ngIf ="firebasemanager.productImageFiles.length !== 4" >
-          
-                
-              <label for="products-upload" class="custom-file-upload">
-                  upload images
-              </label>
-              <input id="products-upload" type="file"
-                (change)="productimageupload($event)"
-                 
-                 />
-           
-            
-          </ion-label>
-          
-     
-    <ion-row>
 
-  <!-- <ion-col size="8" offset="2">
+        </ion-col>
+      </ion-row>
+
+
+
+
+
+
+
+
+      <ion-row>
+
+        <!-- <ion-col size="8" offset="2">
     <ion-button shape="round" expand ="full" [disabled]="firebasemanager.productImageFiles.length ===0" >
       <ion-icon slot="start" name="cloud-upload"></ion-icon>
       <ion-label>upload photos</ion-label>
     </ion-button>
     
   </ion-col> -->
-  
-</ion-row>
-<br>
+
+      </ion-row>
+      <br>
 
 
- <ion-row>
-  <ion-col size="6" offset="3">
+      <ion-row>
+        <ion-col size="6" offset="3">
 
-      <ion-button expand="block" fill="solid" shape="round"
-                  [disabled]="!BakersFormData.valid"  (click)="submitBakerFormvalue(BakersFormData.value)">
-          submit
-        </ion-button> 
-
-    
-  </ion-col>
-</ion-row>
-    
-      </ion-card>
-        
+          <ion-button expand="block" fill="solid" shape="round" [disabled]="!BakersFormData.valid"
+            (click)="submitBakerFormvalue(BakersFormData.value)">
+            next
+          </ion-button>
 
 
+        </ion-col>
+      </ion-row>
 
-      
-    
+    </ion-card>
 
 
-       <!-- TODO: SHOP LISTING CARD   -->
-       <ion-card [formGroup]="ShopFormData" [hidden]= "SelectedAdtype!=='Shop'">
-        <ion-row>
-            <ion-col size="10" offset="1">
 
-      <!-- * SHOP NAME FORM CONTROL -->
-     <ion-item>
-       <ion-label position="floating">Shop Name <ion-text color="danger">*</ion-text></ion-label>
-       <ion-input required formControlName="ShopName" type="text"></ion-input>
-     </ion-item>
 
-       <!-- * SHOP CONTACTS FORM CONTROL -->
-       <ion-item>
-        <ion-label position="floating">Shop Contact(s)<ion-text color="danger">*</ion-text></ion-label>
-        <ion-input required formControlName="ShopContacts" type="number"></ion-input>
-      </ion-item>
 
-        <!-- * EMAIL FORM CONTROL -->
-     <ion-item>
-      <ion-label position="floating">Shop Email <ion-text >(optional)</ion-text></ion-label>
-      <ion-input required formControlName="ShopEmail" type="email"></ion-input>
-    </ion-item>
 
-      <!-- * SHOP LOCATION FORM CONTROL -->
-      <ion-item>
-        <ion-label position="floating">Shop Location <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input required formControlName="ShopLocation" type="text"></ion-input>
-      </ion-item>
 
-       <!-- * SHOP DESCRIPTION FORM CONTROL -->
-       <ion-item>
-          <ion-label position="floating">Shop Description <ion-text color="danger">*</ion-text></ion-label>
-          <ion-textarea required formControlName="ShopDescription" type="text"></ion-textarea>
-          
-       </ion-item >
-        <ion-item lines="none" *ngIf="ShopDescription.invalid && ShopDescription.touched">
-          <p style="color: red" > minimum description is 50 charachters</p>
-        </ion-item>
 
-  <!-- * SHOP IMAGE FORM CONTROL -->
-  <ion-item lines="none">
-    <ion-col size="12" class="ion-no-padding" class="ion-no-margin">
-        <ion-label color="primary" >Shop banner image </ion-label>
-  
-        <br>
-        <div class="CakeSize">
-        <img  class="actualimage"  *ngIf="ShopImageUrl.value === null"  src='/assets/icon/defaultCake.png' />
-        <img  class="actualimage"  *ngIf="ShopImageUrl.value !== null"  [src]="ShopImageUrl.value" />
-        </div>
-        
+    <!-- TODO: SHOP LISTING CARD   -->
+    <ion-card [formGroup]="ShopFormData" *ngIf="SelectedAdtype ==='Shop'">
+      <ion-row>
+        <ion-col size="10" offset="1">
 
-        <!-- <ion-button (click)="launchActionSheet()"
+          <!-- * SHOP NAME FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">Shop Name <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required formControlName="ShopName" type="text"></ion-input>
+          </ion-item>
+
+          <!-- * SHOP CONTACTS FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">Shop Contact(s)<ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required formControlName="ShopContacts" type="number"></ion-input>
+          </ion-item>
+
+          <!-- * EMAIL FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">Shop Email <ion-text>(optional)</ion-text>
+            </ion-label>
+            <ion-input required formControlName="ShopEmail" type="email"></ion-input>
+          </ion-item>
+
+          <!-- * SHOP LOCATION FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">Shop Location <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required formControlName="ShopLocation" type="text"></ion-input>
+          </ion-item>
+
+          <!-- * SHOP DESCRIPTION FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">Shop Description <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-textarea required formControlName="ShopDescription" type="text"></ion-textarea>
+
+          </ion-item>
+          <ion-item lines="none" *ngIf="ShopDescription.invalid && ShopDescription.touched">
+            <p style="color: red"> minimum description is 50 charachters</p>
+          </ion-item>
+
+          <!-- * SHOP IMAGE FORM CONTROL -->
+          <ion-item lines="none">
+            <ion-col size="12" class="ion-no-padding" class="ion-no-margin">
+              <ion-label color="primary">Shop banner image </ion-label>
+
+              <br>
+              <div class="CakeSize">
+                <img class="actualimage" *ngIf="ShopImageUrl.value === null" src='/assets/icon/defaultCake.png' />
+                <img class="actualimage" *ngIf="ShopImageUrl.value !== null" [src]="ShopImageUrl.value" />
+              </div>
+
+
+              <!-- <ion-button (click)="launchActionSheet()"
         fill="solid" shape="round" color="primary" expand="block">
          <ion-icon slot="start" name="photos"  >
      
@@ -380,167 +357,240 @@
            "> select image</ion-label>
      </ion-button>  -->
 
-     <input type="file" id="file" class="inputfile" multiple (change)="ImageInput($event)"/>
-            <label for="file" class="btn-1">upload photos </label>
-      
-    </ion-col>
-   
-   
-   
-    
- </ion-item >
+              <input type="file" id="file" class="inputfile" multiple (change)="ImageInput($event)" />
+              <label for="file" class="btn-1">upload photos </label>
+
+            </ion-col>
 
 
-        <br>
 
 
-        <!--  TODO CAKE TYPE FORMARRAY -->
-        <!-- * FORM ARRAY CAKE TYPES -->
-    <ion-label position="inline" color="primary"> list of cakes you bake <ion-text color="danger">
-      *
-    </ion-text> </ion-label>
-
-    <br>
-        <div formArrayName="CakeTypes">
-     <ion-item lines="inset" *ngFor="let cake of CakeTypesArray.controls; let i = index" [formGroupName]="i" >
-
-        <ion-input placeholder=""  formControlName="cake"> {{i+1 }}. </ion-input>
-                    <ion-icon button (click)="deleteShopCake(i)" slot="end" name="remove-circle" color="danger"></ion-icon>
-                    <br/>
+          </ion-item>
 
 
-    </ion-item>
-    
+          <br>
 
-  </div>
-  <br>
-  <ion-button (click)="AddShopCakeListing()" fill="solid" shape="round" color="primary">
-      <ion-icon slot="start" name="add"  >
-  
-        </ion-icon>
-        <ion-label style=" text-transform: lowercase;
+
+          <!--  TODO CAKE TYPE FORMARRAY -->
+          <!-- * FORM ARRAY CAKE TYPES -->
+          <ion-label position="inline" color="primary"> list of cakes you bake <ion-text color="danger">
+              *
+            </ion-text>
+          </ion-label>
+
+          <br>
+          <div formArrayName="CakeTypes">
+            <ion-item lines="inset" *ngFor="let cake of CakeTypesArray.controls; let i = index" [formGroupName]="i">
+
+              <ion-input placeholder="" formControlName="cake"> {{i+1 }}. </ion-input>
+              <ion-icon button (click)="deleteShopCake(i)" slot="end" name="remove-circle" color="danger"></ion-icon>
+              <br />
+
+
+            </ion-item>
+
+
+          </div>
+          <br>
+          <ion-button (click)="AddShopCakeListing()" fill="solid" shape="round" color="primary">
+            <ion-icon slot="start" name="add">
+
+            </ion-icon>
+            <ion-label style=" text-transform: lowercase;
         font-weight: 500;
         ">add</ion-label>
-  </ion-button> 
-  <br>
-  <br><br>
+          </ion-button>
+          <br>
+          <br><br>
 
-    <!--  TODO ACCESSORIES FORM ARRAY -->
-     <!-- * FORM ARRAY ACCESSORIES -->
-    <ion-label position="inline" color="primary"> list of accesories you sell  
-      <ion-text color="danger">  *
-      </ion-text></ion-label>
-    <div formArrayName="AccesoriesListing">
-        <ion-item lines="inset" *ngFor="let accessory of AccesoriesListingArray.controls; let i = index" [formGroupName]="i" >
-   
-           <ion-input placeholder=""  formControlName="accesory"> {{i+1 }}. </ion-input>
-                       <ion-icon button (click)="deleteAccesories(i)" slot="end" name="remove-circle" color="danger"></ion-icon>
-                       <br/>
-   
-   
-       </ion-item>
-   
-   
-     </div>
-     <ion-button (click)="AddAccesoriesListing()" fill="solid" shape="round" color="primary">
-         <ion-icon slot="start" name="add"  >
-     
-           </ion-icon>
-           <ion-label style=" text-transform: lowercase;
+          <!--  TODO ACCESSORIES FORM ARRAY -->
+          <!-- * FORM ARRAY ACCESSORIES -->
+          <ion-label position="inline" color="primary"> list of accesories you sell
+            <ion-text color="danger"> *
+            </ion-text>
+          </ion-label>
+          <div formArrayName="AccesoriesListing">
+            <ion-item lines="inset" *ngFor="let accessory of AccesoriesListingArray.controls; let i = index"
+              [formGroupName]="i">
+
+              <ion-input placeholder="" formControlName="accesory"> {{i+1 }}. </ion-input>
+              <ion-icon button (click)="deleteAccesories(i)" slot="end" name="remove-circle" color="danger"></ion-icon>
+              <br />
+
+
+            </ion-item>
+
+
+          </div>
+          <ion-button (click)="AddAccesoriesListing()" fill="solid" shape="round" color="primary">
+            <ion-icon slot="start" name="add">
+
+            </ion-icon>
+            <ion-label style=" text-transform: lowercase;
            font-weight: 500;
            ">add</ion-label>
-     </ion-button>
-
-    
-
-   
-
- 
-</ion-col>
-</ion-row>
- <ion-row>
-  <ion-col size="6" offset="3">
-
-      <ion-button expand="block" fill="solid" shape="round"
-                  [disabled]="!ShopFormData.valid" (click)="submitShopFormvalue(ShopFormData.value)" >
-          submit
-        </ion-button> 
-
-    
-  </ion-col>
-</ion-row>
-    
-      </ion-card>
+          </ion-button>
 
 
-         <!-- TODO: JOB LISTING CARD -->
-      <ion-card [formGroup]="JobFormData" [hidden]="SelectedAdtype!=='Job'">
-          <ion-row>
-              <ion-col size="10" offset="1">
-  
-        <!-- * JOB TITLE AND FORM CONTROL -->
-       <ion-item>
-         <ion-label position="floating">Job title <ion-text color="danger">*</ion-text></ion-label>
-         <ion-input required formControlName="title" type="text"></ion-input>
-       </ion-item>
-  
-         <!-- * JOB OWNER AND FORM CONTROL -->
-         <ion-item>
-          <ion-label position="floating">your name<ion-text color="danger">*</ion-text></ion-label>
-          <ion-input required formControlName="orderOwnerName" type="text"></ion-input>
-        </ion-item>
-  
-          <!-- * OWNER CONTACTS AND FORM CONTROL -->
-       <ion-item>
-        <ion-label position="floating">your contacts <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input required formControlName="orderOwnerNameContacts" type="number"></ion-input>
-      </ion-item>
-  
-        <!-- * CAKE TYPE FORM CONTROL -->
-        <ion-item>
-          <ion-label position="floating">Cake Type <ion-text color="danger">*</ion-text></ion-label>
-          <ion-input required formControlName="cakeType" type="text"></ion-input>
-        </ion-item>
-  
-          <!-- * CAKE WEIGHT FORM CONTROL -->
-       <ion-item>
-        <ion-label position="floating">Cake Weight<ion-text color="danger">*</ion-text></ion-label>
-        <ion-input required formControlName="cakeweight" type="number"></ion-input>
-      </ion-item>
-  
-       <!-- * NUMBER OF CAKES FORM CONTROL -->
-       <ion-item>
-        <ion-label position="floating">How many cakes would you want to order ?<ion-text color="danger">*</ion-text></ion-label>
-        <ion-input required formControlName="numberOfCakes" type="number"></ion-input>
-      </ion-item>
-  
-       <!-- * JOB DESCRIPTION FORM CONTROL -->
-       <ion-item>
-        <ion-label position="floating">Job description<ion-text color="danger">*</ion-text></ion-label>
-        <ion-textarea required formControlName="jobDescription" type="text"></ion-textarea>
-      </ion-item>
-  
-   <!-- * DELIVERY DATE FORM CONTROL -->
-   <ion-item>
-     <ion-label position="stacked"> Delivery date </ion-label>
-     <ion-datetime formControlName="deliveryDate" placeholder="delivery date"></ion-datetime>
-   </ion-item>
-  </ion-col>
-  </ion-row>
-   <ion-row>
-    <ion-col size="6" offset="3">
-  
-        <ion-button expand="block" fill="solid" shape="round"
-                    [disabled]="!JobFormData.valid" (click)="submitJobsFormvalue(JobFormData.value)">
+
+
+
+
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6" offset="3">
+
+          <ion-button expand="block" fill="solid" shape="round" [disabled]="!ShopFormData.valid"
+            (click)="submitShopFormvalue(ShopFormData.value)">
             submit
-          </ion-button> 
-  
-      
-    </ion-col>
-  </ion-row>
-      
-        </ion-card>
-      </div>
+          </ion-button>
 
-    </ion-content>
 
+        </ion-col>
+      </ion-row>
+
+    </ion-card>
+
+
+    <!-- TODO: JOB LISTING CARD -->
+    <ion-card [formGroup]="JobFormData" *ngIf="SelectedAdtype ==='Job'">
+      <ion-row>
+        <ion-col size="10" offset="1">
+
+          <!-- * JOB TITLE AND FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">Job title <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required formControlName="title" type="text"></ion-input>
+          </ion-item>
+
+          <!-- * JOB OWNER AND FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">your name<ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required formControlName="orderOwnerName" type="text"></ion-input>
+          </ion-item>
+
+          <!-- * OWNER CONTACTS AND FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">your contacts <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required formControlName="orderOwnerNameContacts" type="number"></ion-input>
+          </ion-item>
+
+          <!-- * CAKE TYPE FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">Cake Type <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required formControlName="cakeType" type="text"></ion-input>
+          </ion-item>
+
+          <!-- * CAKE WEIGHT FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">Cake Weight<ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required formControlName="cakeweight" type="number"></ion-input>
+          </ion-item>
+
+          <!-- * NUMBER OF CAKES FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">How many cakes would you want to order ?<ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required formControlName="numberOfCakes" type="number"></ion-input>
+          </ion-item>
+
+          <!-- * JOB DESCRIPTION FORM CONTROL -->
+          <ion-item>
+            <ion-label position="floating">Job description<ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-textarea required formControlName="jobDescription" type="text"></ion-textarea>
+          </ion-item>
+
+          <!-- * DELIVERY DATE FORM CONTROL -->
+          <ion-item>
+            <ion-label position="stacked"> Delivery date </ion-label>
+            <ion-datetime formControlName="deliveryDate" placeholder="delivery date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6" offset="3">
+
+          <ion-button expand="block" fill="solid" shape="round" [disabled]="!JobFormData.valid"
+            (click)="submitJobsFormvalue(JobFormData.value)">
+            submit
+          </ion-button>
+
+
+        </ion-col>
+      </ion-row>
+
+    </ion-card>
+
+
+    <!-- todo IMAGE UPLOAD CARD -->
+
+    <ion-card class="ion-padding" *ngIf="SelectedAdtype === 'imageUploadCard'">
+      <ion-title class="ion-text-center" color="dark">upload images (4 max)</ion-title>
+
+
+      <ion-row *ngIf="firebasemanager.productImageFiles.length ===0">
+
+
+        <ion-col size="6" *ngFor="let img of [1,1,1,1]">
+          <img src="/assets/icon/placeholder.png">
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="firebasemanager.productImageFiles.length !==0">
+
+        <ion-col size="6" *ngFor="let img of firebasemanager.previewproductImageFiles; let i = index"
+          style="margin-left:auto;margin-right:auto">
+
+
+
+          <img [src]="getSantizeUrl(img)" alt=""
+            style="max-height: 96px; max-width: 96px; min-height: 96px; min-width: 96px; object-fit:cover; margin-left:auto;margin-right:auto "
+            (click)=deleteimage(i)>
+
+        </ion-col>
+
+        <ion-col size="10" offset="1">
+          <ion-label color="danger" style="width:100%">click on image to delete</ion-label>
+
+        </ion-col>
+      </ion-row>
+
+
+
+
+      <ion-label class="ion-text-center" *ngIf="firebasemanager.productImageFiles.length !== 4">
+
+
+        <label for="products-upload" class="custom-file-upload">
+          select images
+        </label>
+        <input id="products-upload" type="file" (change)="productimageupload($event)" />
+
+
+      </ion-label>
+
+
+
+      <ion-row *ngIf="firebasemanager.productImageFiles.length !== 0">
+        <ion-col size="8" offset="2">
+
+          <ion-button class="ion-text-center" expand="full" shape="round">
+            <ion-icon slot="start" name="images"></ion-icon>
+            <ion-label style="text-transform: lowercase;">Upload Image(S)</ion-label>
+          </ion-button>
+
+        </ion-col>
+      </ion-row>
+
+    </ion-card>
+  </div>
+
+</ion-content>

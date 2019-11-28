@@ -22,7 +22,7 @@ export class ProfileeditPage implements OnInit {
   }
 
   ngOnInit() {
-    this.profileCreationBio = this.FireBaseManager.CreateUser;
+    this.profileCreationBio = this.FireBaseManager.ReturnedUser;
 
     console.log('profile create new user: ', this.profileCreationBio);
 
@@ -42,9 +42,10 @@ export class ProfileeditPage implements OnInit {
       displayName: this.Userbio.displayName,
       phone: this.Userbio.phone,
       bio: this.Userbio.bio,
-
+      photoURL: this.FireBaseManager.UserbehaviourSubject.value.photoURL
     };
 
+    this.FireBaseManager.ReturnedUser = updateuser;
     this.FireBaseManager.EditUpdateProfile(updateuser);
 
 
@@ -78,7 +79,12 @@ export class ProfileeditPage implements OnInit {
     const extensilon  = this.uploadpic.name.substring(this.uploadpic.name.lastIndexOf('.') + 1);
     console.log('file input ', extensilon);
 
-    if ( extensilon === 'jpg' || extensilon === 'jpeg' || extensilon === 'png') {
+    if (  extensilon === 'jpg' ||
+          extensilon === 'jpeg' ||
+          extensilon === 'png' ||
+          extensilon === 'PNG' ||
+          extensilon === 'JPEG' ||
+          extensilon === 'JPG') {
     this.Photouploadctrl();
     this.FireBaseManager.uploadprofilepicture(pic, this.Userbio, this.loadingctrl);
 
@@ -95,12 +101,16 @@ export class ProfileeditPage implements OnInit {
 
     console.log(event.target.files[0]);
     const pic = event.target.files[0] ;
-   
     this.uploadpic = pic;
     const extensilon  = this.uploadpic.name.substring(this.uploadpic.name.lastIndexOf('.') + 1);
     console.log('file input ', extensilon);
 
-    if ( extensilon === 'jpg' || extensilon === 'jpeg' || extensilon === 'png') {
+    if ( extensilon === 'jpg' ||
+         extensilon === 'jpeg' ||
+         extensilon === 'png' ||
+         extensilon === 'PNG' ||
+         extensilon === 'JPEG'
+         || extensilon === 'JPG') {
     this.Photouploadctrl();
     this.FireBaseManager.uploadprofilepicture(pic, this.profileCreationBio, this.loadingctrl);
 

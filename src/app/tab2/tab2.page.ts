@@ -69,7 +69,7 @@ LoadingFromDataBase() {
 
     if (BakingJobs) {
       this.FireBaseService.BakingJobs = BakingJobs;
-      console.log('list of Baking jobs: ', BakingJobs);
+    //  console.log('list of Baking jobs: ', BakingJobs);
       this.DataLoaded = true;
 
 
@@ -83,7 +83,7 @@ LoadingFromDataBase() {
 
     if (Bakers) {
         this.FireBaseService.BakersListing = Bakers;
-        console.log('list of Bakers: ', Bakers);
+    //    console.log('list of Bakers: ', Bakers);
         this.DataLoaded = true;
 
 
@@ -98,7 +98,7 @@ LoadingFromDataBase() {
 
     if (Shops) {
         this.FireBaseService.ShopsListing = Shops;
-        console.log('list of Shops: ', Shops);
+     //   console.log('list of Shops: ', Shops);
         this.DataLoaded = true;
 
 

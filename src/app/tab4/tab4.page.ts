@@ -21,16 +21,17 @@ export class Tab4Page implements OnInit, OnDestroy {
   UserSubScription: Subscription;
   loggInSubscription: Subscription;
   currentusersubscription: Subscription;
- 
-  BakingJobs: BakingJobInterface ;
-  BakersListing: BakersInterface ;
-  ShopsListing: ShopsListingInterface ;
 
+  BakingJobs: BakingJobInterface;
+  BakersListing: BakersInterface;
+  ShopsListing: ShopsListingInterface;
 
+  // todo boolean for checking button
+  checked = true;
 
-LocalsJobListingSubscription: Subscription;
-LocalsBakersListingSubscription: Subscription;
-LocalsShopListingSubscription: Subscription;
+  LocalsJobListingSubscription: Subscription;
+  LocalsBakersListingSubscription: Subscription;
+  LocalsShopListingSubscription: Subscription;
 
   constructor(
     public FireBaseManager: FireBaseManagerservice,
@@ -41,13 +42,14 @@ LocalsShopListingSubscription: Subscription;
 
   ngOnInit() {
 
+    this.checked = true;
     this.currentusersubscription = this.FireBaseManager.UserbehaviourSubject.subscribe(
       returnedUser => {
         const userempty = Object.keys(returnedUser);
-        console.log('returnd user behaviour subject', userempty);
+        //   console.log('returnd user behaviour subject', userempty);
 
         if (userempty.length === 0) {
-          console.log(' the object is empty ');
+          //    console.log(' the object is empty ');
           this.returnedUserKeys = false;
         } else {
           this.returnedUserKeys = true;
@@ -58,7 +60,7 @@ LocalsShopListingSubscription: Subscription;
     this.loggInSubscription = this.FireBaseManager.behaiourIsLogged.subscribe(
       result => {
         this.LoggedIn = result;
-        console.log('firtebase log status tab 4: ', this.LoggedIn);
+        //    console.log('firtebase log status tab 4: ', this.LoggedIn);
       }
     );
 
@@ -66,62 +68,62 @@ LocalsShopListingSubscription: Subscription;
       this.FireBaseManager.ReturnedUser !== null ||
       this.FireBaseManager.ReturnedUser !== undefined
     ) {
-      console.log('user is not null: ', this.FireBaseManager.ReturnedUser);
+      //   console.log('user is not null: ', this.FireBaseManager.ReturnedUser);
     }
 
 
-    this.LoadingFromDataBase() ;
- 
+    this.LoadingFromDataBase();
+
 
   }
 
   LoadingFromDataBase() {
     this.LocalsJobListingSubscription = this.FireBaseManager.BakingJobsObservable.subscribe(BakingJobs => {
-  
+
       if (BakingJobs) {
         this.FireBaseManager.BakingJobs = BakingJobs;
-        console.log('list of Baking jobs: ', BakingJobs);
-       
-  
-  
+        //  console.log('list of Baking jobs: ', BakingJobs);
+
+
+
       } else {
         console.log('no bakering jobs listing at the moment');
       }
-  
+
     });
-  
-    this.LocalsBakersListingSubscription = this.FireBaseManager.BakersObservable.subscribe (Bakers => {
-  
+
+    this.LocalsBakersListingSubscription = this.FireBaseManager.BakersObservable.subscribe(Bakers => {
+
       if (Bakers) {
-          this.FireBaseManager.BakersListing = Bakers;
-          console.log('list of Bakers: ', Bakers);
-         
-  
-  
+        this.FireBaseManager.BakersListing = Bakers;
+        //   console.log('list of Bakers: ', Bakers);
+
+
+
       } else {
         console.log('no bakers listing at the moment');
       }
-  
+
     });
-  
-  
-    this.LocalsShopListingSubscription = this.FireBaseManager.ShopsObservable.subscribe (Shops => {
-  
+
+
+    this.LocalsShopListingSubscription = this.FireBaseManager.ShopsObservable.subscribe(Shops => {
+
       if (Shops) {
-          this.FireBaseManager.ShopsListing = Shops;
-          console.log('list of Shops: ', Shops);
-         
-  
-  
-  
+        this.FireBaseManager.ShopsListing = Shops;
+        // console.log('list of Shops: ', Shops);
+
+
+
+
       } else {
         console.log('no Shops listing at the moment');
       }
-  
+
     });
-  
+
   }
-  
+
 
   ngOnDestroy() {
     // this.UserSubScription.unsubscribe();

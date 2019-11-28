@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import {timer, Subscription} from 'rxjs';
+import { timer, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { FireBaseManagerservice } from './services/FireBaseManager.service';
 
@@ -34,42 +34,42 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
 
-     this.platform.ready().then(() => {
-    console.log('working console log ');
-   
-
-    
-
-    this.FirebaseManager.CheckLogin();
-
-    this.FirebaseManager.Spinner.subscribe(result => {
-    this.showsplash = result;
-
-  });
-    console.log('boolean state: ', this.showsplash);
-
-    if (this.platform.is('cordova')) {
-      this.FirebaseManager.Logintype = 1;
-
-    } else {
-      this.FirebaseManager.Logintype = 2;
+    this.platform.ready().then(() => {
+      //  console.log('working console log ');
 
 
-    }
-
-    this.statusBar.styleDefault();
 
 
-   
+      this.FirebaseManager.CheckLogin();
 
-    // this.splashScreen.hide();
-    timer(500).subscribe(() => this.router.navigate(['/tabs/tab1']));
-    timer(2000).subscribe(() => this.splashScreen.hide() );
+      this.FirebaseManager.Spinner.subscribe(result => {
+        this.showsplash = result;
 
-     } );
+      });
+      // console.log('boolean state: ', this.showsplash);
+
+      if (this.platform.is('cordova')) {
+        this.FirebaseManager.Logintype = 1;
+
+      } else {
+        this.FirebaseManager.Logintype = 2;
 
 
-    
+      }
+
+      this.statusBar.styleDefault();
+
+
+
+
+      // this.splashScreen.hide();
+      timer(500).subscribe(() => this.router.navigate(['/tabs/tab1']));
+      timer(2000).subscribe(() => this.splashScreen.hide());
+
+    });
+
+
+
   }
 
   disablesplash() {

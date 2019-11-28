@@ -1,4 +1,4 @@
-import { Component, OnInit,  } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { GlobalServiceService } from '../services/global-service.service';
 
 
@@ -10,8 +10,8 @@ import { GlobalServiceService } from '../services/global-service.service';
 })
 export class Tab1Page implements OnInit {
 
-  constructor(  public GService: GlobalServiceService) {
-   // this.plt.backButton().sub ;
+  constructor(public GService: GlobalServiceService) {
+    // this.plt.backButton().sub ;
   }
 
 
@@ -28,9 +28,6 @@ export class Tab1Page implements OnInit {
 
 
   ngOnInit() {
-    console.log('tab 1 loaded');
-   
-    
 
   }
 
@@ -59,10 +56,10 @@ export class Tab1Page implements OnInit {
 
 
 
-NewRecipeForm(isEditable: boolean) {
-  this.GService.isRecipeEditable = isEditable;
+  NewRecipeForm(isEditable: boolean) {
+    this.GService.isRecipeEditable = isEditable;
 
-}
+  }
 
 
 
@@ -77,9 +74,9 @@ NewRecipeForm(isEditable: boolean) {
     this.EditPersonalRecepie(state);
   }
 
-  EditPersonalRecepie( isEditable: boolean) {
+  EditPersonalRecepie(isEditable: boolean) {
     this.GService.isRecipeEditable = isEditable;
-  //  this.GService.loadSpecificPersonalRecipe(title);
+    //  this.GService.loadSpecificPersonalRecipe(title);
 
   }
 

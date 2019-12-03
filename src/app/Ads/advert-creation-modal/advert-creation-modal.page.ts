@@ -72,7 +72,7 @@ export class AdvertCreationModalPage implements OnInit {
     this.Bakersform();
     this.Jobsform();
 
-    console.log('image link value', this.BakersFormData.get('BakerImageUrl').value);
+  //  console.log('image link value', this.BakersFormData.get('BakerImageUrl').value);
 
     this.firebasemanager.storeimagelink.next(this.BakersFormData.get('BakerImageUrl').value);
 
@@ -111,7 +111,7 @@ export class AdvertCreationModalPage implements OnInit {
     this.firebasemanager.storeimagelink.subscribe(link => {
       this.updateBakerImageValue(link);
       this.storeimagelink = link;
-      console.log('image link from subject: ', this.storeimagelink);
+   //   console.log('image link from subject: ', this.storeimagelink);
 
       if (this.firebasemanager.UpdateAd === true) {
         //  this.firebasemanager.storeimagelink.next(this.BakersFormData.get('BakerImageUrl').value);
@@ -508,8 +508,8 @@ export class AdvertCreationModalPage implements OnInit {
       .set(val, { merge: true })
       .then(() => {
         // this.loadingctrl.dismiss();
-        console.log('updated bakers form data: ', val);
-        console.log('updated succesfully');
+        //     console.log('updated bakers form data: ', val);
+        //   console.log('updated succesfully');
       })
       .catch(err => {
         console.log('error:', err);
@@ -725,7 +725,7 @@ export class AdvertCreationModalPage implements OnInit {
     this.ExtensionCheckerProfile(event);
   }
 
-  ExtensionCheckerProfile(event) {
+  ExtensionCheckerProfile(event, ) {
     const uploadpic: File = event.target.files[0];
     const extensilon = uploadpic.name.substring(
       uploadpic.name.lastIndexOf('.') + 1
@@ -740,6 +740,8 @@ export class AdvertCreationModalPage implements OnInit {
       extensilon === 'JPG' ||
       extensilon === 'JPEG'
     ) {
+      this.presentLoading('uploading store image');
+
       this.firebasemanager.detectprofilefile(event);
     } else {
       this.WrongfileUpload();

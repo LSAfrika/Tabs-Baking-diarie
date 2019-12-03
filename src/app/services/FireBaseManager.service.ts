@@ -105,7 +105,8 @@ export class FireBaseManagerservice {
     private fb: Facebook,
     private alertctrl: AlertController,
     private AFStorage: AngularFireStorage,
-    private newtworkCtrl: Network) {
+    private newtworkCtrl: Network,
+    private loadingCtrl: LoadingController) {
 
     this.JobsListingFireStore();
     this.BakersListingFireStore();
@@ -409,8 +410,8 @@ export class FireBaseManagerservice {
 
         this.storeimagelink.next(imgLink);
 
-        // loading.dismiss();
-        this.AlertNotifier('profile iamge uploaded');
+        this.loadingCtrl.dismiss();
+        this.AlertNotifier('profile image uploaded');
 
 
       });

@@ -23,17 +23,17 @@
           <ion-label color="primary">Select type of ad you want to create</ion-label>
         </ion-list-header>
 
-        <ion-item lines="none" (click)="SelectedAd('Baker')">
+        <ion-item *ngIf="firebasemanager.IsBakerAvailable === false" lines="none" (click)="SelectedAd('Baker')">
           <ion-label>Baker's Listing</ion-label>
           <ion-radio slot="start" value="Baker" [checked]="checked1"></ion-radio>
         </ion-item>
 
-        <ion-item lines="none" (click)="SelectedAd('Shop')">
+        <ion-item *ngIf="firebasemanager.IsShopAvailable === false" lines="none" (click)="SelectedAd('Shop')">
           <ion-label>Accessories Shop Listing</ion-label>
           <ion-radio slot="start" value="Shop" [checked]="checked2"></ion-radio>
         </ion-item>
 
-        <ion-item lines="none" (click)="SelectedAd('Job')">
+        <ion-item *ngIf="firebasemanager.IsJobAvailable === false" lines="none" (click)="SelectedAd('Job')">
           <ion-label>Jobs Listings</ion-label>
           <ion-radio slot="start" value="Job" [checked]="checked3"></ion-radio>
         </ion-item>
@@ -538,7 +538,7 @@
       <ion-row *ngIf="firebasemanager.productImageFiles.length ===0">
 
 
-        <ion-col size="6" *ngFor="let img of [1,1,1,1]">
+        <ion-col size="6" *ngFor="let img of [1,1,1,1]" class="ion-no-padding" class="ion-no-margin">
           <img src="/assets/icon/placeholder.png">
 
         </ion-col>
@@ -546,7 +546,7 @@
 
       <ion-row *ngIf="firebasemanager.productImageFiles.length !==0">
 
-        <ion-col size="6" *ngFor="let img of firebasemanager.previewproductImageFiles; let i = index"
+        <ion-col class="ion-no-padding" class="ion-no-margin" size="6" *ngFor="let img of firebasemanager.previewproductImageFiles; let i = index"
           style="margin-left:auto;margin-right:auto">
 
 

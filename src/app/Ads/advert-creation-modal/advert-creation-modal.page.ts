@@ -72,7 +72,7 @@ export class AdvertCreationModalPage implements OnInit {
     this.Bakersform();
     this.Jobsform();
 
-  //  console.log('image link value', this.BakersFormData.get('BakerImageUrl').value);
+    //  console.log('image link value', this.BakersFormData.get('BakerImageUrl').value);
 
     this.firebasemanager.storeimagelink.next(this.BakersFormData.get('BakerImageUrl').value);
 
@@ -111,11 +111,11 @@ export class AdvertCreationModalPage implements OnInit {
     this.firebasemanager.storeimagelink.subscribe(link => {
       this.updateBakerImageValue(link);
       this.storeimagelink = link;
-   //   console.log('image link from subject: ', this.storeimagelink);
+      //   console.log('image link from subject: ', this.storeimagelink);
 
       if (this.firebasemanager.UpdateAd === true) {
-        //  this.firebasemanager.storeimagelink.next(this.BakersFormData.get('BakerImageUrl').value);
-        this.submitBakerUpdatedFormvalue(this.BakersFormData.value);
+        //  console.log('Editable returned baker form data: ', this.firebasemanager.ReturnedBaker);
+        this.submitBakerUpdatedFormvalue(this.firebasemanager.ReturnedBaker);
       }
     });
 

@@ -1,7 +1,5 @@
-
-
-    <!-- * CATEGORY SAEGMENT BUTTONS -->
-    <!-- <ion-row   [hidden]="SearchBarActive" class="ion-no-margin" class="ion-no-padding" >
+<!-- * CATEGORY SAEGMENT BUTTONS -->
+<!-- <ion-row   [hidden]="SearchBarActive" class="ion-no-margin" class="ion-no-padding" >
 
 
       <ion-col offset="1"  size="10" class="ion-no-margin" class="ion-no-padding">
@@ -37,51 +35,49 @@
     </ion-row> -->
 
 
-    <!-- * SEARCH BAR COMPONENT -->
-    <ion-toolbar color="primary">
-     
-    <ion-row class="ion-no-margin" class="ion-no-padding" color="primary">
-        <ion-col  size="12 " class="ion-no-margin" class="ion-no-padding" [hidden]="!IsSearchBarVisible">
-          <ion-searchbar   [placeholder]="filter"  [debounce]="250"></ion-searchbar>
+<!-- * SEARCH BAR COMPONENT -->
+<ion-toolbar color="primary">
 
-        </ion-col>
+  <ion-row class="ion-no-margin" class="ion-no-padding" color="primary">
+    <ion-col size="12 " class="ion-no-margin" class="ion-no-padding" [hidden]="!IsSearchBarVisible">
+      <ion-searchbar [placeholder]="filter" [debounce]="250"></ion-searchbar>
 
-
-        <ion-col  offset="1"  size="10" class="ion-no-margin" class="ion-no-padding">
-            <ion-segment  >
+    </ion-col>
 
 
-                <ion-segment-button (click)="filterSubject(1)" checked>
-                  <ion-label style=" text-transform: lowercase;">Bakers</ion-label>
-                </ion-segment-button>
-                <!-- icon position start layout="icon-start"  -->
-                <ion-segment-button (click)="filterSubject(2)">
+    <ion-col offset="1" size="10" class="ion-no-margin" class="ion-no-padding">
+      <ion-segment>
 
-                  <ion-label style=" text-transform: lowercase;">Shops</ion-label>
-                </ion-segment-button>
-                <ion-segment-button (click)="filterSubject(3)">
 
-                   <ion-label style=" text-transform: lowercase;"> jobs</ion-label>
-                 </ion-segment-button>
-                
-                 
-                 
-                 
+        <ion-segment-button (click)="filterSubject(1)" checked>
+          <ion-label style=" text-transform: lowercase;">Bakers</ion-label>
+        </ion-segment-button>
+        <!-- icon position start layout="icon-start"  -->
+        <ion-segment-button (click)="filterSubject(2)">
 
-              </ion-segment>
+          <ion-label style=" text-transform: lowercase;">Shops</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="filterSubject(3)">
 
-        </ion-col>
-       
-         <!-- <ion-col class="ion-no-margin" class="ion-no-padding" size="2" (click)="SearchBar()">
+          <ion-label style=" text-transform: lowercase;"> jobs</ion-label>
+        </ion-segment-button>
+
+
+
+
+
+      </ion-segment>
+
+    </ion-col>
+
+    <!-- <ion-col class="ion-no-margin" class="ion-no-padding" size="2" (click)="SearchBar()">
           <ion-icon name="close-circle" color="primary" size="large" class="searchIconposition"></ion-icon>
 
         </ion-col> -->
 
-      </ion-row>
+  </ion-row>
 
-    </ion-toolbar>
-
-
+</ion-toolbar>
 
 
 
@@ -95,116 +91,118 @@
 
 
 
- 
 
 
 
 
 
 
-<ion-content   [scrollEvents]="true"
-(ionScrollStart)="logScrollStart()"
-(ionScroll)="logScrolling($event)"
-(ionScrollEnd)="logScrollEnd()"  >
 
 
-   <!-- TODO BAKERS LISTING SECTION -->
-   <div [hidden]="filter !== 'bakers near you'">
-      <ion-card *ngFor="let Baker of FireBaseService.BakersListing; let i = index"   >
 
-          <ion-item lines="none" >
-              <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
-                <img *ngIf="Baker.BakerImageUrl === null || Baker.BakerImageUrl === ''"  src="/assets/icon/defaultCake.png" style="border-radius: 15%;border:2px solid #5576fb">
-
-                <img *ngIf="Baker.BakerImageUrl !== null && Baker.BakerImageUrl !== ''"  src="{{Baker.BakerImageUrl}}" style="border-radius: 15%;border:2px solid #5576fb">
-              </ion-thumbnail>
-              <ion-label>
-                  
-                  <ion-label color="dark" class="ion-text-center">
-                    <ion-title color="primary">
-                    
-                        {{Baker.BakerName}}
-
-                   
-                    
-
-     
-                  </ion-title>
-                  <ion-label color="dark"> location :{{Baker.BakerLocation}}</ion-label>
-                  <ion-button expand="block" fill="solid" shape="round" (click)="viewBakerListing(i)">
-                      <ion-label style="text-transform: lowercase; width:100%; text-align: center">view Baker</ion-label>
-                  </ion-button>
-                           
-
-      </ion-label>
-     
-                
-              </ion-label>
-              
-            </ion-item>
-        
-         
-        
-        
-        
-          
-     
-            
-             
-        
-       
-      
-        
-      </ion-card>
+<ion-content [scrollEvents]="true" (ionScrollStart)="logScrollStart()" (ionScroll)="logScrolling($event)"
+  (ionScrollEnd)="logScrollEnd()">
 
 
-      
-    </div>
-    
-   
-   
-    <!-- TODO SHOPS LISTING SECTION -->
-    <div [hidden]="filter !== 'accessories shops near you'">
-      <ion-label class="ion-text-justify">shops view</ion-label>
-    </div>
+  <!-- TODO BAKERS LISTING SECTION -->
+  <div [hidden]="filter !== 'bakers near you'">
+    <ion-card *ngFor="let Baker of FireBaseManager.BakersListing; let i = index">
 
-     <!-- TODO BAKING JOBS LISTING SECTION -->
-     <div [hidden]="filter !== 'baking jobs near you'">
-        <!-- <ion-label>array is not empty</ion-label> -->
-        <!-- {{localitems | json}} -->
-        
-        <ion-card class="ion-padding" *ngFor="let Job of FireBaseService.BakingJobs; let i = index" >
-          
-          <ion-card-title color="primary"><strong>
-              {{Job.title}}
-  
-          </strong>
-        </ion-card-title>
-        <ion-icon color="primary" name="calendar"></ion-icon> 
-        <ion-label color="dark"> delivery date :{{Job.deliveryDate | date:'shortDate'}}</ion-label> <br>
-           <ion-card-subtitle>
-             <strong style="color: #4b68dd">Description: </strong> 
-            <p class="deswrapper">
-              {{Job.jobDescription}}
-            </p>
-  
-          </ion-card-subtitle >  
-          <ion-button  fill="solid" shape="round" (click)="viewJobListing(i)">
-              <ion-label style="text-transform: lowercase; width:100%; text-align: center">view Job</ion-label>
-          </ion-button>
-         
-        
-          
-        </ion-card>
-      </div>
-   
-    
-    <br class="break"/>
-    <br class="break"/>
-    <br class="break"/>
-    <br class="break"/>
+      <ion-item lines="none">
+        <ion-thumbnail slot="start" style="width: 92px;height: 92px; max-width: 92px;max-height: 92px;">
+          <img *ngIf="Baker.BakerImageUrl === null || Baker.BakerImageUrl === ''" src="/assets/icon/defaultCake.png"
+            style="border-radius: 15%;border:2px solid #5576fb">
 
-    <!-- <ion-fab  vertical="bottom" horizontal="end" slot="fixed" size="large">
+          <img *ngIf="Baker.BakerImageUrl !== null && Baker.BakerImageUrl !== ''" src="{{Baker.BakerImageUrl}}"
+            style="border-radius: 15%;border:2px solid #5576fb">
+        </ion-thumbnail>
+        <ion-label>
+
+          <ion-label color="dark" class="ion-text-center">
+            <ion-title color="primary">
+
+              {{Baker.BakerName}}
+
+
+
+
+
+            </ion-title>
+            <ion-label color="dark"> location :{{Baker.BakerLocation}}</ion-label>
+            <ion-button expand="block" fill="solid" shape="round" (click)="viewBakerListing(i)">
+              <ion-label style="text-transform: lowercase; width:100%; text-align: center">view Baker</ion-label>
+            </ion-button>
+
+
+          </ion-label>
+
+
+        </ion-label>
+
+      </ion-item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </ion-card>
+
+
+
+  </div>
+
+
+
+  <!-- TODO SHOPS LISTING SECTION -->
+  <div [hidden]="filter !== 'accessories shops near you'">
+    <ion-label class="ion-text-justify">shops view</ion-label>
+  </div>
+
+  <!-- TODO BAKING JOBS LISTING SECTION -->
+  <div [hidden]="filter !== 'baking jobs near you'">
+    <!-- <ion-label>array is not empty</ion-label> -->
+    <!-- {{localitems | json}} -->
+
+    <ion-card class="ion-padding" *ngFor="let Job of FireBaseManager.BakingJobs; let i = index">
+
+      <ion-card-title color="primary"><strong>
+          {{Job.title}}
+
+        </strong>
+      </ion-card-title>
+      <ion-icon color="primary" name="calendar"></ion-icon>
+      <ion-label color="dark"> delivery date :{{Job.deliveryDate | date:'shortDate'}}</ion-label> <br>
+      <ion-card-subtitle>
+        <strong style="color: #4b68dd">Description: </strong>
+        <p class="deswrapper">
+          {{Job.jobDescription}}
+        </p>
+
+      </ion-card-subtitle>
+      <ion-button fill="solid" shape="round" (click)="viewJobListing(i)">
+        <ion-label style="text-transform: lowercase; width:100%; text-align: center">view Job</ion-label>
+      </ion-button>
+
+
+
+    </ion-card>
+  </div>
+
+
+  <br class="break" />
+  <br class="break" />
+  <br class="break" />
+  <br class="break" />
+
+  <!-- <ion-fab  vertical="bottom" horizontal="end" slot="fixed" size="large">
       <ion-fab-button color="primary"  [routerLink]="['/advert-creation-modal']" >
 
         <ion-icon name="add" size="large"></ion-icon>
@@ -212,29 +210,21 @@
     </ion-fab> -->
 
 
-</ion-content >
+</ion-content>
 
 
 
 
-<div class="setpos" >
-    <ion-row>
-        <ion-col size="6" offset="3">
-            <ion-button
-            
-      shape="round"
-      fill = solid
-      expand="block"
-     (click)="AdvertCreation()"
-      >
-      <ion-icon slot="start" name="images"></ion-icon>
-      <ion-label  style="text-transform: lowercase;">
-        create ad
-      </ion-label>
-    </ion-button>
-        </ion-col>
-      </ion-row>
+<div class="setpos">
+  <ion-row>
+    <ion-col size="6" offset="3">
+      <ion-button shape="round" fill=solid expand="block" (click)="AdvertCreation()">
+        <ion-icon slot="start" name="images"></ion-icon>
+        <ion-label style="text-transform: lowercase;">
+          create ad
+        </ion-label>
+      </ion-button>
+    </ion-col>
+  </ion-row>
 
-</div> 
-
-
+</div>

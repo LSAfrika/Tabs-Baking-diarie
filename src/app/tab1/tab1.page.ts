@@ -1,4 +1,5 @@
-import { Component, OnInit, } from '@angular/core';
+import { FireBaseManagerservice } from './../services/FireBaseManager.service';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { GlobalServiceService } from '../services/global-service.service';
 
 
@@ -8,9 +9,9 @@ import { GlobalServiceService } from '../services/global-service.service';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit {
+export class Tab1Page implements OnInit, AfterViewInit {
 
-  constructor(public GService: GlobalServiceService) {
+  constructor(public GService: GlobalServiceService, private firebasemanager: FireBaseManagerservice) {
     // this.plt.backButton().sub ;
   }
 
@@ -30,13 +31,22 @@ export class Tab1Page implements OnInit {
   ngOnInit() {
 
   }
+  ngAfterViewInit() {
+    console.log('view did load');
+
+
+  }
 
   ionViewWillEnter() {
     this.Tab1 = false;
     this.Tab2 = true;
     this.IsActive = true;
 
+    this.firebasemanager.InitialLoading.next(true);
+
+
   }
+
 
   StateToggler(state: boolean) {
     if (state) {

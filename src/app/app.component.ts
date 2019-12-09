@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { timer, Subscription } from 'rxjs';
+import { timer, Subscription, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { FireBaseManagerservice } from './services/FireBaseManager.service';
 
@@ -12,14 +12,13 @@ import { FireBaseManagerservice } from './services/FireBaseManager.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
 
   // todo remeber to set this to true
-  showsplash = true;
-  showspinner = true;
+  showsplash = false;
+  showspinner = false;
   ReturnedUserSubscription: Subscription;
-
 
   constructor(
     private platform: Platform,
@@ -37,15 +36,17 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       //  console.log('working console log ');
 
+      this.router.navigate(['/tabs/tab1']);
+
 
 
 
       this.FirebaseManager.CheckLogin();
 
-      this.FirebaseManager.Spinner.subscribe(result => {
-        this.showsplash = result;
+      // this.FirebaseManager.Spinner.subscribe(result => {
+      //   this.showsplash = result;
 
-      });
+      // });
       // console.log('boolean state: ', this.showsplash);
 
       if (this.platform.is('cordova')) {
@@ -56,42 +57,20 @@ export class AppComponent implements OnInit {
 
 
       }
+      this.splashScreen.hide();
+
 
       this.statusBar.styleDefault();
 
 
 
-
-      // this.splashScreen.hide();
-      timer(500).subscribe(() => this.router.navigate(['/tabs/tab1']));
-      timer(2000).subscribe(() => this.splashScreen.hide());
+      this.FirebaseManager.InitialLoading.subscribe(initialload => {
+        this.showsplash = initialload;
+        this.showspinner = initialload;
+        console.log('value of loading boolean: ', initialload);
+      });
 
     });
-
-
-
-  }
-
-  disablesplash() {
-    this.FirebaseManager.Spinner.next(false);
-
-  }
-
-  facebooklogin() {
-    this.FirebaseManager.facebooklogin();
-  }
-
-  Logout() {
-    this.FirebaseManager.logout();
-
-  }
-
-
-  ngOnInit() {
-
-
-
-
 
   }
 }

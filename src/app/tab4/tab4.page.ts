@@ -15,7 +15,7 @@ import { ShopsListingInterface } from '../interfaces/ShopsListing.interface';
 export class Tab4Page implements OnInit, OnDestroy {
   Tabs = 'notifications';
 
-  returnedUserKeys = false;
+  loggedInUser = false;
   LoggedIn = false;
   ReturnedUser: UserInterface;
   UserSubScription: Subscription;
@@ -42,34 +42,36 @@ export class Tab4Page implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.checked = true;
-    this.currentusersubscription = this.FireBaseManager.UserbehaviourSubject.subscribe(
-      returnedUser => {
-        const userempty = Object.keys(returnedUser);
-        //   console.log('returnd user behaviour subject', userempty);
+    this.loggedInUser = this.FireBaseManager.FacebookloginState;
 
-        if (userempty.length === 0) {
-          //    console.log(' the object is empty ');
-          this.returnedUserKeys = false;
-        } else {
-          this.returnedUserKeys = true;
-        }
-      }
-    );
+    //  this.checked = true;
+    // this.currentusersubscription = this.FireBaseManager.UserbehaviourSubject.subscribe(
+    //   returnedUser => {
+    //     const userempty = Object.keys(returnedUser);
+    //     console.log('returnd usertab 4: ', returnedUser);
 
-    this.loggInSubscription = this.FireBaseManager.behaiourIsLogged.subscribe(
-      result => {
-        this.LoggedIn = result;
-        //    console.log('firtebase log status tab 4: ', this.LoggedIn);
-      }
-    );
+    //     if (userempty.length === 0) {
+    //       //    console.log(' the object is empty ');
+    //       this.loggedInUser = false;
+    //     } else {
+    //       this.loggedInUser = true;
+    //     }
+    //   }
+    // );
 
-    if (
-      this.FireBaseManager.ReturnedUser !== null ||
-      this.FireBaseManager.ReturnedUser !== undefined
-    ) {
-      //   console.log('user is not null: ', this.FireBaseManager.ReturnedUser);
-    }
+    // this.loggInSubscription = this.FireBaseManager.behaiourIsLogged.subscribe(
+    //   result => {
+    //     this.LoggedIn = result;
+    //     //    console.log('firtebase log status tab 4: ', this.LoggedIn);
+    //   }
+    // );
+
+    // if (
+    //   this.FireBaseManager.ReturnedUser !== null ||
+    //   this.FireBaseManager.ReturnedUser !== undefined
+    // ) {
+    //   //   console.log('user is not null: ', this.FireBaseManager.ReturnedUser);
+    // }
 
 
     this.LoadingFromDataBase();
@@ -141,16 +143,11 @@ export class Tab4Page implements OnInit, OnDestroy {
   }
 
   Login() {
+    console.log('calling log in function');
     this.FireBaseManager.facebooklogin();
   }
 
-  tabSwitch(tab: string) {
-    if (tab === 'notifications') {
-      this.Tabs = tab;
-    } else if (tab === 'profile') {
-      this.Tabs = tab;
-    }
-  }
+
 
   EditProfile() {
     this.router.navigate(['/profileedit']);

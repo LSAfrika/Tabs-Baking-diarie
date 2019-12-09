@@ -1,11 +1,11 @@
 import { File } from '@ionic-native/file/ngx';
 import { UserInterface } from './../interfaces/user.interface';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-//import * as firebase from 'firebase/app';
+// import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { BakingJobInterface } from '../interfaces/BakingJob.interace';
 import { BakersInterface } from '../interfaces/BakerListing.interface';
@@ -57,6 +57,8 @@ export class FireBaseManagerservice {
   Spinner: BehaviorSubject<boolean>;
   storeimagelink: BehaviorSubject<string>;
   UserbehaviourSubject: BehaviorSubject<UserInterface>;
+  InitialLoading: BehaviorSubject<boolean>;
+
   // todo SPLASH SCREEN UI \\
   SplashScreen = true;
 
@@ -93,12 +95,18 @@ export class FireBaseManagerservice {
   CreateUser: UserInterface;
 
 
+  // todo Ad creation boolean to control access
+  IsBakerAvailable = false;
+  IsJobAvailable = false;
+  IsShopAvailable = false;
+
   // todo files array
   productImageFiles: File[] = [];
   previewproductImageFiles: string[] = [];
   productImagesCounter = 0;
 
-  constructor(private afs: AngularFirestore,
+  constructor(
+    private afs: AngularFirestore,
     private router: Router,
     private fireAuth: AngularFireAuth,
     private platform: Platform,
@@ -116,6 +124,7 @@ export class FireBaseManagerservice {
 
     const emptyUser = {} as UserInterface;
     this.UserbehaviourSubject = new BehaviorSubject(undefined);
+    this.InitialLoading = new BehaviorSubject(false);
     this.behaiourIsLogged = new BehaviorSubject(false);
     this.Spinner = new BehaviorSubject(true);
     this.storeimagelink = new BehaviorSubject('');
@@ -126,8 +135,8 @@ export class FireBaseManagerservice {
 
   NetworkOnConnect() {
 
-    //   console.log('on connect function is being called');
-    this.newtworkCtrl.onConnect().subscribe(() => {
+    console.log('on connect function is being called');
+    const net = this.newtworkCtrl.onConnect().subscribe(() => {
       console.log('internet active');
     });
   }
@@ -169,7 +178,7 @@ export class FireBaseManagerservice {
 
 
 
-      //  console.log ('user credentials: ', user);
+      console.log('facebook login state: ', this.FacebookloginState);
     } else {
 
       this.behaiourIsLogged.next(false);
@@ -177,6 +186,8 @@ export class FireBaseManagerservice {
 
       this.Buttontext = 'skip';
       this.FacebookloginState = false;
+      console.log('facebook login state: ', this.FacebookloginState);
+
       this.Alerttext = 'continue without signing in ?';
 
 
@@ -466,7 +477,7 @@ export class FireBaseManagerservice {
 
   uploadphoto(data: UserInterface, path: string) {
     this.User = this.afs.doc(path);
-    this.User.set(data, { merge: true })
+    this.User.set(data, { merge: true });
     this.Profileuploadnotifier();
 
   }

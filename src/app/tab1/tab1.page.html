@@ -1,97 +1,90 @@
-      
-      <!-- <ion-header > -->
-        <!-- hidenav-header  -->
-        <ion-toolbar color="primary" >
-       <ion-segment   >
-       
-       <!-- icon slots position layout="icon-start" 
+<!-- <ion-header > -->
+<!-- hidenav-header  -->
+<ion-toolbar color="primary">
+  <ion-segment>
+
+    <!-- icon slots position layout="icon-start" 
            layout="icon-start"  -->
 
-            <ion-segment-button [checked]="IsActive" (click)="StateToggler(true)">
-              <ion-icon name="filing"> </ion-icon>
-              <ion-label style=" text-transform: lowercase;">recipes</ion-label>
-            </ion-segment-button>
-            <ion-segment-button  [checked]="!IsActive" (click)="StateToggler(false)">
-              <ion-icon name="bookmarks"></ion-icon>
-              <ion-label style=" text-transform: lowercase;">my recipes</ion-label>
-            </ion-segment-button>
-         
-
-          </ion-segment> 
-         
-        </ion-toolbar>
-        <!-- </ion-header> -->
+    <ion-segment-button [checked]="IsActive" (click)="StateToggler(true)">
+      <ion-icon name="filing"> </ion-icon>
+      <ion-label style=" text-transform: lowercase;">recipes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button [checked]="!IsActive" (click)="StateToggler(false)">
+      <ion-icon name="bookmarks"></ion-icon>
+      <ion-label style=" text-transform: lowercase;">my recipes</ion-label>
+    </ion-segment-button>
 
 
+  </ion-segment>
+
+</ion-toolbar>
+<!-- </ion-header> -->
 
 
 
-<ion-content  >
+
+
+<ion-content>
   <!--  #scrollArea scrollEvents="true"  hidenav-content -->
 
-  <div [hidden]="Tab1"  class="Expand">
+  <div [hidden]="Tab1" class="Expand">
 
-    <ion-card   *ngFor="let recipes of GService.AppRecipies"   >
+    <ion-card *ngFor="let recipes of GService.AppRecipies">
 
-  <ion-item lines="none" >
-      <div class="imageSizeMax">
+      <ion-item lines="none">
+        <div class="imageSizeMax">
           <img class="border" [src]="recipes.imageUrl">
         </div>
 
-        
-      <ion-row>
+
+        <ion-row>
           <div style="width: 128px;margin-left:calc(50% - 64px)">
-        <ion-col size="12">
-            <ion-label class="ion-text-center" style="color:#4b68dd;font-weight: 500">{{recipes.title}}</ion-label>
-        </ion-col>
-      </div>
-      <!--  " -->
-        <ion-col size="10" offset="1">
-            <ion-button color="primary" 
-                        shape="round" 
-                        expand="full"
-                        fill="solid" 
-                       
-                         style=" text-transform: lowercase;font-weight: 300;" 
-                         (click)="ViewRecepie(recipes.title,false)"
-                         [routerLink]="['/view-recepie-modal']" 
-                         >
-                         
-                         view recipe </ion-button>
+            <ion-col size="12">
+              <ion-label class="ion-text-center" style="color:#4b68dd;font-weight: 500">{{recipes.title}}</ion-label>
+            </ion-col>
+          </div>
+          <!--  " -->
+          <ion-col size="10" offset="1">
+            <ion-button color="primary" shape="round" expand="full" fill="solid"
+              style=" text-transform: lowercase;font-weight: 300;" (click)="ViewRecepie(recipes.title,false)"
+              [routerLink]="['/view-recepie-modal']">
+
+              view recipe </ion-button>
           </ion-col>
-      </ion-row>
-        
+        </ion-row>
+
       </ion-item>
 
 
- 
-     
+
+
     </ion-card>
 
   </div>
 
   <div [hidden]="Tab2" class="Expand">
-    <div *ngIf="GService.personalRecipies && GService.personalRecipies.length===0"  class="notes">
-        add your Recepies
+    <div *ngIf="GService.personalRecipies && GService.personalRecipies.length===0" class="notes">
+      add your Recepies
     </div>
-    <div >
-      <ion-card   *ngFor="let recipes of GService.personalRecipies"   >
+    <div>
+      <ion-card *ngFor="let recipes of GService.personalRecipies">
 
-        <ion-item lines="none" >
-            <div class="imageSizeMax">
-              <img   class="borderCircle" src="{{recipes.imageUrl}}" >
-              
-              <!-- <img *ngIf="recipes.imageUrl === null" class="borderCircle" src="/assets/icon/defaultCake.png"> -->
-              </div>
-      
-              
-            <ion-row>
-                <div style="width: 128px;margin-left:calc(50% - 64px)">
-              <ion-col size="12" >
-                
-                  <ion-label text-center  style="color:#5576fb;font-weight: 400;width: 100%">{{recipes.title}}</ion-label>
+        <ion-item lines="none">
+          <div class="imageSizeMax">
+            <img class="border" src="{{recipes.imageUrl}}">
 
-                
+            <!-- <img *ngIf="recipes.imageUrl === null" class="borderCircle" src="/assets/icon/defaultCake.png"> -->
+          </div>
+
+
+          <ion-row>
+            <div style="width: 128px;margin-left:calc(50% - 64px)">
+              <ion-col size="12">
+
+                <ion-label text-center style="color:#5576fb;font-weight: 400;width: 100%">{{recipes.title}}</ion-label>
+
+
               </ion-col>
             </div>
             <!-- <ion-col offset="1" size="2" >
@@ -105,52 +98,46 @@
                 
             </ion-col> -->
             <!--   " -->
-              <ion-col size="10" offset="1" >  
-                  <ion-button color="primary" 
-                  shape="round" 
-                  expand="full"
-                  fill="solid" 
-                   style=" text-transform: lowercase;font-weight: 300;width: 100%"
-                  (click)="ViewPersonalRecepie(recipes.date,true)"
-                  [routerLink]="['/view-recepie-modal']" 
-                    >
-                
+            <ion-col size="10" offset="1">
+              <ion-button color="primary" shape="round" expand="full" fill="solid"
+                style=" text-transform: lowercase;font-weight: 300;width: 100%"
+                (click)="ViewPersonalRecepie(recipes.date,true)" [routerLink]="['/view-recepie-modal']">
 
-                    view recipe
-                     
-                   </ion-button>
-                </ion-col>
-             
-            </ion-row>
-              
-            </ion-item>
-      
-      
-       
-           
-          </ion-card>
+
+                view recipe
+
+              </ion-button>
+            </ion-col>
+
+          </ion-row>
+
+        </ion-item>
+
+
+
+
+      </ion-card>
 
     </div>
 
-    <br class="break"/>
-    <br class="break"/>
-    <br class="break"/>
-    <br class="break"/>
-  
-  </div> 
+    <br class="break" />
+    <br class="break" />
+    <br class="break" />
+    <br class="break" />
 
-    
-    
-    
-    
-    
-    <ion-fab [hidden]="Tab2" vertical="bottom" horizontal="end" slot="fixed" size="large">
-        <ion-fab-button color="primary" (click)="NewRecipeForm(false)" [routerLink]="['/recipe-creator']" >
-          
-          <ion-icon  name="add" size="large"></ion-icon>
-        </ion-fab-button>
-      </ion-fab> 
-         
+  </div>
+
+
+
+
+
+
+  <ion-fab [hidden]="Tab2" vertical="bottom" horizontal="end" slot="fixed" size="large">
+    <ion-fab-button color="primary" (click)="NewRecipeForm(false)" [routerLink]="['/recipe-creator']">
+
+      <ion-icon name="add" size="large"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 
 </ion-content>
-

@@ -1,107 +1,99 @@
-
-
-<ion-app >
-<div *ngIf="showsplash === true" style=" position: flex;
+<ion-app>
+  <div *ngIf="showsplash === false" style=" position: flex;
 width: 100%;
 height: 100%;
 z-index: 999;
 display: Block;
 
 
-background: linear-gradient(#5576fb,#55edfb);" >
-  <ion-grid  >
+background: linear-gradient(#5576fb,#55edfb);">
+    <ion-grid>
       <br>
       <br>
       <br>
       <br>
       <ion-row>
-          <ion-col size="10" offset="1">
-            <div style="max-width: 256px; max-width: height 256px;align-self: auto;" >
-              <img src="/assets/icon/applogoicon.png"/>
-            </div>
-            </ion-col>
-          
-     
-    </ion-row>
-    <ion-row >
-        
-      <ion-col size="12" *ngIf="FirebaseManager.ReturnedUser === undefined">
-        <ion-spinner style="width: 100%;" color="light" name="bubbles"></ion-spinner>
-        
-      </ion-col>
-      
-          <ion-title *ngIf="FirebaseManager.ReturnedUser === undefined" style=" width: 100%; text-align: center;"  color="light" >please wait...</ion-title>
-
-        
-   
-    
-
-      
-      
-      <ion-col offset="2" size="8"  *ngIf="FirebaseManager.FacebookloginState === false"   >
-        
-          <ion-button  expand="block" color="primary" shape="round" fill="solid" (click)="facebooklogin()">
-              <ion-icon slot="start" name="logo-facebook"></ion-icon>
-              <ion-label> facebook login</ion-label>
-            </ion-button>
-
-            
-            
-      </ion-col>
-      <br>
-
-      <ion-col [hidden]="showspinner" offset="1" size="10" *ngIf="FirebaseManager.FacebookloginState === true" >
-        
-         
-        <div *ngIf="FirebaseManager.ReturnedUser !== undefined"  >
-          
-          
-          
-
-          <ion-title class="ion-text-center" color="light" style="font-weight: 350;"  >
-            welcome back
-          </ion-title>
-
-       <br>
-       <ion-title class="ion-text-center"    color="light" style="font-weight: 450">
-        {{FirebaseManager.ReturnedUser.displayName}}
-      </ion-title>
+        <ion-col size="10" offset="1">
+          <div style="max-width: 256px; max-width: height 256px;align-self: auto;">
+            <img src="/assets/icon/applogoicon.png" />
+          </div>
+        </ion-col>
 
 
-       
-    </div>
-    </ion-col>
+      </ion-row>
+      <ion-row>
+
+        <ion-col size="12" *ngIf="FirebaseManager.ReturnedUser === undefined">
+          <ion-spinner style="width: 100%;" color="light" name="bubbles"></ion-spinner>
+
+        </ion-col>
+
+        <ion-title *ngIf="FirebaseManager.ReturnedUser === undefined" style=" width: 100%; text-align: center;"
+          color="light">please wait...</ion-title>
 
 
-     
-      <ion-col size="12" >
-         
-              
-          <ion-title *ngIf="FirebaseManager.ReturnedUser !== undefined" color="light" class="ion-text-center"  style="font-weight: 350"> {{FirebaseManager.Alerttext}}</ion-title>
-          
-         
 
-            
-      </ion-col>
-      
-      <ion-col offset="3" size="6" >
-        
-         
 
-      <ion-button *ngIf="FirebaseManager.ReturnedUser !== undefined" expand="block" color="light" shape="round" fill="solid" (click)="disablesplash()">
-          
-          <ion-label color="primary"> {{FirebaseManager.Buttontext}}</ion-label>
-        </ion-button>
-            
 
-      </ion-col>
-    
-    </ion-row>
-  </ion-grid>
 
-  
-</div>
 
-  
+
+        <br>
+
+        <ion-col [hidden]="!showspinner" offset="1" size="10" *ngIf="FirebaseManager.FacebookloginState === true">
+
+
+          <div *ngIf="FirebaseManager.ReturnedUser !== undefined">
+
+
+
+
+            <ion-title class="ion-text-center" color="light" style="font-weight: 350;">
+              welcome back
+            </ion-title>
+
+            <br>
+            <ion-title class="ion-text-center" color="light" style="font-weight: 450">
+              {{FirebaseManager.ReturnedUser.displayName}}
+            </ion-title>
+
+
+
+          </div>
+        </ion-col>
+
+
+
+        <ion-col size="12">
+
+
+          <ion-title *ngIf="FirebaseManager.ReturnedUser !== undefined" color="light" class="ion-text-center"
+            style="font-weight: 350"> {{FirebaseManager.Alerttext}}</ion-title>
+
+
+
+
+        </ion-col>
+
+        <ion-col offset="3" size="6">
+
+
+
+          <ion-button *ngIf="FirebaseManager.ReturnedUser !== undefined" expand="block" color="light" shape="round"
+            fill="solid" (click)="disablesplash()">
+
+            <ion-label color="primary"> {{FirebaseManager.Buttontext}}</ion-label>
+          </ion-button>
+
+
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+
+  </div>
+
+
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

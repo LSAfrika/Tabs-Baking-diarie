@@ -1,234 +1,236 @@
-<ion-toolbar  color="primary" >
-  <ion-segment   >
-      <!-- layout style layout="icon-start" -->
-       
+<ion-toolbar color="primary">
+  <ion-segment>
+    <!-- layout style layout="icon-start" -->
 
-<!-- layout="icon-start" buttons in layout -->
-       <ion-segment-button layout="icon-start" [checked] = "checked" >
-         <ion-icon name="person" style="color: white;"></ion-icon>
-         <ion-label style=" text-transform: lowercase; color: white;">my profile</ion-label>
-       </ion-segment-button>
 
-       <ion-segment-button disabled>
-        <ion-icon style="opacity: 0%;" name="person"></ion-icon>
-        <ion-label style=" text-transform: lowercase;opacity: 0%;">my profile</ion-label>
-      </ion-segment-button>
+    <!-- layout="icon-start" buttons in layout -->
+    <ion-segment-button layout="icon-start" [checked]="checked">
+      <ion-icon name="person" style="color: white;"></ion-icon>
+      <ion-label style=" text-transform: lowercase; color: white;">my profile</ion-label>
+    </ion-segment-button>
 
-     </ion-segment> 
-    
-   </ion-toolbar>
+    <ion-segment-button disabled>
+      <ion-icon style="opacity: 0%;" name="person"></ion-icon>
+      <ion-label style=" text-transform: lowercase;opacity: 0%;">my profile</ion-label>
+    </ion-segment-button>
+
+  </ion-segment>
+
+</ion-toolbar>
 
 <ion-content>
 
- 
+
 
   <!-- todo my profile section -->
-  <div  >
-
-  
-    
-     <div *ngIf=" FireBaseManager.FacebookloginState === true"  >
-  
-    <br>
-    <br>
+  <div>
 
 
-      <ion-card  *ngIf="returnedUserKeys === true "   >
-          <ion-item>
-              <ion-thumbnail slot="start" style="width: 80px;height: 80px; max-width: 80px;max-height: 80px;">
-                <img src="{{FireBaseManager.ReturnedUser.photoURL}}" style="border-radius: 15%;">
-              </ion-thumbnail>
-              <ion-label>
-                  
-                  <ion-label color="dark" class="ion-text-center" style="border: none; border-radius: 5%; padding: 5px;">
-                    <h2>
-                        {{FireBaseManager.ReturnedUser.displayName}}
-                    </h2> </ion-label>
-               
-                
-              </ion-label>
-              
-            </ion-item>
-            <br>
-       <ion-card-header>
-            
-                <ion-card-subtitle style="margin: 0%;" color="primary">Phone number</ion-card-subtitle>
-                
 
-                <ion-card-subtitle style="margin: 0%;   border: none; border-radius: 5%; padding: 5px;" color="dark">0{{FireBaseManager.ReturnedUser.phone}}</ion-card-subtitle>
-               
+    <div *ngIf=" FireBaseManager.FacebookloginState === true">
 
-                <ion-card-subtitle color="primary">Bio</ion-card-subtitle>
-               
+      <br>
+      <br>
 
-                <ion-card-subtitle color="dark" style=" border: none; border-radius: 5%; padding: 5px;">
-                  <p *ngIf="FireBaseManager.ReturnedUser.bio !==''">
-                 {{FireBaseManager.ReturnedUser.bio}} 
-                  </p>
 
-                  <p *ngIf="FireBaseManager.ReturnedUser.bio ===''">
-                      please update your baking bio information ...
-                       </p>
-                </ion-card-subtitle>
-        
-       </ion-card-header>
-       <ion-grid fixed>
+      <ion-card>
+        <ion-item>
+          <ion-thumbnail slot="start" style="width: 80px;height: 80px; max-width: 80px;max-height: 80px;">
+            <img src="{{FireBaseManager.ReturnedUser.photoURL}}" style="border-radius: 15%;">
+          </ion-thumbnail>
+          <ion-label>
 
-       <ion-row>
-          <ion-col size="8" offset="2" >
+            <ion-label color="dark" class="ion-text-center" style="border: none; border-radius: 5%; padding: 5px;">
+              <h2>
+                {{FireBaseManager.ReturnedUser.displayName}}
+              </h2>
+            </ion-label>
+
+
+          </ion-label>
+
+        </ion-item>
+        <br>
+        <ion-card-header>
+
+          <ion-card-subtitle style="margin: 0%;" color="primary">Phone number</ion-card-subtitle>
+
+
+          <ion-card-subtitle style="margin: 0%;   border: none; border-radius: 5%; padding: 5px;" color="dark">
+            0{{FireBaseManager.ReturnedUser.phone}}</ion-card-subtitle>
+
+
+          <ion-card-subtitle color="primary">Bio</ion-card-subtitle>
+
+
+          <ion-card-subtitle color="dark" style=" border: none; border-radius: 5%; padding: 5px;">
+            <p *ngIf="FireBaseManager.ReturnedUser.bio !==''">
+              {{FireBaseManager.ReturnedUser.bio}}
+            </p>
+
+            <p *ngIf="FireBaseManager.ReturnedUser.bio ===''">
+              please update your baking bio information ...
+            </p>
+          </ion-card-subtitle>
+
+        </ion-card-header>
+        <ion-grid fixed>
+
+          <ion-row>
+            <ion-col size="8" offset="2">
               <ion-button (click)="EditProfile()" fill="solid" shape="round" expand="full">
                 <ion-icon slot="start" name="contact"></ion-icon>
-                  <ion-label>Edit profile</ion-label>
-                </ion-button>
-          </ion-col>
-           
-         
-          <ion-col size="8" offset="2" >
+                <ion-label>Edit profile</ion-label>
+              </ion-button>
+            </ion-col>
+
+
+            <ion-col size="8" offset="2">
               <ion-button (click)="logout()" fill="solid" shape="round" expand="full">
-                 
+
                 <ion-icon slot="start" name="logo-facebook"></ion-icon>
-                  <ion-label> Log out</ion-label>
-                </ion-button>
-          </ion-col>
-
-        
-        </ion-row>
-      </ion-grid>
-          
-              </ion-card>
+                <ion-label> Log out</ion-label>
+              </ion-button>
+            </ion-col>
 
 
-              <!-- todo PERSONAL ADVERTS CARD -->
-              <ion-card *ngIf="returnedUserKeys === true " >
+          </ion-row>
+        </ion-grid>
 
-                <ion-list>
-                  <ion-list-header>
-                      <ion-label class="ion-padding" color="primary"> baker advertisement</ion-label>
+      </ion-card>
 
-                  </ion-list-header>
-                    <ion-item>
-                      
-                      <ion-label class="ion-text-center">
-                          
-                          <ion-row>
-                              <ion-col size="6" >
-                                 <ion-button shape=round  expand="block"  (click)="EditBaker()" >
-                              <ion-icon slot="start" name="create"></ion-icon>
-                              <ion-label style="text-transform: lowercase;">edit / create </ion-label>
-                          </ion-button>
-                          
-                              </ion-col>
-                              <ion-col size="6" >
-                                <ion-button shape=round  expand="block"  (click)="viewBaker()" >
-                             <ion-icon slot="start" name="images"></ion-icon>
-                             <ion-label style="text-transform: lowercase;">view ad </ion-label>
-                         </ion-button>
-                      
-                             </ion-col>
-                            </ion-row>
-                   
-                         
-                        
-                     
-                    </ion-label>
-    
-                      
-                    </ion-item>
 
-                    <ion-list-header>
-                    <ion-label class="ion-padding" color="primary">shop  advertisement</ion-label>
+      <!-- todo PERSONAL ADVERTS CARD -->
+      <ion-card>
 
-                      </ion-list-header>
-                    <ion-item>
-                      
-                      <ion-label class="ion-text-center">
-                          
-                          <ion-row>
-                              <ion-col size="6">
-                                <ion-button shape=round  expand="block" (click)="EditShop()"  >
-                              <ion-icon slot="start" name="create"></ion-icon>
-                              <ion-label style="text-transform: lowercase;">edit / create </ion-label>
-                             
-                          </ion-button>
-                              </ion-col>
-                              <ion-col size="6">
-                                <ion-button shape=round  expand="block" (click)="viewShop()"  >
-                              <ion-icon slot="start" name="cart"></ion-icon>
-                              <ion-label style="text-transform: lowercase;">view ad </ion-label>
-                             
-                          </ion-button>
-                              </ion-col>
-                            </ion-row>  
+        <ion-list>
+          <ion-list-header>
+            <ion-label class="ion-padding" color="primary"> baker advertisement</ion-label>
 
-                          
-                       
-                        
-                      
-                    </ion-label>
-    
-                      
-                    </ion-item>
+          </ion-list-header>
+          <ion-item>
 
-                    <ion-list-header>
-                    <ion-label class="ion-padding" color="primary">job advertisement</ion-label>
+            <ion-label class="ion-text-center">
 
-                      </ion-list-header>
+              <ion-row>
+                <ion-col size="6">
+                  <ion-button shape=round expand="block" (click)="EditBaker()">
+                    <ion-icon slot="start" name="create"></ion-icon>
+                    <ion-label style="text-transform: lowercase;">edit / create </ion-label>
+                  </ion-button>
 
-                    <ion-item>
-                      
-                      <ion-label class="ion-text-center">
-                          <ion-row>
-                            <ion-col size="6">
-                              <ion-button shape=round expand="block"  (click)="EditJob()" >
+                </ion-col>
+                <ion-col size="6">
+                  <ion-button shape=round expand="block" (click)="viewBaker()">
+                    <ion-icon slot="start" name="images"></ion-icon>
+                    <ion-label style="text-transform: lowercase;">view ad </ion-label>
+                  </ion-button>
 
-                            <ion-icon slot="start" name="create"></ion-icon>
-                            <ion-label style="text-transform: lowercase;">edit / create </ion-label>
-                            
-                          
-                          </ion-button>
-                            </ion-col>
+                </ion-col>
+              </ion-row>
 
-                            <ion-col size="6">
-                              <ion-button shape=round expand="block"  (click)="viewJob()" >
 
-                            <ion-icon slot="start" name="briefcase"></ion-icon>
-                            <ion-label style="text-transform: lowercase;">view ad </ion-label>
-                            
-                          
-                          </ion-button>
-                            </ion-col>
-                          </ion-row>
-                        
-                          
-                       
-                        
-                    </ion-label>
-    
-                      
-                    </ion-item>
 
-                  
-                </ion-list>
-               
-                
-              
 
-                <!-- todo SHOP ADVERTS CARD -->
-                
-                
-                   
-                    
-                  
+            </ion-label>
 
-                    <!-- todo JOB ADVERTS CARD -->
-              
-                
-                
-                  
-                </ion-card>
 
-                <!-- todo CHECK INTERNET CONNECTION CARD -->
-                <ion-card *ngIf="returnedUserKeys === false ">
+          </ion-item>
+
+          <ion-list-header>
+            <ion-label class="ion-padding" color="primary">shop advertisement</ion-label>
+
+          </ion-list-header>
+          <ion-item>
+
+            <ion-label class="ion-text-center">
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-button shape=round expand="block" (click)="EditShop()">
+                    <ion-icon slot="start" name="create"></ion-icon>
+                    <ion-label style="text-transform: lowercase;">edit / create </ion-label>
+
+                  </ion-button>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-button shape=round expand="block" (click)="viewShop()">
+                    <ion-icon slot="start" name="cart"></ion-icon>
+                    <ion-label style="text-transform: lowercase;">view ad </ion-label>
+
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+
+
+
+
+
+            </ion-label>
+
+
+          </ion-item>
+
+          <ion-list-header>
+            <ion-label class="ion-padding" color="primary">job advertisement</ion-label>
+
+          </ion-list-header>
+
+          <ion-item>
+
+            <ion-label class="ion-text-center">
+              <ion-row>
+                <ion-col size="6">
+                  <ion-button shape=round expand="block" (click)="EditJob()">
+
+                    <ion-icon slot="start" name="create"></ion-icon>
+                    <ion-label style="text-transform: lowercase;">edit / create </ion-label>
+
+
+                  </ion-button>
+                </ion-col>
+
+                <ion-col size="6">
+                  <ion-button shape=round expand="block" (click)="viewJob()">
+
+                    <ion-icon slot="start" name="briefcase"></ion-icon>
+                    <ion-label style="text-transform: lowercase;">view ad </ion-label>
+
+
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+
+
+
+
+            </ion-label>
+
+
+          </ion-item>
+
+
+        </ion-list>
+
+
+
+
+        <!-- todo SHOP ADVERTS CARD -->
+
+
+
+
+
+
+        <!-- todo JOB ADVERTS CARD -->
+
+
+
+
+      </ion-card>
+
+      <!-- todo CHECK INTERNET CONNECTION CARD -->
+      <!-- <ion-card *ngIf="loggedInUser === false ">
                    
                     <ion-card-header>
                      
@@ -248,47 +250,47 @@
                    
                   
                       
-                 </ion-card>
+                 </ion-card> -->
 
 
-     </div>
-        
-   
-     
-    <div *ngIf="FireBaseManager.FacebookloginState === false " >
-       
-  
-            <ion-card style="position: absolute; top: 50%;left: 50%; transform: translate(-50%,-50%)!important;">
-              <ion-card-header>
-                <ion-title class="ion-text-center">PLEASE LOGIN <br> TO VIEW PROFILE</ion-title>
-             </ion-card-header>
-             <ion-row>
-               <ion-col size="10" offset="1">
-                 <ion-button (click)="Login()" fill="solid" shape="round" expand="full">
-                    <ion-icon slot="start" name="logo-facebook"></ion-icon>
-                    <ion-label>  login</ion-label>
-                 </ion-button>
-               </ion-col>
-             </ion-row>
-                
-                    </ion-card>
-
-                 
-                    </div>
-
-     
-          </div >
-   
-             
-
-       
-             
-
-           
-
-     
+    </div>
 
 
-  
+
+    <div *ngIf="FireBaseManager.FacebookloginState === false ">
+
+
+      <ion-card style="position: absolute; top: 50%;left: 50%; transform: translate(-50%,-50%)!important;">
+        <ion-card-header>
+          <ion-title class="ion-text-center">PLEASE LOGIN <br> TO VIEW PROFILE</ion-title>
+        </ion-card-header>
+        <ion-row>
+          <ion-col size="10" offset="1">
+            <ion-button (click)="Login()" fill="solid" shape="round" expand="full">
+              <ion-icon slot="start" name="logo-facebook"></ion-icon>
+              <ion-label> login</ion-label>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+
+
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 </ion-content>

@@ -55,7 +55,7 @@ export class AppComponent {
       } else {
         this.FirebaseManager.Logintype = 2;
 
-
+ 
       }
       this.splashScreen.hide();
 

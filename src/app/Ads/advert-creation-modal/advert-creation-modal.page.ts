@@ -122,6 +122,9 @@ export class AdvertCreationModalPage implements OnInit {
     this.EditAd();
   }
 
+  backTab2() {
+    this.router.navigate(['tabs/tab2']);
+  }
   // todo ===================  Check if ad has been created =============================
 
   IsAdAvailable() { }
@@ -614,8 +617,8 @@ export class AdvertCreationModalPage implements OnInit {
       );
 
       if (
-        this.firebasemanager.ReturnedBaker.uid ===
-        this.firebasemanager.ReturnedShop.uid
+        this.firebasemanager.ReturnedShop.uid ===
+        this.firebasemanager.ReturnedUser.uid
       ) {
         console.log('an entry is in the listing ');
         this.firebasemanager.EditAd = 'Shop';
@@ -639,7 +642,7 @@ export class AdvertCreationModalPage implements OnInit {
 
       if (
         this.firebasemanager.ReturnedBaker.uid ===
-        this.firebasemanager.ReturnedBaker.uid
+        this.firebasemanager.ReturnedUser.uid
       ) {
         this.firebasemanager.EditAd = 'Baker';
         this.firebasemanager.UpdateAd = true;

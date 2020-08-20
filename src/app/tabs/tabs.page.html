@@ -1,35 +1,36 @@
-<ion-tabs   >
+<ion-tabs>
 
-  <ion-tab-bar class="boxshadow" slot="bottom"  >
-    <ion-tab-button tab="tab1" (click)="LableAction(1)" class="ion-no-margin" class="ion-no-padding" >
+  <ion-tab-bar class="boxshadow" slot="bottom">
+    <ion-tab-button tab="tab1" (click)="LableAction(1)" class="ion-no-margin" class="ion-no-padding">
       <ion-icon name="filing"></ion-icon>
       <ion-label [hidden]="hidelable!==1">Recipes</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="tab5" (click)="LableAction(5)" class="ion-no-margin" class="ion-no-padding">
-      <ion-badge color="danger"  >{{ OrdersManager.activecounter}}</ion-badge> 
-    <ion-icon name="paper"></ion-icon>
-    <ion-label [hidden]="hidelable!==5">orders</ion-label>
-  </ion-tab-button>
-
-    <ion-tab-button tab="tab2" (click)="LableAction(2)" class="ion-no-margin" class="ion-no-padding" >
-        <ion-icon name="list-box"></ion-icon>
-        <ion-label [hidden]="hidelable!==2">ads</ion-label>
+      <ion-badge color="danger">{{ OrdersManager.activecounter}}</ion-badge>
+      <ion-icon name="paper"></ion-icon>
+      <ion-label [hidden]="hidelable!==5">orders</ion-label>
     </ion-tab-button>
 
-   
+    <ion-tab-button tab="tab2" (click)="LableAction(2)" class="ion-no-margin" class="ion-no-padding">
+      <ion-icon name="list-box"></ion-icon>
+      <ion-label [hidden]="hidelable!==2">ads</ion-label>
+    </ion-tab-button>
+
+
 
     <ion-tab-button tab="tab3" (click)="LableAction(3)" class="ion-no-margin" class="ion-no-padding">
-        <!-- <ion-icon name="bookmarks"></ion-icon> -->
+      <!-- <ion-icon name="bookmarks"></ion-icon> -->
       <ion-label [hidden]="hidelable!==3">gifts</ion-label>
-       <ion-icon name="gift"></ion-icon>
-     
+      <ion-icon name="gift"></ion-icon>
+
     </ion-tab-button>
 
     <ion-tab-button tab="tab4" (click)="LableAction(4)" class="ion-no-margin" class="ion-no-padding">
-        <ion-badge color="danger"  >11</ion-badge> 
-      <ion-icon name="apps"></ion-icon>
-      <ion-label [hidden]="hidelable!==4">more</ion-label>
+      <ion-badge color="danger">11</ion-badge>
+      <ion-icon name="settings"></ion-icon>
+
+      <ion-label [hidden]="hidelable!==4">settings</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 
